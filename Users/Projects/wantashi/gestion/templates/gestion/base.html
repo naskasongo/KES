@@ -1,0 +1,19 @@
+<!-- Load custom tags -->
+{% load wantashi_tags %}  <!-- 确保模板顶部正确加载标签库 -->
+
+<!-- Example form usage -->
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="form-floating mb-3">
+        {{ form.username|addclass:"wantashi-form-control" }}
+        <label for="{{ form.username.id_for_label }}">Username</label>
+    </div>
+    
+    <div class="form-floating mb-3">
+        {{ form.email|addclass:"wantashi-form-control" }}
+        <label for="{{ form.email.id_for_label }}">Email</label>
+    </div>
+    
+    <button type="submit" class="btn wantashi-btn-submit w-100">Submit</button>
+</form>

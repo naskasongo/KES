@@ -1,0 +1,17 @@
+<!-- templates/gestion/notification_detail.html -->
+{% extends "base.html" %}
+{% block title %}Notification Détail - Wantashi{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h3>Détail de la notification</h3>
+    <table class="table table-bordered">
+        <tr><th>Action</th><td>{{ action.action }}</td></tr>
+        <tr><th>Modèle</th><td>{{ action.modele }}</td></tr>
+        <tr><th>Objet ID</th><td>{{ action.objet_id|default:"—" }}</td></tr>
+        <tr><th>Détails</th><td>{{ action.details }}</td></tr>
+        <tr><th>Date</th><td>{{ action.date_action|date:"d/m/Y H:i" }}</td></tr>
+        <tr><th>Utilisateur</th><td>{{ action.utilisateur.get_full_name|default:"Inconnu" }}</td></tr>
+    </table>
+    <a href="javascript:window.history.back()" class="btn btn-primary">Retour</a>
+</div>
+{% endblock %}

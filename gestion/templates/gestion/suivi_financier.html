@@ -1,0 +1,495 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Suivi Financier{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 mt-4">
+    <div>
+        <h1 class="h2 text-gradient text-primary mb-0">
+            <i class="bi bi-people-fill me-2"></i>Suivi Financier
+        </h1>
+        <p class="mb-0 text-muted">Journal des opérations financières</p>
+    </div>
+
+    <!-- Filtres -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <i class="bi bi-funnel-fill"></i> Filtrer les données
+        </div>
+        <div class="card-body">
+            <form method="GET">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">Période</label>
+                        {{ form.periode }}
+                    </div>
+
+                    <div class="col-md-3" id="date-field" style="display: none;">
+                        <label class="form-label">Date précise</label>
+                        {{ form.date }}
+                    </div>
+
+                    <div class="col-md-3" id="mois-field" style="display: none;">
+                        <label class="form-label">Mois</label>
+                        {{ form.mois }}
+                    </div>
+
+                    <div class="col-md-3" id="annee-field">
+                        <label class="form-label">Année Scolaire</label>
+                        {{ form.annee_scolaire }}
+                    </div>
+
+                    <div class="col-md-3" id="date-debut-field" style="display: none;">
+                        <label class="form-label">Date de début</label>
+                        {{ form.date_debut }}
+                    </div>
+
+                    <div class="col-md-3" id="date-fin-field" style="display: none;">
+                        <label class="form-label">Date de fin</label>
+                        {{ form.date_fin }}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Section</label>
+                        {{ form.section }}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Option</label>
+                        {{ form.option }}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Classe</label>
+                        {{ form.classe }}
+                    </div>
+
+                    <div class="col-md-12 text-end">
+                        <button type="submit" class="btn btn-success me-2">
+                            <i class="bi bi-search"></i> Filtrer
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href=window.location.pathname;">
+                            <i class="bi bi-arrow-counterclockwise"></i> Réinitialiser
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Résumé -->
+    <div class="row text-center g-4 mb-5">
+    <!-- Total Paiements -->
+    <div class="col-md-4">
+        <div class="stat-card bg-white border border-success shadow-sm rounded-4 p-4 hover-lift">
+            <p class="text-muted fw-semibold mb-1">TOTAL PAIEMENTS</p>
+            <h3 class="text-success mb-0">{{ total_paiements|floatformat:2 }} FC</h3>
+            <div class="icon-wrapper mt-2 text-success">
+                <i class="bi bi-cash-coin fs-1"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Dépenses -->
+    <div class="col-md-4">
+        <div class="stat-card bg-white border border-danger shadow-sm rounded-4 p-4 hover-lift">
+            <p class="text-muted fw-semibold mb-1">TOTAL DÉPENSES</p>
+            <h3 class="text-danger mb-0">{{ total_depenses|floatformat:2 }} FC</h3>
+            <div class="icon-wrapper mt-2 text-danger">
+                <i class="bi bi-credit-card-2-front fs-1"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solde -->
+    <div class="col-md-4">
+        <div class="stat-card bg-white border border-primary shadow-sm rounded-4 p-4 hover-lift">
+            <p class="text-muted fw-semibold mb-1">SOLDE</p>
+            <h3 class="text-primary mb-0">{{ solde|floatformat:2 }} FC</h3>
+            <div class="icon-wrapper mt-2 text-primary">
+                <i class="bi bi-wallet2 fs-1"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Graphique -->
+     <!-- Graphique avec onglets -->
+   <!-- Dans la section des onglets -->
+<div class="card shadow-sm mb-4 border-0">
+    <div class="card-header bg-white border-bottom-0">
+        <ul class="nav nav-tabs card-header-tabs" id="chartTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button" role="tab">
+                    <i class="bi bi-calendar-month me-1"></i> Mensuel
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="annual-tab" data-bs-toggle="tab" data-bs-target="#annual" type="button" role="tab">
+                    <i class="bi bi-calendar-year me-1"></i> Annuel
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body pt-0">
+        <div class="tab-content" id="chartTabContent">
+            <div class="tab-pane fade show active" id="monthly" role="tabpanel">
+                <canvas id="financialChart" height="350"></canvas>
+            </div>
+            <div class="tab-pane fade" id="annual" role="tabpanel">
+                <canvas id="annualChart" height="75%"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Tableau -->
+    <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center py-3 px-4">
+        <h5 class="mb-0 d-flex align-items-center">
+            <i class="bi bi-receipt fs-5 me-2"></i> Détails des Transactions
+        </h5>
+        <span class="badge bg-light text-dark fs-6 px-3 py-2 rounded-pill">
+            {{ paiements|length|add:depenses|length }} transaction(s)
+        </span>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table id="exportable-table" class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-uppercase text-muted small">
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Montant</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paiement in paiements %}
+                    <tr class="align-middle">
+                        <td>{{ paiement.date_paiement|date:"d/m/Y" }}</td>
+                        <td><span class="badge bg-success-subtle text-success fw-medium">Paiement</span></td>
+                        <td class="text-success fw-bold">{{ paiement.montant_paye }} FC</td>
+                        <td>
+                            <strong></strong> {{ paiement.eleve.nom }} {{ paiement.eleve.post_nom }}
+                            <strong>-</strong> {{ paiement.frais.nom }}
+                            <strong>- </strong> {{ paiement.eleve.classe.nom }} {{ paiement.eleve.option.nom }}
+                            <strong>Réçu n° :</strong> {{ paiement.recu_numero }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    {% for depense in depenses %}
+                    <tr class="align-middle">
+                        <td>{{ depense.date_depense|date:"d/m/Y" }}</td>
+                        <td><span class="badge bg-danger-subtle text-danger fw-medium">Dépense</span></td>
+                        <td class="text-danger fw-bold">{{ depense.montant }} FC</td>
+                        <td>
+                            <strong>Motif :</strong> {{ depense.motif }}<br>
+                            {% if depense.classe %}
+                                <strong>Classe concernée :</strong> {{ depense.classe.nom }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    {% if not paiements and not depenses %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">
+                            <i class="bi bi-info-circle text-secondary me-2"></i>
+                            Aucune transaction trouvée.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Script pour afficher/masquer les champs selon la période -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const periodeSelect = document.querySelector("[name='periode']");
+    const fields = {
+      jour: ["date"],
+      mois: ["mois"],
+      annee: ["annee_scolaire"],
+      personnalise: ["date_debut", "date_fin"]
+    };
+
+    function toggleFields() {
+      const selected = periodeSelect.value;
+      Object.keys(fields).forEach(key => {
+        fields[key].forEach(id => {
+          const field = document.getElementById(id + "-field");
+          if (field) {
+            field.style.display = (key === selected) ? "block" : "none";
+          }
+        });
+      });
+    }
+
+    if (periodeSelect) {
+      toggleFields(); // Initial call
+      periodeSelect.addEventListener("change", toggleFields);
+    }
+  });
+</script>
+
+<!-- Script pour le graphique -->
+<!-- Dans la partie JavaScript du template -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Données brutes
+        const rawData = JSON.parse('{{ chart_json|escapejs }}');
+        console.log("Données complètes:", rawData);
+
+        // Graphique mensuel
+        if (rawData.mensuel.labels.length > 0) {
+            const monthlyCtx = document.getElementById('financialChart').getContext('2d');
+            new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: rawData.mensuel.labels,
+                    datasets: [
+                        {
+                            label: 'Recettes',
+                            data: rawData.mensuel.recettes,
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Dépenses',
+                            data: rawData.mensuel.depenses,
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Solde Net',
+                            data: rawData.mensuel.soldes,
+                            borderColor: '#0d6efd',
+                            backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: getChartOptions('Évolution Mensuelle')
+            });
+        } else {
+            console.warn("Aucune donnée mensuelle disponible");
+        }
+
+        // Graphique annuel
+        if (rawData.annuel.labels.length > 0) {
+            const annualCtx = document.getElementById('annualChart').getContext('2d');
+            new Chart(annualCtx, {
+                type: 'bar',
+                data: {
+                    labels: rawData.annuel.labels,
+                    datasets: [
+                        {
+                            label: 'Recettes',
+                            data: rawData.annuel.recettes,
+                            backgroundColor: '#28a745',
+                            borderColor: '#218838',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Dépenses',
+                            data: rawData.annuel.depenses,
+                            backgroundColor: '#dc3545',
+                            borderColor: '#c82333',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Solde Net',
+                            data: rawData.annuel.soldes,
+                            backgroundColor: '#0d6efd',
+                            borderColor: '#0b5ed7',
+                            borderWidth: 1,
+                            type: 'line',
+                            fill: false
+                        }
+                    ]
+                },
+                options: getChartOptions('Comparaison Annuelle')
+            });
+        } else {
+            console.warn("Aucune donnée annuelle disponible");
+        }
+
+        // Fonction de configuration commune
+        function getChartOptions(title) {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: title,
+                        font: { size: 16 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y.toLocaleString()} FC`;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            callback: value => `${value.toLocaleString()} FC`
+                        },
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            };
+        }
+    });
+</script>
+
+<style>
+    .hover-scale {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hover-scale:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+    .hover-highlight:hover {
+        background-color: rgba(0, 0, 0, 0.02) !important;
+    }
+    .avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .avatar-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .text-gradient {
+        background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .nav-tabs .nav-link {
+        border: none;
+        color: #6c757d;
+        font-weight: 500;
+    }
+    .nav-tabs .nav-link.active {
+        color: #4e73df;
+        border-bottom: 3px solid #4e73df;
+        background: transparent;
+    }
+    /* Espace entre les colonnes */
+.row.g-4 {
+    margin-bottom: 6rem;
+}
+
+/* Cartes de statistiques */
+.stat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Effet de lévitation au survol */
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Icône centrée sous le texte */
+.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+/* Texte des titres */
+.stat-card h3 {
+    font-weight: 700;
+}
+
+/* Responsive amélioré */
+@media (max-width: 768px) {
+    .stat-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .stat-card .icon-wrapper i {
+        font-size: 1.5rem;
+    }
+}
+    /* En-tête dégradé */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+}
+
+/* Carte */
+.card {
+    border-radius: 0.75rem;
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+/* Badge subtils modernes */
+.bg-success-subtle {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+.bg-danger-subtle {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+/* Lignes du tableau */
+.table td,
+.table th {
+    vertical-align: middle;
+    padding: 1rem;
+}
+
+/* Icônes et texte */
+.bi {
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+}
+
+/* Effet hover sur la ligne entière */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+</style>
+{% endblock %}

@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Gestion des Utilisateurs - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header with stats -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-0">
+                        <i class="bi bi-people-fill text-primary me-2"></i>Gestion des Utilisateurs
+                    </h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Tableau de bord</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Utilisateurs</li>
+                        </ol>
+                    </nav>
+                </div>
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg shadow-sm">
+                    <i class="bi bi-person-plus-fill me-2"></i>Ajouter un utilisateur
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start border-primary border-4 shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-uppercase text-muted mb-1">Total Utilisateurs</h6>
+                            <h2 class="mb-0">{{ utilisateurs.paginator.count }}</h2>
+                        </div>
+                        <div class="icon-circle bg-primary text-white">
+                            <i class="bi bi-people"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add more stat cards here if needed -->
+    </div>
+
+    <!-- Search and Filter Card -->
+    <div class="card shadow-sm rounded-3 mb-4 border-0">
+        <div class="card-body p-3">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <form method="GET">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input type="text" name="q" class="form-control border-start-0" 
+                                   placeholder="Rechercher par nom, email ou rôle..." 
+                                   value="{{ request.GET.q }}">
+                            <button class="btn btn-primary px-4" type="submit">
+                                <i class="bi bi-funnel me-1"></i>Filtrer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-end">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                                    id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-download me-1"></i>Exporter
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-filetype-csv me-2"></i>CSV</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-filetype-pdf me-2"></i>PDF</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-filetype-xlsx me-2"></i>Excel</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Table Card -->
+    <div class="card shadow-sm rounded-3 border-0 overflow-hidden">
+        <div class="card-header bg-white border-bottom-0 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold">
+                    <i class="bi bi-table me-2"></i>Liste des Utilisateurs
+                </h5>
+                <span class="badge bg-light text-dark">
+                    {{ utilisateurs.paginator.count }} résultat(s)
+                </span>
+            </div>
+        </div>
+        
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table  id="exportable-table"  class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">#ID</th>
+                            <th>Utilisateur</th>
+                            <th>Contact</th>
+                            <th>Rôle</th>
+                            <th>Statut</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for utilisateur in utilisateurs %}
+                        <tr class="position-relative">
+                            <td class="ps-4 fw-semibold">{{ utilisateur.id }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-sm me-3">
+                                        <div class="avatar-initials rounded-circle bg-light text-primary d-flex align-items-center justify-content-center fw-bold">
+                                            {{ utilisateur.first_name|first|upper }}{{ utilisateur.last_name|first|upper }}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ utilisateur.username }}</h6>
+                                        <small class="text-muted">Inscrit le {{ utilisateur.date_joined|date:"d/m/Y" }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <span class="d-block">{{ utilisateur.email|default:"—" }}</span>
+                                    <small class="text-muted">
+                                        {% if utilisateur.last_login %}
+                                        Dernière connexion: {{ utilisateur.last_login|timesince }}
+                                        {% else %}
+                                        Jamais connecté
+                                        {% endif %}
+                                    </small>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-{% if utilisateur.role == 'ADMIN' %}danger{% else %}info{% endif %}-subtle text-{% if utilisateur.role == 'ADMIN' %}danger{% else %}info{% endif %}">
+                                    {{ utilisateur.get_role_display|default:"—" }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge rounded-pill bg-{% if utilisateur.is_active %}success{% else %}secondary{% endif %} bg-opacity-10 text-{% if utilisateur.is_active %}success{% else %}secondary{% endif %}">
+                                    <i class="bi bi-circle-fill me-1" style="font-size: 6px;"></i>
+                                    {% if utilisateur.is_active %}Actif{% else %}Inactif{% endif %}
+                                </span>
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group" role="group">
+                                    <a href="{% url 'detail_utilisateur' utilisateur.id %}" 
+                                       class="btn btn-sm btn-light rounded-start-2" 
+                                       data-bs-toggle="tooltip" 
+                                       title="Voir détails - {{ utilisateur.username }}">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{% url 'modifier_utilisateur' utilisateur.id %}"
+                                       class="btn btn-sm btn-light"
+                                       data-bs-toggle="tooltip"
+                                       title="Modifier - {{ utilisateur.username }}">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <a href="{% url 'change_user_password' user_id=utilisateur.id %}"
+                                       class="btn btn-sm btn-light"
+                                       data-bs-toggle="tooltip"
+                                       title="Changer le mot de passe - {{ utilisateur.username }}">
+                                        <i class="bi bi-shield-lock"></i>
+                                    </a>
+
+                                    <a href="{% url 'password_reset' %}?nom={{ utilisateur.nom }}&postnom={{ utilisateur.postnom }}&email={{ utilisateur.email }}"
+                                       class="btn btn-sm btn-light"
+                                       data-bs-toggle="tooltip"
+                                       title="Réinitialiser le mot de passe - {{ utilisateur.username }}">
+                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                    </a>
+
+
+                                    <a href="{% url 'supprimer_utilisateur' utilisateur.id %}"
+                                       class="btn btn-sm btn-light rounded-end-2 text-danger"
+                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')"
+                                       data-bs-toggle="tooltip"
+                                       title="Supprimer - {{ utilisateur.username }}">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5">
+                                <div class="py-5">
+                                    <i class="bi bi-people display-5 text-muted"></i>
+                                    <h5 class="mt-3 text-muted">Aucun utilisateur trouvé</h5>
+                                    <p class="text-muted">Essayez de modifier vos critères de recherche</p>
+                                    <a href="{% url 'register' %}" class="btn btn-primary mt-2">
+                                        <i class="bi bi-person-plus-fill me-1"></i>Ajouter un utilisateur
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <div class="card-footer bg-white border-top-0 py-3">
+            <nav aria-label="Pagination">
+                <ul class="pagination justify-content-center mb-0">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <a class="page-link" href="#">{{ num }}</a>
+                            </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.avatar-sm {
+    width: 36px;
+    height: 36px;
+}
+.avatar-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 0.875rem;
+}
+.icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table-hover tbody tr {
+    transition: all 0.2s ease;
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+}
+</style>
+
+<script>
+// Initialize tooltips
+document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+})
+</script>
+{% endblock %}

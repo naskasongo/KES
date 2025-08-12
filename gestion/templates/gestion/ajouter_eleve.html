@@ -1,0 +1,461 @@
+{% extends "base.html" %}
+
+{% block title %}Inscription d'un élève{% endblock %}
+
+{% block content %}
+
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header -->
+    <div class="text-center mb-0" data-aos="fade-down">
+        <div class="mb-0 flex justify-center">
+            <div class="bg-primary-light p-4 rounded-full text-primary">
+                <i class="fas fa-user-plus text-3xl"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Inscription d'un Élève</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">Remplissez toutes les sections du formulaire</p>
+    </div>
+
+    <!-- Alerts -->
+    <div class="mb-4 max-w-4xl mx-auto" id="alertContainer">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="bg-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-100 border-l-4 border-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-500 text-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-700 p-4 rounded-md shadow-sm mb-4" role="alert" data-aos="fade-in">
+                <div class="flex items-center">
+                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-times-circle{% endif %} mr-3"></i>
+                    <div>{{ message }}</div>
+                    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-700 h-8 w-8 rounded-lg flex items-center justify-center" data-bs-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Main Content Card -->
+    <div class=" rounded-xl overflow-hidden max-w-4xl mx-auto" data-aos="fade-up">
+        <!-- Tabs Navigation -->
+        <div class="border-b">
+            <div class="flex max-w-4xl mx-auto">
+                <div class="nav-tab active py-4 px-6 text-center flex-1" data-tab="info">
+                    <div class="flex flex-col items-center">
+                        <i class="fas fa-user mb-2"></i>
+                        <span>Informations Personnelles</span>
+                    </div>
+                </div>
+                <div class="nav-tab py-4 px-6 text-center flex-1" data-tab="scolaire">
+                    <div class="flex flex-col items-center">
+                        <i class="fas fa-graduation-cap mb-2"></i>
+                        <span>Scolarité</span>
+                    </div>
+                </div>
+                <div class="nav-tab py-4 px-6 text-center flex-1" data-tab="tuteur">
+                    <div class="flex flex-col items-center">
+                        <i class="fas fa-user-friends mb-2"></i>
+                        <span>Tuteur</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="px-8 pt-8">
+            <div class="step-container">
+                <div class="step active">
+                    <div class="step-circle">1</div>
+                    <div class="text-xs text-gray-600">Informations</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <div class="text-xs text-gray-600">Scolarité</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <div class="text-xs text-gray-600">Tuteur</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <div class="text-xs text-gray-600">Confirmation</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <form method="post" id="inscriptionForm" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <!-- Tab 1: Informations personnelles -->
+                <div class="tab-content active" id="info-tab">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="150">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Informations de base</h3>
+                            <div class="space-y-4">
+                                <div class="form-group">
+                                    <label for="{{ form.nom.id_for_label }}" class="form-label">Nom*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-user"></i></span>
+                                        {{ form.nom }}
+                                    </div>
+                                    <small class="text-gray-500 text-sm">Nom de famille</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.post_nom.id_for_label }}" class="form-label">Post-nom</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-user-tag"></i></span>
+                                        {{ form.post_nom }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.prenom.id_for_label }}" class="form-label">Prénom*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-user-circle"></i></span>
+                                        {{ form.prenom }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Détails supplémentaires</h3>
+                            <div class="space-y-4">
+                                <div class="form-group">
+                                    <label for="{{ form.sexe.id_for_label }}" class="form-label">Sexe*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-venus-mars"></i></span>
+                                        {{ form.sexe }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.date_naissance.id_for_label }}" class="form-label">Date de naissance*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-calendar-day"></i></span>
+                                        {{ form.date_naissance }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.lieu_naissance.id_for_label }}" class="form-label">Lieu de naissance</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-map-marker-alt"></i></span>
+                                        {{ form.lieu_naissance }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.matricule.id_for_label }}" class="form-label">Matricule*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-id-card"></i></span>
+                                        {{ form.matricule }}
+                                    </div>
+                                    <small class="text-gray-500 text-sm">Laisser vide pour générer automatiquement</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="btn btn-primary next-tab" data-next="scolaire">
+                            Continuer <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Informations scolaires -->
+                <div class="tab-content" id="scolaire-tab">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="150">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Section et classe</h3>
+                            <div class="space-y-4">
+                                <div class="form-group">
+                                    <label for="{{ form.section.id_for_label }}" class="form-label">Section*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-layer-group"></i></span>
+                                        {{ form.section }}
+                                    </div>
+                                    {% if form.section.errors %}
+                                        <div class="text-red-500 text-sm mt-1">{{ form.section.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="option-select" class="form-label">Option</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-tags"></i></span>
+                                        <select id="option-select" name="option" class="form-select" disabled>
+                                            <option value="">-- Sélectionner --</option>
+                                            {% for option in form.fields.option.queryset %}
+                                            <option value="{{ option.id }}" data-section="{{ option.section.id }}">{{ option.nom }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <small class="text-gray-500 text-sm">Disponible selon la section</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="classe-select" class="form-label">Classe*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-graduation-cap"></i></span>
+                                        <select id="classe-select" name="classe" class="form-select" required>
+                                            <option value="">-- Sélectionner --</option>
+                                            {% for classe in form.fields.classe.queryset %}
+                                            <option value="{{ classe.id }}" data-section="{{ classe.section.id }}"
+                                                    data-option="{% if classe.option %}{{ classe.option.id }}{% endif %}">
+                                                {{ classe.nom }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button type="button" class="btn btn-outline prev-tab" data-prev="info">
+                            <i class="fas fa-arrow-left mr-2"></i> Retour
+                        </button>
+                        <button type="button" class="btn btn-primary next-tab" data-next="tuteur">
+                            Continuer <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Tuteur -->
+                <div class="tab-content" id="tuteur-tab">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="150">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Informations du tuteur</h3>
+                            <div class="space-y-4">
+                                <div class="form-group">
+                                    <label for="{{ form.parent_nom.id_for_label }}" class="form-label">Nom complet*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-user-friends"></i></span>
+                                        {{ form.parent_nom }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.parent_telephone.id_for_label }}" class="form-label">Téléphone*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-phone-alt"></i></span>
+                                        {{ form.parent_telephone }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.parent_email.id_for_label }}" class="form-label">Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-envelope"></i></span>
+                                        {{ form.parent_email }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Détails supplémentaires</h3>
+                            <div class="space-y-4">
+                                <div class="form-group">
+                                    <label for="{{ form.parent_adresse.id_for_label }}" class="form-label">Adresse</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-home"></i></span>
+                                        {{ form.parent_adresse }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.parent_profession.id_for_label }}" class="form-label">Profession</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-briefcase"></i></span>
+                                        {{ form.parent_profession }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ form.parent_relation.id_for_label }}" class="form-label">Relation*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-heart"></i></span>
+                                        {{ form.parent_relation }}
+                                    </div>
+                                    <small class="text-gray-500 text-sm">Lien de parenté avec l'élève</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button type="button" class="btn btn-outline prev-tab" data-prev="scolaire">
+                            <i class="fas fa-arrow-left mr-2"></i> Retour
+                        </button>
+                        <div class="flex space-x-3">
+                            <a href="{% url 'ajouter_paiement' %}" class="btn btn-outline">
+                                <i class="fas fa-credit-card mr-2"></i> Paiement
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-check-circle mr-2"></i> Enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- AOS JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to current tab and content
+                this.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(tabId);
+            });
+        });
+
+        // Next/Prev tab navigation
+        const nextTabButtons = document.querySelectorAll('.next-tab');
+        const prevTabButtons = document.querySelectorAll('.prev-tab');
+
+        nextTabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const nextTabId = this.getAttribute('data-next');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to next tab and content
+                document.querySelector(`.nav-tab[data-tab="${nextTabId}"]`).classList.add('active');
+                document.getElementById(`${nextTabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(nextTabId);
+            });
+        });
+
+        prevTabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const prevTabId = this.getAttribute('data-prev');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to previous tab and content
+                document.querySelector(`.nav-tab[data-tab="${prevTabId}"]`).classList.add('active');
+                document.getElementById(`${prevTabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(prevTabId);
+            });
+        });
+
+        // Function to update steps
+        function updateSteps(currentTabId) {
+            const steps = document.querySelectorAll('.step');
+
+            // Reset all steps
+            steps.forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+
+            // Set completed and active steps based on current tab
+            if (currentTabId === 'info') {
+                steps[0].classList.add('active');
+            } else if (currentTabId === 'scolaire') {
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            } else if (currentTabId === 'tuteur') {
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('active');
+            }
+        }
+
+        function filterClasses() {
+            const sectionId = sectionSelect ? sectionSelect.value : null;
+            const optionId = optionSelect ? optionSelect.value : null;
+
+            if (classeSelect) {
+                Array.from(classeSelect.options).forEach(option => {
+                    const classSection = option.dataset.section;
+                    const classOption = option.dataset.option || '';
+
+                    if ((option.value === "") ||
+                        (classSection == sectionId &&
+                         (optionId === "" || classOption === "" || classOption == optionId))) {
+                        option.style.display = "";
+                    } else {
+                        option.style.display = "none";
+                    }
+                });
+
+                // Reset selection if current selection is hidden
+                if (classeSelect.value && classeSelect.options[classeSelect.selectedIndex].style.display === "none") {
+                    classeSelect.value = '';
+                }
+            }
+        }
+   // Gestion des sections/options/classes
+        let sectionSelect = document.getElementById("section-select");
+        let optionSelect = document.getElementById("option-select");
+        let classeSelect = document.getElementById("classe-select");
+
+        function updateOptions() {
+            let selectedSection = sectionSelect.value;
+
+            optionSelect.disabled = selectedSection === "";
+            if (selectedSection === "") optionSelect.value = "";
+
+            Array.from(optionSelect.options).forEach(option => {
+                option.hidden = !(option.dataset.section === selectedSection || option.value === "");
+            });
+
+            Array.from(classeSelect.options).forEach(classe => {
+                const classeSection = classe.dataset.section;
+                const classeOption = classe.dataset.option;
+                classe.hidden = !(classeSection === selectedSection && (!classeOption || classeOption === optionSelect.value || optionSelect.value === ""));
+            });
+
+            for (let i = 0; i < classeSelect.options.length; i++) {
+                if (!classeSelect.options[i].hidden) {
+                    classeSelect.value = classeSelect.options[i].value;
+                    break;
+                }
+            }
+        }
+
+        sectionSelect.addEventListener("change", updateOptions);
+        optionSelect.addEventListener("change", updateOptions);
+        updateOptions();
+    });
+
+</script>
+{% endblock %}

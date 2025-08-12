@@ -1,0 +1,601 @@
+{% extends "base.html" %}
+{% block title %}Historique et Gestion des Paiements{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 text-gradient text-primary mb-0">
+                <i class="bi bi-receipt me-2"></i> Historique des Paiements
+            </h1>
+            <p class="mb-0 text-muted">Gestion et suivi des paiements des élèves</p>
+        </div>
+        <div>
+            <a href="{% url 'ajouter_paiement' %}" class="btn btn-sm btn-success">
+                <i class="bi bi-plus-circle me-1"></i> Nouveau Paiement
+            </a>
+        </div>
+        <!-- DANS LE TEMPLATE liste_paiements.html -->
+<div class="dropdown me-3">
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="anneeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        Année: {{ annee_selectionnee.annee }}{% if annee_selectionnee.est_courante %} (Courante){% endif %}
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="anneeDropdown">
+        {% for annee in annees_disponibles %}
+            <li>
+                <a class="dropdown-item{% if annee.id == annee_selectionnee.id %} active{% endif %}"
+                   href="?annee_scolaire={{ annee.id }}">
+                    {{ annee.annee }}
+                    {% if annee.est_courante %}<i class="bi bi-check text-success ms-2"></i>{% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0"><i class="bi bi-funnel me-2"></i>Filtres</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-4">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        {{ form.section.label_tag }}
+                        {{ form.section }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.option.label_tag }}
+                        {{ form.option }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.classe.label_tag }}
+                        {{ form.classe }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.frais.label_tag }}
+                        {{ form.frais }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.mois.label_tag }}
+                        {{ form.mois }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.matricule.label_tag }}
+                        {{ form.matricule }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="bi bi-funnel-fill me-1"></i> Appliquer
+                        </button>
+                        <a href="{% url 'liste_paiements' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-counterclockwise"></i> Réinitialiser
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-success text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Montant Total Payé</h6>
+                            <h3 class="mb-0">{{ stats.total_paye|default:"0" }} FC</h3>
+                            <p class="text-sm text-success mb-0">
+                                +{{ stats.croissance_total_paye }}% depuis le début du mois
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-primary text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Nombre de Paiements</h6>
+                            <h3 class="mb-0">{{ stats.nombre_paiements }}</h3>
+                            <p class="text-sm text-success mb-0">
+                                +{{ stats.croissance_nombre_paiements }}% par rapport à la semaine dernière
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Charts Row -->
+<div class="row g-4 mb-4">
+    <!-- Graphique de répartition des paiements par mois -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom">
+                <h5 class="mb-0"><i class="bi bi-bar-chart-line me-2"></i>Répartition des Paiements par Mois</h5>
+            </div>
+            <div class="card-body pt-0">
+                <div class="chart-area">
+                    <canvas id="repartitionMensuelleChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liste de répartition par mois -->
+    <div class="col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom">
+                <h5 class="mb-0"><i class="bi bi-calendar-month me-2"></i>Répartition par Mois</h5>
+            </div>
+            <div class="card-body">
+               <ul class="list-group list-group-flush">
+                    {% for item in stats.par_mois %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-primary me-3">{{ forloop.counter }}</span>
+                            <span class="fw-bold">{{ item.mois }}</span>
+                        </div>
+                        <div class="text-end">
+                            <span class="text-primary fw-bold">{{ item.total }} FC</span>
+                            <span class="badge bg-secondary ms-2">{{ item.nombre }} paiement(s)</span>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-center text-muted">Aucune donnée disponible</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Paiements Table -->
+    <div class="card ">
+        <div class="card-header bg-transparent border-bottom d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-table me-2"></i>Liste des Paiements
+             {% if user_role == 'directeur' or user_role == 'directeur_financier' %}
+        - Sections Maternelle/Primaire
+        {% elif user_role == 'prefet' or user_role == 'prefet_financier' %}
+        - Sections Secondaire/Humanités
+        {% elif user_role == 'prefet_itm' or user_role == 'ITM_financier' %}
+        - Section ITM
+        {% endif %}
+            </h5>
+            <div>
+                <span class="badge bg-primary">{{ paiements|length }} Paiement(s)</span>
+            </div>
+        </div>
+         <div class="card-body px-0">
+            <div  id="exportable-table"  class="table-responsive">
+                <table class="table table-hover align-items-center mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="ps-4">Matricule</th>
+                            <th>Élève</th>
+                            <th>Classe</th>
+                            <th>Option</th>
+                            <th>Type de Frais</th>
+                            <th>Montant Payé</th>
+                            <th>Mois</th>
+                            <th>Date Paiement</th>
+                            <th>Reçu N°</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for paiement in paiements|dictsortreversed:"recu_numero" %}
+                        <tr>
+                            <td class="ps-4">
+                                <a href="{% url 'details_eleve' paiement.eleve.id %}" class="text-primary font-weight-bold text-decoration-none">
+                                    {{ paiement.eleve.matricule }}
+                                </a>
+                            </td>
+                            <td>{{ paiement.eleve.nom }} {{ paiement.eleve.post_nom }}</td>
+                            <td>{{ paiement.eleve.classe.nom }}</td>
+                            <td>{{ paiement.eleve.classe.option.nom|default:"-" }}</td>
+                            <td>
+                                {% if paiement.frais.nom != "autres" %}
+                                    {{ paiement.frais.nom }}
+                                {% else %}
+                                    {{ paiement.frais.autre_frais }}
+                                {% endif %}
+                            </td>
+                            <td>{{ paiement.montant_paye }} FC</td>
+                            <td>
+                                {% if paiement.frais.type_frais == 'trimestriel' %}
+                                    <span class="badge bg-info">Tranche {{ paiement.tranche_paye }}</span>
+                                {% elif paiement.frais.type_frais == 'annuel' %}
+                                    <span class="badge bg-success">Annuel</span>
+                                {% elif paiement.mois %}
+                                    <span class="badge bg-primary">{{ paiement.mois }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Non défini</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ paiement.date_paiement|date:"d/m/Y" }}</td>
+                            <td>{{ paiement.recu_numero }}</td>
+                            <td class="text-end pe-4">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <a href="{% url 'detail_paiement' paiement.id %}" class="btn btn-sm btn-info">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{% url 'modifier_paiement' paiement.id %}" class="btn btn-sm btn-warning">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="{% url 'supprimer_paiement' paiement.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce paiement ?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="10" class="text-center py-4 text-muted">Aucun paiement trouvé pour les critères sélectionnés</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div></div></div>
+
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script>
+ // Répartition Mensuelle Chart
+const repartitionMensuelleCtx = document.getElementById('repartitionMensuelleChart').getContext('2d');
+const repartitionMensuelleData = {
+    labels: [{% for pm in paiements_mensuels %}'{{ pm.mois }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+    datasets: [{
+        label: 'Montant Payé (FC)',
+        data: [{% for pm in paiements_mensuels %}{{ pm.total }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+        borderColor: 'rgba(94, 114, 228, 1)',
+        backgroundColor: 'rgba(94, 114, 228, 0.1)',
+        borderWidth: 2,
+        pointBackgroundColor: '#fff',
+        pointBorderColor: 'rgba(94, 114, 228, 1)',
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        fill: true,
+        tension: 0.4
+    }]
+};
+
+
+const repartitionMensuelleChart = new Chart(repartitionMensuelleCtx, {
+    type: 'line', // Changé de 'bar' à 'line'
+    data: repartitionMensuelleData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false,
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.parsed.y.toLocaleString('fr-FR') + ' FC';
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return value.toLocaleString('fr-FR') + ' FC';
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Vérification du rendu du graphique
+if (repartitionMensuelleData.labels.length === 0) {
+    const noDataMessage = document.createElement('div');
+    noDataMessage.className = 'text-center py-4 text-muted';
+    noDataMessage.textContent = 'Aucune donnée disponible pour afficher la répartition des paiements par mois';
+    document.querySelector('.chart-area').appendChild(noDataMessage);
+}
+        // Frais Pie Chart
+        const fraisCtx = document.getElementById('fraisChart').getContext('2d');
+        const fraisChart = new Chart(fraisCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [{% for frais in stats.par_frais %}'{{ frais.frais__nom }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+                datasets: [{
+                    data: [{% for frais in stats.par_frais %}{{ frais.total }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+                    backgroundColor: [
+                        '#5e72e4', '#2dce89', '#f5365c', '#fb6340',
+                        '#ffd600', '#11cdef', '#2bffc6', '#8965e0'
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+    </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const sectionSelect = document.getElementById("id_section");
+    const optionSelect = document.getElementById("id_option");
+    const classeSelect = document.getElementById("id_classe");
+    const fraisSelect = document.getElementById("id_frais");
+
+    // Fonction pour charger les options selon la section
+    function updateOptions() {
+        const sectionId = sectionSelect.value;
+        if (!sectionId) return;
+
+        fetch(`/api/get-options/${sectionId}/`)
+            .then(res => res.json())
+            .then(data => {
+                // Vider les champs précédents
+                optionSelect.innerHTML = '<option value="">-- Choisir --</option>';
+                classeSelect.innerHTML = '<option value="">-- Choisir --</option>';
+
+                // Activer/désactiver l'option selon la section
+                if (["Humanités", "ITM"].includes(sectionSelect.options[sectionSelect.selectedIndex]?.text)) {
+                    data.options.forEach(opt => {
+                        const option = new Option(opt.nom, opt.id);
+                        optionSelect.add(option);
+                    });
+                    optionSelect.disabled = false;
+                } else {
+                    optionSelect.disabled = true;
+                }
+
+                // Charger les classes en fonction de la section
+                updateClasses();
+            })
+            .catch(err => console.error("Erreur lors du chargement des options:", err));
+    }
+
+    // Fonction pour charger les classes selon la section et l'option
+    function updateClasses() {
+        const sectionId = sectionSelect.value;
+        const optionId = optionSelect.value || null;
+
+        let url = `/api/get-classes/${sectionId}/`;
+        if (optionId && ["Humanités", "ITM"].includes(sectionSelect.options[sectionSelect.selectedIndex]?.text)) {
+            url += `${optionId}/`;
+        }
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                classeSelect.innerHTML = '<option value="">-- Choisir --</option>';
+                data.classes.forEach(classe => {
+                    const option = new Option(classe.nom, classe.id);
+                    classeSelect.add(option);
+                });
+            })
+            .catch(err => console.error("Erreur lors du chargement des classes:", err));
+    }
+    // Fonction pour charger les frais selon la classe (utilisation de l'API existante)
+    function updateFrais(classeId) {
+        fetch(`/api/get-frais/${classeId}/`)
+            .then(res => res.json())
+            .then(data => {
+                fraisSelect.innerHTML = '<option value="">-- Choisir --</option>';
+
+                // Vérifier si la réponse contient un message (ex: pas de frais)
+                if (Array.isArray(data)) {
+                    data.forEach(frais => {
+                        const option = new Option(`${frais.nom} (${frais.type_frais})`, frais.id);
+                        fraisSelect.add(option);
+                    });
+                } else if (data.message) {
+                    const option = new Option(data.message, "");
+                    option.disabled = true;
+                    fraisSelect.add(option);
+                }
+            })
+            .catch(err => console.error("Erreur lors du chargement des frais:", err));
+    }
+
+
+    // Gestion des événements
+    sectionSelect.addEventListener("change", function () {
+        updateOptions();
+    });
+
+    optionSelect.addEventListener("change", function () {
+        updateClasses();
+    });
+
+    // Chargement initial si une section est déjà sélectionnée
+    if (sectionSelect.value) {
+        updateOptions();
+    }
+
+    classeSelect.addEventListener("change", function () {
+        if (classeSelect.value) {
+            updateFrais(classeSelect.value);
+        }
+    });
+
+    // Chargement initial si une section est déjà sélectionnée
+    if (sectionSelect.value) {
+        updateOptions();
+    }
+});
+</script>
+
+<style>
+    /* Main Container */
+    .container-fluid {
+        padding: 0 2rem;
+        max-width: 1600px;
+    }
+
+    /* Header Styles */
+    .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .text-gradient.text-primary {
+        background-image: linear-gradient(135deg, #5e72e4 0%, #825ee4 100%);
+    }
+
+    /* Card Styles */
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    .card-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .hover-lift:hover {
+        transform: translateY(-5px);
+    }
+    .hover-shadow-lg:hover {
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+
+    /* Icon Shapes */
+    .icon-shape {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+    }
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #5e72e4 0%, #825ee4 100%);
+    }
+    .bg-gradient-success {
+        background: linear-gradient(135deg, #2dce89 0%, #2dcecc 100%);
+    }
+    .bg-gradient-info {
+        background: linear-gradient(135deg, #11cdef 0%, #1171ef 100%);
+    }
+
+    /* Table Styles */
+    .table-responsive {
+        min-height: 300px;
+    }
+    .table {
+        margin-bottom: 0;
+    }
+    .table thead th {
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .table tbody tr {
+        transition: all 0.2s ease;
+    }
+    .table tbody tr:hover {
+        background-color: rgba(94, 114, 228, 0.05);
+    }
+
+    /* Badge Styles */
+    .badge {
+        font-weight: 500;
+        padding: 0.35em 0.65em;
+        border-radius: 8px;
+    }
+
+    /* Button Styles */
+    .btn {
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        transition: all 0.2s ease;
+    }
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .container-fluid {
+            padding: 0 1rem;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+    }
+</style>
+
+    <style>
+        /* Custom Styles */
+        .card-stats {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 12px;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+        .hover-shadow-lg:hover {
+            box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+        }
+        .icon-shape {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chart-area {
+            position: relative;
+            height: 250px;
+        }
+        .chart-pie {
+            position: relative;
+            height: 60px;
+        }
+        .table-responsive {
+            min-height: 300px;
+        }
+
+        .progress {
+            height: 6px;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,478 @@
+<!-- templates/gestion/documentation.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Documentation - Système de Gestion Scolaire{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Barre de recherche -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get" action="{% url 'documentation' %}">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="q" placeholder="Rechercher dans la documentation..."
+                                   value="{{ query }}" aria-label="Rechercher">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i> Rechercher
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation rapide -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Navigation Rapide</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="#vue-ensemble" class="d-block text-decoration-none text-dark mb-2">
+                                <i class="fas fa-chevron-right me-2 text-primary"></i>Vue d'ensemble
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#architecture" class="d-block text-decoration-none text-dark mb-2">
+                                <i class="fas fa-chevron-right me-2 text-primary"></i>Architecture
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#modules" class="d-block text-decoration-none text-dark mb-2">
+                                <i class="fas fa-chevron-right me-2 text-primary"></i>Modules
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#erreurs" class="d-block text-decoration-none text-dark mb-2">
+                                <i class="fas fa-chevron-right me-2 text-primary"></i>Codes d'erreur
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="row">
+        <div class="col-12">
+            <!-- Vue d'ensemble -->
+            <section id="vue-ensemble">
+                <h2 class="mb-4">Vue d'Ensemble</h2>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p>Le système de gestion scolaire est une application complète de gestion administrative et financière d'un établissement scolaire.</p>
+
+                        <h5 class="mt-4">Fonctionnalités principales :</h5>
+                        <ul class="list-group list-group-flush mt-2">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Gestion multi-roles (Admin, Directeur, Préfet, Financier)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Structure académique hiérarchique (Sections → Options → Classes)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Gestion financière complète (Frais, Paiements, Dépenses)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Historique des actions avec traçabilité</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Système de notifications en temps réel</li>
+                        </ul>
+
+                        <h5 class="mt-4">Public Cible</h5>
+                        <p>Administrateurs, directeurs, préfets, personnel financier et enseignants utilisant le système pour la gestion administrative et financière d'un établissement scolaire.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture -->
+            <section id="architecture">
+                <h2 class="mb-4">Architecture Technique</h2>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Stack Technologique</h5>
+                        <ul class="list-group list-group-flush mt-2">
+                            <li class="list-group-item"><i class="fas fa-server me-2 text-primary"></i><strong>Backend:</strong> Django (Python)</li>
+                            <li class="list-group-item"><i class="fas fa-paint-brush me-2 text-primary"></i><strong>Frontend:</strong> HTML5, CSS (Argon Dashboard), JavaScript</li>
+                            <li class="list-group-item"><i class="fas fa-database me-2 text-primary"></i><strong>Base de Données:</strong> PostgreSQL/MySQL</li>
+                            <li class="list-group-item"><i class="fas fa-user-shield me-2 text-primary"></i><strong>Authentification:</strong> JWT + Sessions Django</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="mt-4">Structure du Projet</h5>
+                        <pre class="bg-light p-3 rounded">
+wantashi/
+├── gestion/               # Application principale
+│   ├── models/              # Modèles Django
+│   ├── views/               # Vues et logique métier
+│   ├── templates/           # Templates HTML
+│   ├── static/              # Fichiers statiques
+│   └── utils/               # Fonctions utilitaires
+├── media/                   # Fichiers uploadés
+└── config/                  # Configuration Django
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modules -->
+            <section id="modules">
+                <h2 class="mb-4">Modules Principaux</h2>
+
+                <!-- Gestion des Utilisateurs -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="fas fa-users me-2 text-primary"></i>
+                        <h5 class="mb-0">Gestion des Utilisateurs</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Le système prend en charge plusieurs rôles avec des permissions distinctes :</p>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Rôle</th>
+                                        <th>Description</th>
+                                        <th>Permissions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Administrateur</td>
+                                        <td>Gestion complète du système</td>
+                                        <td>Toutes les permissions</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Directeur</td>
+                                        <td>Gestion de la maternelle et primaire</td>
+                                        <td>Accès aux sections Maternelle et Primaire</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Préfet</td>
+                                        <td>Gestion du secondaire et humanités</td>
+                                        <td>Accès aux sections Secondaire et Humanités</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Préfet ITM</td>
+                                        <td>Gestion de l'ITM</td>
+                                        <td>Accès à la section ITM</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h6 class="mt-4">Exemple de Modèle</h6>
+                        <pre class="bg-light p-3 rounded code-block">
+class CustomUser(AbstractUser):
+    ROLE_CHOICES = [
+        ('admin', 'Administrateur'),
+        ('directeur', 'Directeur'),
+        ('prefet', 'Préfet'),
+        ('prefet_itm', 'Préfet ITM'),
+        ('directeur_financier', 'Directeur Financier'),
+    ]
+
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='admin')
+                        </pre>
+                    </div>
+                </div>
+
+                <!-- Structure Académique -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="fas fa-building me-2 text-primary"></i>
+                        <h5 class="mb-0">Structure Académique</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>La structure académique permet d'organiser l'établissement en sections, options et classes.</p>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Types de Sections</h6>
+                                <ul class="list-group">
+                                    {% for section in sections %}
+                                        <li class="list-group-item">{{ section.nom }} <span class="badge bg-secondary">{{ section.type_section }}</span></li>
+                                    {% empty %}
+                                        <li class="list-group-item">Aucune section trouvée</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h6>Classes Disponibles</h6>
+                                <ul class="list-group">
+                                    {% for classe in classes %}
+                                        <li class="list-group-item">
+                                            {{ classe.nom }} -
+                                            {% if classe.option %}
+                                                Option: {{ classe.option.nom }}
+                                            {% else %}
+                                                Section: {{ classe.section.nom }}
+                                            {% endif %}
+                                        </li>
+                                    {% empty %}
+                                        <li class="list-group-item">Aucune classe trouvée</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h6 class="mt-4">Exemple de Modèle</h6>
+                        <pre class="bg-light p-3 rounded code-block">
+class Section(models.Model):
+    TYPE_SECTION_CHOICES = [
+        ('maternelle', 'maternelle'),
+        ('primaire', 'primaire'),
+        ('secondaire', 'secondaire'),
+        ('itm', 'ITM'),
+        ('humanite', 'Humanités')
+    ]
+
+    nom = models.CharField(max_length=50, unique=True)
+    type_section = models.CharField(
+        max_length=10,
+        choices=TYPE_SECTION_CHOICES,
+        default='itm'
+    )
+                        </pre>
+                    </div>
+                </div>
+
+                <!-- Gestion Financière -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="fas fa-money-bill me-2 text-primary"></i>
+                        <h5 class="mb-0">Gestion Financière</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Le système de gestion financière permet de gérer les frais, paiements et dépenses.</p>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Types de Frais</h6>
+                                <ul class="list-group">
+                                    {% for frais in frais %}
+                                        <li class="list-group-item">
+                                            {{ frais.nom }} -
+                                            <span class="badge bg-info">{{ frais.type_frais }}</span>
+                                            <span class="float-end">{{ frais.montant }} FC</span>
+                                        </li>
+                                    {% empty %}
+                                        <li class="list-group-item">Aucun frais trouvé</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h6>Paiements Récents</h6>
+                                <ul class="list-group">
+                                    {% for paiement in paiements %}
+                                        <li class="list-group-item">
+                                            {{ paiement.frais.nom }} -
+                                            <span class="badge bg-success float-end">{{ paiement.montant_paye }} FC</span>
+                                        </li>
+                                    {% empty %}
+                                        <li class="list-group-item">Aucun paiement trouvé</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h6 class="mt-4">Exemple de Modèle</h6>
+                        <pre class="bg-light p-3 rounded code-block">
+class Paiement(models.Model):
+    eleve = models.ForeignKey(Eleve, on_delete=models.CASCADE)
+    frais = models.ForeignKey(Frais, on_delete=models.CASCADE)
+    mois = models.CharField(max_length=255, choices=MoisPaiement.choices)
+    tranche = models.CharField(max_length=50, choices=TRANCHE_CHOICES)
+    montant_paye = models.DecimalField(max_digits=10, decimal_places=2)
+    solde_restant = models.DecimalField(max_digits=10, decimal_places=2)
+    date_paiement = models.DateField(auto_now_add=True)
+    recu_numero = models.CharField(max_length=255, unique=True)
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Codes d'erreur -->
+            <section id="erreurs">
+                <h2 class="mb-4">Codes d'Erreur</h2>
+
+                <div class="row">
+                    {% for error in error_codes %}
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="text-danger">{{ error.code }}</h5>
+                                <p><strong>Message:</strong> {{ error.message }}</p>
+                                <p><strong>Cause:</strong> {{ error.cause }}</p>
+                                <p><strong>Solution:</strong> {{ error.solution }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Historique des opérations -->
+            <section id="historique">
+                <h2 class="mb-4">Historique des Opérations</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Utilisateur</th>
+                                        <th>Action</th>
+                                        <th>Détails</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for historique in histories %}
+                                    <tr>
+                                        <td>{{ historique.date_action|date:"d/m/Y H:i" }}</td>
+                                        <td>{{ historique.utilisateur_affichage }}</td>
+                                        <td>{{ historique.action }}</td>
+                                        <td>{{ historique.details|truncatechars:50 }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="4" class="text-center">Aucun historique disponible</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section id="faq">
+                <h2 class="mb-4">FAQ - Questions Fréquentes</h2>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Comment ajouter un nouveau type de frais ?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Utilisez le formulaire d'ajout de frais et sélectionnez "Autres" dans la liste déroulante des frais prédéfinis.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Pourquoi ne puis-je pas supprimer un paiement ?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Les paiements sont archivés pour des raisons de traçabilité financière. Vous pouvez les modifier mais pas les supprimer.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Comment fonctionne le système de notifications ?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Le système de notifications affiche les actions importantes en temps réel dans le menu utilisateur.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bonnes pratiques -->
+            <section id="bonnes-pratiques" class="mt-5">
+                <h2 class="mb-4">Bonnes Pratiques</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Utiliser des transactions pour toutes les opérations financières
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Vérifier les permissions avant chaque accès à des données sensibles
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Conserver l'historique des actions critiques
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Conseils de Sécurité</h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item">Utiliser des mots de passe forts</li>
+                                    <li class="list-group-item">Activer l'authentification à deux facteurs</li>
+                                    <li class="list-group-item">Ne pas partager ses identifiants</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<style>
+    /* Dans votre fichier static/css/documentation.css */
+.code-block {
+    background-color: #f1f3f5;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.accordion-button {
+    background-color: #f8f9fa;
+    color: #212529;
+    border: none;
+}
+
+.accordion-button:focus {
+    z-index: 0;
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.accordion-body {
+    background-color: #fbfcfd;
+}
+
+.list-group-item {
+    border: none;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+</style>

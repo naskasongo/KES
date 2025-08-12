@@ -1,0 +1,578 @@
+{% extends "base.html" %}
+
+{% block title %}Ajouter des Frais{% endblock %}
+
+{% block content %}
+
+
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header -->
+    <div class="text-center mb-10" data-aos="fade-down">
+        <div class="mb-4 flex justify-center">
+            <div class="bg-primary-light p-4 rounded-full text-primary">
+                <i class="fas fa-receipt text-3xl"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Ajouter des Frais</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">Créez de nouveaux frais pour l'année scolaire en cours</p>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex justify-between items-center mb-6">
+        <div class="text-sm font-medium bg-primary text-white px-4 py-2 rounded-full">
+            Année Scolaire: {{ annee_scolaire_en_cours }}
+        </div>
+        <a href="{% url 'liste_frais' %}" class="btn btn-outline">
+            <i class="fas fa-arrow-left mr-2"></i> Retour à la liste
+        </a>
+    </div>
+
+    <!-- Messages d'alerte -->
+    {% if messages %}
+    <div class="mb-8 max-w-4xl mx-auto" id="alertContainer">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} flex items-center" role="alert" data-aos="fade-in">
+            <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-times-circle{% endif %} mr-3 text-xl"></i>
+            <div class="flex-grow-1">{{ message }}</div>
+            <button type="button" class="ml-4 text-xl" data-bs-dismiss="alert" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Card -->
+    <div class=" " data-aos="fade-up">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-file-invoice mr-3 text-primary"></i>Nouveaux Frais
+                </h2>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <form method="post" id="fraisForm">
+                {% csrf_token %}{% csrf_token %}
+                 <input type="hidden" name="form-0-annee_scolaire" value="{{ annee_scolaire_en_cours.id }}">
+
+                <!-- Conteneur des formulaires -->
+                <div id="formsContainer">
+                    <!-- Premier formulaire -->
+                    <div class="form-group position-relative animate-fadeInUp" style="animation-delay: 0.1s;">
+                        <div class="position-absolute top-0 end-0 mt-3 me-3">
+                            <button type="button" class="btn btn-danger remove-form rounded-full" style="display: none;" data-bs-toggle="tooltip" title="Supprimer ce frais">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center mb-4">
+                            <span class="badge badge-primary text-lg mr-3">1</span>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-0">Informations sur le frais</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Colonne gauche -->
+                            <div>
+                                <div class="mb-4">
+                                    <label for="id_form-0-predefined_nom" class="form-label">Nom du Frais</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-tag text-gray-500"></i>
+                                        </span>
+                                        <select class="form-select" id="id_form-0-predefined_nom" name="form-0-predefined_nom">
+                                            <option value="">-- Sélectionner un frais --</option>
+                                            <option value="FIP">FIP</option>
+                                            <option value="ETAT">ETAT</option>
+                                            <option value="connexe">Frais connexe</option>
+                                            <option value="inscription">Inscription</option>
+                                            <option value="bulletin">Bulletin</option>
+                                            <option value="sonas">SONAS</option>
+                                            <option value="Quotite DPS">Quotité DPS</option>
+                                            <option value="Stage">Stage</option>
+                                            <option value="jury fin d'année">Jury fin d'année</option>
+                                            <option value="Minerval">Minerval</option>
+                                            <option value="macaron">Macaron</option>
+                                            <option value="Planification familiale">Planification familiale</option>
+                                            <option value="fiche de renseignement">Fiche de renseignement</option>
+                                            <option value="carnet de renseignement">Carnet de renseignement</option>
+                                            <option value="carnet d'apprenant">Carnet d'apprenant</option>
+                                            <option value="autres">Autres</option>
+                                        </select>
+                                    </div>
+                                    <div class="text-sm text-gray-500 mt-1">Sélectionnez un frais prédéfini ou "Autres"</div>
+                                </div>
+
+                                <div class="mb-4" id="custom_nom_container_0" style="display: none;">
+                                    <label for="id_form-0-custom_nom" class="form-label">Nom personnalisé</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-pencil text-gray-500"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="id_form-0-custom_nom" name="form-0-custom_nom" placeholder="Entrez un nom personnalisé">
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="id_form-0-montant" class="form-label">Montant (FC)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-money-bill-wave text-gray-500"></i>
+                                        </span>
+                                        <input type="number" class="form-control" id="id_form-0-montant" name="form-0-montant" required placeholder="Entrez le montant" step="0.01" min="0">
+                                    </div>
+                                    <div class="text-sm text-gray-500 mt-1">Montant en francs congolais</div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="id_form-0-type_frais" class="form-label">Type de Frais</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-calendar-alt text-gray-500"></i>
+                                        </span>
+                                        <select class="form-select" id="id_form-0-type_frais" name="form-0-type_frais">
+                                            <option value="Mensuel">Mensuel</option>
+                                            <option value="Trimestriel">Trimestriel</option>
+                                            <option value="Annuel">Annuel</option>
+                                            <option value="Occasionnel">Occasionnel</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Colonne droite -->
+                            <div>
+                                <div class="mb-4">
+                                    <label for="id_form-0-section" class="form-label">Section</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-building text-gray-500"></i>
+                                        </span>
+                                        <select class="form-select" id="id_form-0-section" name="form-0-section">
+                                            {% for section in sections %}
+                                                <option value="{{ section.id }}" {% if section.nom == "ITM" %}selected{% endif %}>{{ section.nom }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="id_form-0-option" class="form-label">Option</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-diagram-project text-gray-500"></i>
+                                        </span>
+                                        <select class="form-select" id="id_form-0-option" name="form-0-option">
+                                            <option value="">-- Sélectionner une section d'abord --</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="id_form-0-classes" class="form-label">Classe(s)</label>
+                                    <select class="form-select" id="id_form-0-classes" name="form-0-classes" multiple size="5">
+                                        <option value="">-- Sélectionner une section d'abord --</option>
+                                    </select>
+                                    <div class="text-sm text-gray-500 mt-1">Maintenez Ctrl (Windows) ou Cmd (Mac) pour sélection multiple</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between mt-6 gap-4">
+                    <button type="button" id="addMore" class="btn btn-primary">
+                        <i class="fas fa-plus-circle mr-2"></i> Ajouter un autre frais
+                    </button>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button type="reset" class="btn btn-outline">
+                            <i class="fas fa-arrow-rotate-left mr-2"></i> Réinitialiser
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save mr-2"></i> Enregistrer
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- AOS JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    // Initialisation des tooltips Bootstrap
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Mapping des types de frais par défaut
+    const fraisMapping = {
+        'FIP': {type: 'Mensuel', section: null},
+        'ETAT': {type: 'Trimestriel', section: null},
+        'connexe': {type: 'Trimestriel', section: null},
+        'frais connexe': {type: 'Annuel', section: null},
+        'inscription': {type: 'Annuel', section: null},
+        'bulletin': {type: 'Annuel', section: null},
+        'sonas': {type: 'Annuel', section: null},
+        'Quotite DPS': {type: 'Trimestriel', section: 'ITM'},
+        'Stage': {type: 'Trimestriel', section: 'ITM'},
+        "jury fin d'année": {type: 'Annuel', section: 'ITM'},
+        'Minerval': {type: 'Annuel', section: 'ITM'},
+        'macaron': {type: 'Annuel', section: 'ITM'},
+        'Planification familiale': {type: 'Annuel', section: 'ITM'},
+        'fiche de renseignement': {type: 'Annuel', section: 'ITM'},
+        'carnet de renseignement': {type: 'Annuel', section: 'ITM'},
+        "carnet d'apprenant": {type: 'Annuel', section: 'ITM'}
+    };
+
+    const formsContainer = document.getElementById('formsContainer');
+    const addMoreBtn = document.getElementById('addMore');
+    let formCount = 1;
+    const itmSectionId = "{{ itm_section_id|default:'' }}";
+
+    // Sections qui n'ont pas d'options
+    const SECTIONS_SANS_OPTIONS = ['Maternelle', 'Primaire', 'Secondaire'];
+
+    // Fonction pour charger les options
+    function loadOptions(sectionId, optionField) {
+        if (!sectionId) {
+            optionField.innerHTML = '<option value="">-- Sélectionner une section d\'abord --</option>';
+            return;
+        }
+
+        optionField.disabled = true;
+        optionField.innerHTML = '<option value="">-- Chargement... --</option>';
+
+        fetch(`/api/get-options/${sectionId}/`)
+            .then(response => {
+                if (!response.ok) throw new Error('Erreur réseau');
+                return response.json();
+            })
+            .then(data => {
+                optionField.innerHTML = '<option value="">-- Sélectionner une option --</option>';
+                if (data.options && data.options.length > 0) {
+                    data.options.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option.id;
+                        opt.textContent = option.nom;
+                        optionField.appendChild(opt);
+                    });
+                } else {
+                    optionField.innerHTML = '<option value="">-- Aucune option disponible --</option>';
+                }
+                optionField.disabled = false;
+            })
+            .catch(err => {
+                console.error('Erreur:', err);
+                optionField.innerHTML = '<option value="">-- Erreur de chargement --</option>';
+                optionField.disabled = false;
+            });
+    }
+
+    // Fonction pour charger les classes
+    function loadClasses(sectionId, optionId, classeField) {
+        if (!sectionId) {
+            classeField.innerHTML = '<option value="">-- Sélectionnez une section d\'abord --</option>';
+            return;
+        }
+
+        classeField.disabled = true;
+        classeField.innerHTML = '<option value="">-- Chargement en cours --</option>';
+
+        // Gestion spéciale pour les valeurs null/undefined
+        const effectiveOptionId = (optionId && optionId !== 'null' && optionId !== 'undefined') ? optionId : null;
+        const url = effectiveOptionId
+            ? `/api/get-classes/${sectionId}/${effectiveOptionId}/`
+            : `/api/get-classes/${sectionId}/`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                classeField.innerHTML = '';
+
+                if (data.classes && data.classes.length > 0) {
+                    data.classes.forEach(classe => {
+                        const option = document.createElement('option');
+                        option.value = classe.id;
+                        option.textContent = classe.nom;
+                        classeField.appendChild(option);
+                    });
+                } else {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = '-- Aucune classe disponible --';
+                    option.disabled = true;
+                    classeField.appendChild(option);
+                }
+                classeField.disabled = false;
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                classeField.innerHTML = '<option value="" disabled>-- Erreur de chargement --</option>';
+                classeField.disabled = false;
+            });
+    }
+
+    // Fonction pour mettre à jour les champs en fonction du frais sélectionné
+    function updateFraisFields(formElement, predefinedNomField) {
+        const selected = predefinedNomField.value;
+        const typeFraisField = formElement.querySelector('[id$="-type_frais"]');
+        const sectionField = formElement.querySelector('[id$="-section"]');
+        const customNomContainer = formElement.querySelector('[id^="custom_nom_container_"]');
+
+        if (!selected || selected === 'autres') {
+            if (customNomContainer) customNomContainer.style.display = 'block';
+            if (typeFraisField) typeFraisField.disabled = false;
+            if (sectionField) sectionField.disabled = false;
+        } else {
+            if (customNomContainer) customNomContainer.style.display = 'none';
+            if (fraisMapping[selected]) {
+                if (typeFraisField) {
+                    typeFraisField.value = fraisMapping[selected].type;
+                    typeFraisField.disabled = true;
+                }
+                if (sectionField) {
+                    if (fraisMapping[selected].section === 'ITM') {
+                        sectionField.value = itmSectionId;
+                        sectionField.disabled = true;
+                    } else {
+                        sectionField.disabled = false;
+                    }
+                }
+            }
+        }
+    }
+
+    // Fonction pour gérer le comportement spécifique des sections
+    function updateFormBehavior(formElement) {
+        const sectionField = formElement.querySelector('[id$="-section"]');
+        const optionField = formElement.querySelector('[id$="-option"]');
+        const optionContainer = optionField.closest('.mb-4');
+        const classeField = formElement.querySelector('[id$="-classes"]');
+
+        if (!sectionField || !optionField || !classeField) return;
+
+        const sectionName = sectionField.options[sectionField.selectedIndex]?.text;
+
+        // Masquer le champ option pour les sections sans options
+        if (sectionName && SECTIONS_SANS_OPTIONS.includes(sectionName)) {
+            optionContainer.style.display = 'none';
+            optionField.value = '';
+            loadClasses(sectionField.value, null, classeField);
+        } else {
+            optionContainer.style.display = 'block';
+            if (sectionField.value) {
+                loadOptions(sectionField.value, optionField);
+            }
+        }
+    }
+
+    // Fonction pour initialiser les écouteurs d'événements sur un formulaire
+    function initFormEventListeners(formElement, formIndex) {
+        const sectionField = formElement.querySelector('[id$="-section"]');
+        const optionField = formElement.querySelector('[id$="-option"]');
+        const classeField = formElement.querySelector('[id$="-classes"]');
+        const predefinedNomField = formElement.querySelector('[id$="-predefined_nom"]');
+        const customNomContainer = formElement.querySelector(`#custom_nom_container_${formIndex}`);
+
+        // Initialiser le comportement selon la section sélectionnée
+        updateFormBehavior(formElement);
+
+        // Écouteur pour le changement de section
+        if (sectionField) {
+            sectionField.addEventListener('change', function() {
+                updateFormBehavior(formElement);
+
+                // Si c'est une section avec options, charger les classes sans option d'abord
+                const sectionName = this.options[this.selectedIndex]?.text;
+                if (!SECTIONS_SANS_OPTIONS.includes(sectionName)) {
+                    loadClasses(this.value, null, classeField);
+                }
+            });
+        }
+
+        // Écouteur pour le changement d'option
+        if (optionField) {
+            optionField.addEventListener('change', function() {
+                const sectionField = formElement.querySelector('[id$="-section"]');
+                const classeField = formElement.querySelector('[id$="-classes"]');
+
+                if (sectionField && sectionField.value && classeField) {
+                    loadClasses(sectionField.value, this.value, classeField);
+                }
+            });
+        }
+
+        // Écouteur pour le champ de frais prédéfini
+        if (predefinedNomField) {
+            predefinedNomField.addEventListener('change', function() {
+                updateFraisFields(formElement, this);
+
+                // Afficher/masquer le champ personnalisé
+                if (customNomContainer) {
+                    customNomContainer.style.display = this.value === 'autres' ? 'block' : 'none';
+                }
+            });
+
+            // Initialiser l'état des champs
+            updateFraisFields(formElement, predefinedNomField);
+        }
+    }
+
+    // Initialiser les écouteurs pour le premier formulaire
+    initFormEventListeners(formsContainer.firstElementChild, 0);
+
+    // Fonction pour cloner un formulaire
+    function cloneForm() {
+        formCount++;
+        const firstForm = formsContainer.firstElementChild;
+        const newForm = firstForm.cloneNode(true);
+
+        // Mettre à jour les IDs et names
+        newForm.querySelector('.badge').textContent = formCount;
+        newForm.querySelector('h3').textContent = 'Informations sur le frais';
+        newForm.querySelector('.remove-form').style.display = 'flex';
+
+        const inputs = newForm.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            if (input.id) input.id = input.id.replace(/form-\d+/, `form-${formCount-1}`);
+            if (input.name) input.name = input.name.replace(/form-\d+/, `form-${formCount-1}`);
+        });
+
+        // Réinitialiser les valeurs
+        inputs.forEach(input => {
+            if (input.type !== 'button') {
+                if (input.tagName === 'SELECT') {
+                    if (input.multiple) {
+                        Array.from(input.options).forEach(option => {
+                            option.selected = false;
+                        });
+                    } else {
+                        input.selectedIndex = 0;
+                    }
+                } else {
+                    input.value = '';
+                }
+            }
+        });
+
+        // Mettre à jour l'ID du conteneur de nom personnalisé
+        const customContainer = newForm.querySelector('[id^="custom_nom_container_"]');
+        if (customContainer) {
+            customContainer.id = `custom_nom_container_${formCount-1}`;
+        }
+
+        formsContainer.appendChild(newForm);
+
+        // Initialiser les écouteurs pour le nouveau formulaire
+        initFormEventListeners(newForm, formCount-1);
+
+        // Animation pour le nouveau formulaire
+        newForm.style.opacity = '0';
+        newForm.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            newForm.style.transition = 'all 0.3s ease-out';
+            newForm.style.opacity = '1';
+            newForm.style.transform = 'translateY(0)';
+        }, 10);
+
+        // Scroll vers le nouveau formulaire
+        setTimeout(() => {
+            newForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 350);
+    }
+
+    // Bouton pour ajouter un formulaire
+    addMoreBtn.addEventListener('click', cloneForm);
+
+    // Bouton pour supprimer un formulaire
+    formsContainer.addEventListener('click', function(e) {
+        const removeBtn = e.target.closest('.remove-form');
+        if (removeBtn) {
+            if (formsContainer.children.length > 1) {
+                const formToRemove = removeBtn.closest('.form-group');
+
+                // Animation de suppression
+                formToRemove.style.transition = 'all 0.3s ease-out';
+                formToRemove.style.opacity = '0';
+                formToRemove.style.transform = 'translateX(100px)';
+
+                setTimeout(() => {
+                    formToRemove.remove();
+
+                    // Re-numéroter les formulaires
+                    const forms = formsContainer.querySelectorAll('.form-group');
+                    forms.forEach((form, index) => {
+                        form.querySelector('.badge').textContent = index + 1;
+                    });
+                    formCount = forms.length;
+                }, 300);
+            } else {
+                showToast("Vous ne pouvez pas supprimer le dernier formulaire.", "warning");
+            }
+        }
+    });
+
+    // Fonction pour afficher un toast
+    function showToast(message, type = 'info') {
+        const toastEl = document.createElement('div');
+        toastEl.className = `toast show align-items-center text-white bg-${type} border-0`;
+        toastEl.setAttribute('role', 'alert');
+        toastEl.setAttribute('aria-live', 'assertive');
+        toastEl.setAttribute('aria-atomic', 'true');
+
+        toastEl.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+
+        const toastContainer = document.getElementById('toastContainer') || createToastContainer();
+        toastContainer.appendChild(toastEl);
+
+        setTimeout(() => {
+            toastEl.classList.remove('show');
+            setTimeout(() => toastEl.remove(), 300);
+        }, 5000);
+    }
+
+    // Fonction pour créer un conteneur de toast
+    function createToastContainer() {
+        const container = document.createElement('div');
+        container.id = 'toastContainer';
+        container.className = 'position-fixed bottom-0 end-0 p-3';
+        container.style.zIndex = '11';
+        document.body.appendChild(container);
+        return container;
+    }
+
+    // Réactiver les champs désactivés avant la soumission
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function() {
+            this.querySelectorAll('select[disabled]').forEach(select => {
+                select.disabled = false;
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Liste des élèves{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center text-primary">
+        <i class="bi bi-people"></i> Liste des Élèves
+    </h2>
+    <!-- Formulaire de Filtrage -->
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <label for="section" class="form-label">Section</label>
+            <select class="form-select" name="section" id="section">
+                <option value="">Toutes les sections</option>
+                {% for section in sections %}
+                <option value="{{ section.id }}" {% if request.GET.section == section.id|stringformat:"s" %}selected{% endif %}>
+                    {{ section.nom }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="option" class="form-label">Option</label>
+            <select class="form-select" name="option" id="option">
+                <option value="">Toutes les options</option>
+                {% for option in options %}
+                <option value="{{ option.id }}" {% if request.GET.option == option.id|stringformat:"s" %}selected{% endif %}>
+                    {{ option.nom }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="classe" class="form-label">Classe</label>
+            <select class="form-select" name="classe" id="classe">
+                <option value="">Toutes les classes</option>
+                {% for classe in classes %}
+                <option value="{{ classe.id }}" {% if request.GET.classe == classe.id|stringformat:"s" %}selected{% endif %}>
+                    {{ classe.nom }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="annee_scolaire" class="form-label">Année scolaire</label>
+            <select class="form-select" name="annee_scolaire" id="annee_scolaire">
+                <option value="">Toutes les années</option>
+                {% for annee in annees_scolaires %}
+                <option value="{{ annee.id }}" {% if request.GET.annee_scolaire == annee.id|stringformat:"s" %}selected{% endif %}>
+                    {{ annee.annee }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <label for="sexe" class="form-label">Sexe</label>
+            <select class="form-select" name="sexe" id="sexe">
+                <option value="">Tous les sexes</option>
+                <option value="M" {% if request.GET.sexe == "M" %}selected{% endif %}>Masculin</option>
+                <option value="F" {% if request.GET.sexe == "F" %}selected{% endif %}>Féminin</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="matricule" class="form-label">Matricule</label>
+            <input type="text" name="matricule" id="matricule" class="form-control" placeholder="Matricule"
+                   value="{{ request.GET.matricule }}">
+        </div>
+
+        <div class="col-md-2 align-self-end">
+            <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+        </div>
+
+        <div class="col-md-2 align-self-end">
+            <a href="{% url 'liste_eleves' %}" class="btn btn-secondary w-100">Réinitialiser</a>
+        </div>
+    </form>
+
+    <!-- Liste des élèves -->
+    <div class="mt-5">
+        <h5>Résultats : {{ eleves.count }} élèves trouvés</h5>
+
+        <table  id="exportable-table"  class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Matricule</th>
+                    <th>Nom</th>
+                    <th>Post-Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Classe</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for eleve in eleves %}
+                <tr>
+                    <td>
+                        <a href="{% url 'details_eleve' eleve.id %}">
+                            {{ eleve.matricule }}
+                        </a>
+                    </td>
+                    <td>{{ eleve.nom }}</td>
+                    <td>{{ eleve.post_nom }}</td>
+                    <td>{{ eleve.prenom }}</td>
+                    <td>{{ eleve.sexe }}</td>
+                    <td>{{ eleve.classe.nom }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">Aucun élève trouvé pour les critères sélectionnés.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+<!-- templates/gestion/notifications.html -->
+<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    {% for notif in notifications %}
+        <a class="dropdown-item {% if not notif.est_lue %}bg-light{% endif %}" href="#">
+            {{ notif.historique_action }}
+        </a>
+    {% empty %}
+        <div class="dropdown-item text-muted">Aucune notification</div>
+    {% endfor %}
+</div>

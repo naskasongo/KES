@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Wantashi{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'argon/img/favicon.png' %}">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS - Animate On Scroll Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'argon/css/argon-dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'argon/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/paiement.css' %}">
+   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+    <!-- Custom JS -->
+
+    <script src="{% static '/js/base.js' %}"></script>
+    <script src="{% static '/js/formulaire.js' %}"></script>
+
+
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #eaefff;
+            --secondary: #3a0ca3;
+            --success: #2ecc71;
+            --success-light: #e8f8f2;
+            --danger: #e74c3c;
+            --danger-light: #fdeeec;
+            --warning: #f39c12;
+            --info: #3498db;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg-light: #f8fafc;
+            --sidebar-width: 288px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background-color: var(--bg-light);
+        }
+
+        .bg-primary { background-color: var(--primary) !important; }
+        .bg-primary-light { background-color: var(--primary-light) !important; }
+        .bg-success-light { background-color: var(--success-light) !important; }
+        .bg-danger-light { background-color: var(--danger-light) !important; }
+        .bg-warning-light { background-color: #fff8e6 !important; }
+
+        .text-primary { color: var(--primary) !important; }
+        .text-secondary { color: var(--secondary) !important; }
+        .text-success { color: var(--success) !important; }
+        .text-danger { color: var(--danger) !important; }
+        .text-warning { color: var(--warning) !important; }
+
+        .border-primary { border-color: var(--primary) !important; }
+
+        /* Custom Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #cbd5e0;
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #d68910;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .sidebar-mobile {
+            transform: translateX(-100%);
+        }
+
+        @media (min-width: 768px) {
+            .sidebar-mobile {
+                transform: translateX(0);
+            }
+        }
+
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s ease;
+            color: #e2e8f0;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .submenu {
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .submenu.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .submenu-item {
+            padding: 0.5rem 1rem 0.5rem 2rem;
+            display: flex;
+            align-items: center;
+            border-radius: 0.375rem;
+            margin-bottom: 0.25rem;
+            color: #cbd5e0;
+            transition: all 0.2s ease;
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background-color: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .dark .top-nav {
+            background-color: #1a202c;
+        }
+
+        /* Card Styles */
+        .custom-card {
+            border-radius: 12px;
+
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.375rem;
+        }
+
+        .badge-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 0.125rem 0.5rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* User Menu */
+        .user-menu {
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
+            background-color: white;
+        }
+
+        .dark .user-menu {
+            background-color: #2d3748;
+        }
+
+        .user-menu-item {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            margin: 0.25rem;
+            transition: all 0.2s ease;
+        }
+
+        .user-menu-item:hover {
+            background-color: #f1f5f9;
+        }
+
+        .dark .user-menu-item:hover {
+            background-color: #4a5568;
+        }
+
+        /* Form Elements */
+        .form-select {
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        /* Dark mode toggle */
+        .dark-toggle {
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .dark-toggle:hover {
+            background-color: #f1f5f9;
+        }
+
+        .dark .dark-toggle:hover {
+            background-color: #4a5568;
+        }
+
+        /* Notification badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 50%;
+            min-width: 1.25rem;
+            height: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                margin-left: var(--sidebar-width);
+            }
+        }
+
+        /* Toggle Button */
+        .toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .toggle-btn {
+            background-color: #2d3748;
+        }
+
+        /* Title */
+        .title-oversize {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        @media (min-width: 768px) {
+            .title-oversize {
+                font-size: 1.875rem;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar sidebar-mobile md:translate-x-0 sidebar-transition custom-scrollbar overflow-y-auto">
+        <!-- Header -->
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex items-center space-x-3">
+                <div class="bg-primary-light text-primary w-12 h-12 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-white">CS Wantashi</h1>
+                    <p class="text-sm text-gray-300">Gestion Scolaire</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="p-4 space-y-1">
+            <!-- Dashboard -->
+            <a href="{% url 'dashboard' %}" class="nav-item nav-item-active">
+                <i class="fas fa-tachometer-alt w-5"></i>
+                <span class="ml-3 font-medium">Dashboard</span>
+            </a>
+
+            <!-- Élèves -->
+            <div class="space-y-1">
+                <button class="w-full flex items-center justify-between p-3 rounded-lg text-gray-200 hover:bg-gray-700" onclick="toggleSubmenu('elevesMenu')">
+                    <div class="flex items-center">
+                        <i class="fas fa-user-graduate w-5"></i>
+                        <span class="ml-3 font-medium">Élèves</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-sm transition-transform duration-200" id="elevesChevron"></i>
+                </button>
+                <div id="elevesMenu" class="ml-4 space-y-1 submenu">
+                    <a href="{% url 'ajouter_eleve' %}" class="submenu-item">
+                        <i class="fas fa-user-plus w-4"></i>
+                        <span class="ml-3">Inscription</span>
+                    </a>
+                    <a href="{% url 'reinscription' %}" class="submenu-item">
+                        <i class="fas fa-redo w-4"></i>
+                        <span class="ml-3">Réinscription</span>
+                    </a>
+                    <a href="{% url 'liste_eleves' %}" class="submenu-item">
+                        <i class="fas fa-list w-4"></i>
+                        <span class="ml-3">Liste des élèves</span>
+                    </a>
+                    <a href="{% url 'liste_parents' %}" class="submenu-item">
+                        <i class="fas fa-list w-4"></i>
+                        <span class="ml-3">Liste des Parents</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Paiements -->
+            <div class="space-y-1">
+                <button class="w-full flex items-center justify-between p-3 rounded-lg text-gray-200 hover:bg-gray-700" onclick="toggleSubmenu('paiementsMenu')">
+                    <div class="flex items-center">
+                        <i class="fas fa-credit-card w-5"></i>
+                        <span class="ml-3 font-medium">Paiements</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-sm transition-transform duration-200" id="paiementsChevron"></i>
+                </button>
+                <div id="paiementsMenu" class="ml-4 space-y-1 submenu">
+                    <a href="{% url 'ajouter_paiement' %}" class="submenu-item">
+                        <i class="fas fa-plus-circle w-4"></i>
+                        <span class="ml-3">Ajouter un paiement</span>
+                    </a>
+                    <a href="{% url 'liste_paiements' %}" class="submenu-item">
+                        <i class="fas fa-history w-4"></i>
+                        <span class="ml-3">Historique</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Rapports & Stats -->
+            <div class="space-y-1">
+                <button class="w-full flex items-center justify-between p-3 rounded-lg text-gray-200 hover:bg-gray-700" onclick="toggleSubmenu('rapportsMenu')">
+                    <div class="flex items-center">
+                        <i class="fas fa-chart-pie w-5"></i>
+                        <span class="ml-3 font-medium">Rapports & Stats</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-sm transition-transform duration-200" id="rapportsChevron"></i>
+                </button>
+                <div id="rapportsMenu" class="ml-4 space-y-1 submenu">
+                    <a href="{% url 'bilan_financier' %}" class="submenu-item">
+                        <i class="fas fa-file-alt w-4"></i>
+                        <span class="ml-3">Bilan financier</span>
+                    </a>
+                    <a href="{% url 'suivi_financier' %}" class="submenu-item">
+                        <i class="fas fa-chart-bar w-4"></i>
+                        <span class="ml-3">Suivi financier</span>
+                    </a>
+                    <a href="{% url 'ajouter_depense' %}" class="submenu-item">
+                        <i class="fas fa-minus-circle w-4"></i>
+                        <span class="ml-3">Ajouter dépense</span>
+                    </a>
+                    <a href="{% url 'liste_depenses' %}" class="submenu-item">
+                        <i class="fas fa-list-alt w-4"></i>
+                        <span class="ml-3">Liste dépenses</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sections Dynamiques -->
+            <div class="space-y-1">
+                <button class="w-full flex items-center justify-between p-3 rounded-lg text-gray-200 hover:bg-gray-700" onclick="toggleSubmenu('sectionsMenu')">
+                    <div class="flex items-center">
+                        <i class="fas fa-layer-group w-5"></i>
+                        <span class="ml-3 font-medium">Sections</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-sm transition-transform duration-200" id="sectionsChevron"></i>
+                </button>
+                <div id="sectionsMenu" class="ml-4 space-y-1 submenu">
+                    {% for section_name, content in sections.items %}
+                        <div class="space-y-1">
+                            {% if content.Options %}
+                                <button class="w-full flex items-center justify-between p-2 rounded-lg text-gray-300 hover:bg-gray-700"
+                                        onclick="toggleSubmenu('{{ section_name|slugify }}Menu')">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-folder w-4"></i>
+                                        <span class="ml-3">{{ section_name }}</span>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-xs transition-transform duration-200"></i>
+                                </button>
+                                <div id="{{ section_name|slugify }}Menu" class="ml-4 space-y-1 submenu">
+                                    {% for option_name, classes in content.Options.items %}
+                                        <div class="space-y-1">
+                                            <button class="w-full flex items-center justify-between p-2 rounded-lg text-gray-400 hover:bg-gray-700"
+                                                    onclick="toggleSubmenu('{{ section_name|slugify }}_{{ option_name|slugify }}Menu')">
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-list w-3"></i>
+                                                    <span class="ml-3 text-sm">{{ option_name }}</span>
+                                                </div>
+                                                <i class="fas fa-chevron-right text-xs transition-transform duration-200"></i>
+                                            </button>
+                                            <div id="{{ section_name|slugify }}_{{ option_name|slugify }}Menu" class="ml-4 space-y-1 submenu">
+                                                {% for classe in classes %}
+                                                    {% if classe.id %}
+                                                        <a href="{% url 'details_classe' classe_id=classe.id %}" class="flex items-center p-2 rounded-lg text-gray-400 hover:bg-gray-700 submenu-item">
+                                                            <i class="fas fa-circle text-xs w-3"></i>
+                                                            <span class="ml-3 text-sm">{{ classe.nom }}</span>
+                                                        </a>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <button class="w-full flex items-center justify-between p-2 rounded-lg text-gray-300 hover:bg-gray-700"
+                                        onclick="toggleSubmenu('{{ section_name|slugify }}Menu')">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-layer-forward w-4"></i>
+                                        <span class="ml-3">{{ section_name }}</span>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-xs transition-transform duration-200"></i>
+                                </button>
+                                <div id="{{ section_name|slugify }}Menu" class="ml-4 space-y-1 submenu">
+                                    {% for classe in content %}
+                                        {% if classe.id %}
+                                            <a href="{% url 'details_classe' classe_id=classe.id %}" class="flex items-center p-2 rounded-lg text-gray-400 hover:bg-gray-700 submenu-item">
+                                                <i class="fas fa-circle text-xs w-3"></i>
+                                                <span class="ml-3 text-sm">{{ classe.nom }}</span>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Frais -->
+            <div class="space-y-1">
+                <button class="w-full flex items-center justify-between p-3 rounded-lg text-gray-200 hover:bg-gray-700" onclick="toggleSubmenu('fraisMenu')">
+                    <div class="flex items-center">
+                        <i class="fas fa-money-bill w-5"></i>
+                        <span class="ml-3 font-medium">Frais</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-sm transition-transform duration-200" id="fraisChevron"></i>
+                </button>
+                <div id="fraisMenu" class="ml-4 space-y-1">
+                    <a href="{% url 'liste_frais' %}" class="submenu-item">
+                        <i class="fas fa-list w-4"></i>
+                        <span class="ml-3">Liste des frais</span>
+                    </a>
+                    <a href="{% url 'ajouter_frais' %}" class="submenu-item">
+                        <i class="fas fa-plus w-4"></i>
+                        <span class="ml-3">Ajouter un frais</span>
+                    </a>
+                    <a href="{% url 'ajouter_section_ou_option' %}" class="submenu-item">
+                        <i class="fas fa-address-book w-4"></i>
+                        <span class="ml-3">Ajouter Section/Option</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Utilisateurs -->
+            <div class="space-y-1">
+                <button class="w-full flex items-center justify-between p-3 rounded-lg text-gray-200 hover:bg-gray-700" onclick="toggleSubmenu('utilisateursMenu')">
+                    <div class="flex items-center">
+                        <i class="fas fa-users w-5"></i>
+                        <span class="ml-3 font-medium">Utilisateurs</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-sm transition-transform duration-200" id="utilisateursChevron"></i>
+                </button>
+                <div id="utilisateursMenu" class="ml-4 space-y-1 submenu">
+                    <a href="{% url 'liste_utilisateurs' %}" class="submenu-item">
+                        <i class="fas fa-user-friends w-4"></i>
+                        <span class="ml-3">Liste des utilisateurs</span>
+                    </a>
+                    <a href="{% url 'documentation' %}" class="submenu-item">
+                        <i class="fas fa-book w-4"></i>
+                        <span class="ml-3">Documentation</span>
+                    </a>
+                    <a href="{% url 'historique' %}" class="submenu-item">
+                        <i class="fas fa-clock w-4"></i>
+                        <span class="ml-3">Historiques des opérations</span>
+                    </a>
+                    <a href="{% url 'guide_utilisation' %}" class="submenu-item">
+                        <i class="fas fa-user me-3"></i>
+                        <span class="ml-3">Guide Utilisateur</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content flex-grow">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <!-- Desktop Toggle Button -->
+                        <button id="desktopSidebarToggle" class="toggle-btn hidden md:flex">
+                            <i class="fas fa-bars text-lg" id="toggleIcon"></i>
+                        </button>
+
+                        <!-- Mobile Toggle Button -->
+                        <button id="mobileSidebarToggle" class="toggle-btn md:hidden">
+                            <i class="fas fa-bars text-lg"></i>
+                        </button>
+
+                        <div class="overflow-hidden">
+                            <h1 class="title-oversize text-gray-800 dark:text-white truncate">
+                                {% block page_title %}COMPLEXE SCOLAIRE WANTASHI{% endblock %}
+                            </h1>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Tableau de bord</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <!-- Dark Mode Toggle -->
+                        <button id="darkModeToggle" class="toggle-btn dark-toggle">
+                            <i class="fas fa-moon text-gray-600 dark:text-gray-400" id="darkModeIcon"></i>
+                        </button>
+
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <a class="nav-link relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                               id="notificationDropdown"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fas fa-bell text-gray-600 dark:text-gray-400"></i>
+                                <span class="notification-badge bg-danger rounded-pill text-white text-xs font-bold" id="notifCount">
+                                    {% if request.user.is_authenticated %}
+                                        {{ request.user.get_unread_notifications_count }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                </span>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 hidden"
+                                aria-labelledby="notificationDropdown">
+                                {% if request.user.is_authenticated %}
+                                    {% for notif in request.user.get_latest_notifications %}
+                                        <li>
+                                            <a class="dropdown-item block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 {% if not notif.est_lue %}font-bold{% endif %}"
+                                               href="{% url 'details_notification' notif.id %}">
+                                                {{ notif.historique_action }}
+                                            </a>
+                                        </li>
+                                    {% empty %}
+                                        <li><div class="dropdown-item px-4 py-2 text-gray-500 dark:text-gray-400">Aucune notification</div></li>
+                                    {% endfor %}
+                                    <li><hr class="my-2 border-gray-200 dark:border-gray-700"></li>
+                                    <li>
+                                        <a class="dropdown-item text-center small text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 block px-4 py-2"
+                                           href="{% url 'liste_notifications' %}">Voir toutes</a>
+                                    </li>
+                                {% else %}
+                                    <li><div class="dropdown-item px-4 py-2 text-gray-500 dark:text-gray-400">Connectez-vous pour voir vos notifications</div></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                        <!-- User Menu -->
+                        {% if request.user.is_authenticated %}
+                            <div class="relative">
+                                <button class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                        onclick="toggleUserMenu()">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-white"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300 font-medium hidden md:inline">{{ request.user.username }}</span>
+                                    <i class="fas fa-chevron-down text-gray-400 text-sm hidden md:inline"></i>
+                                </button>
+
+                                <div id="userMenu" class="user-menu absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 hidden">
+                                    <a href="{% url 'detail_utilisateur' request.user.id %}" class="user-menu-item flex items-center">
+                                        <i class="fas fa-user-circle w-4 mr-3"></i>
+                                        Profil
+                                    </a>
+                                    <a href="#" class="user-menu-item flex items-center">
+                                        <i class="fas fa-cog w-4 mr-3"></i>
+                                        Paramètres
+                                    </a>
+                                    <hr class="my-2 border-gray-200 dark:border-gray-700">
+                                    <a href="{% url 'logout' %}" class="user-menu-item flex items-center text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
+                                        <i class="fas fa-sign-out-alt w-4 mr-3"></i>
+                                        Déconnexion
+                                    </a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt mr-2"></i>
+                                <span>Connexion</span>
+                            </a>
+                        {% endif %}
+
+                        <!-- Export Buttons -->
+                        <div class="hidden md:flex space-x-2">
+                            <button class="btn btn-primary btn-sm" onclick="exporter('pdf')">
+
+                                <i class="fas fa-file-pdf mr-1 "  ></i> PDF
+                            </button>
+                            <button class="btn btn-success btn-sm" onclick="exporter('excel')">
+                                <i class="fas fa-file-excel mr-1"  ></i> Excel
+                            </button>
+                            <button class="btn btn-info btn-sm" onclick="exporter('csv')">
+                                <i class="fas fa-file-csv mr-1" ></i> CSV
+                            </button>
+                        </div>
+
+                        <!-- Année scolaire -->
+                        {% if request.user.is_authenticated %}
+                            <div class="relative group hidden md:block">
+                                <form method="post" action="{% url 'changer_annee_scolaire' %}" class="inline-flex items-center space-x-2 bg-white dark:bg-gray-800 p-2 rounded-xl shadow hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                                    {% csrf_token %}
+                                    <label for="annee_scolaire_id" class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Année scolaire :</label>
+                                    <select name="annee_scolaire_id" onchange="this.form.submit()" class="form-select bg-white dark:bg-gray-700 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600">
+                                        {% for a in annees_scolaires %}
+                                            <option value="{{ a.id }}" {% if a.id == annee_scolaire_active.id %}selected{% endif %} class="dark:bg-gray-800">
+                                                {{ a.annee }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content Area -->
+        <div class="p-6 fade-in">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('mobileSidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+
+            sidebar.classList.toggle('sidebar-mobile');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+        });
+
+        // Toggle sidebar on desktop
+        document.getElementById('desktopSidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const icon = document.getElementById('toggleIcon');
+
+            sidebar.classList.toggle('md:-translate-x-full');
+            mainContent.classList.toggle('md:ml-0');
+
+            if (sidebar.classList.contains('md:-translate-x-full')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close sidebar when clicking on overlay
+        document.getElementById('mobileOverlay').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+
+            sidebar.classList.add('sidebar-mobile');
+            overlay.classList.add('opacity-0');
+            overlay.classList.add('pointer-events-none');
+        });
+
+        // Toggle submenus
+        function toggleSubmenu(menuId) {
+            const menu = document.getElementById(menuId);
+            const chevron = document.getElementById(menuId.replace('Menu', 'Chevron'));
+
+            menu.classList.toggle('open');
+
+            if (chevron) {
+                chevron.classList.toggle('rotate-180');
+            }
+        }
+
+        // Toggle user menu
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('userMenu');
+            userMenu.classList.toggle('hidden');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('userMenu');
+            const notificationDropdown = document.querySelector('[aria-labelledby="notificationDropdown"]');
+
+            if (userMenu && !event.target.closest('#userMenu') && !event.target.closest('[onclick="toggleUserMenu()"]')) {
+                userMenu.classList.add('hidden');
+            }
+
+            if (notificationDropdown && !event.target.closest('.dropdown-menu') && !event.target.closest('[data-bs-toggle="dropdown"]')) {
+                notificationDropdown.classList.add('hidden');
+            }
+        });
+
+        // Toggle dark mode
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('darkModeIcon');
+
+            if (document.documentElement.classList.contains('dark')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    </script>
+  <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Global variables
+    let sidebarCollapsed = false;
+    let darkMode = localStorage.getItem('darkMode') === 'true';
+
+    // Update dark mode icon
+    function updateDarkModeIcon(isDark) {
+        const icon = document.getElementById('darkModeIcon');
+        if (icon) {
+            icon.className = isDark
+                ? 'fas fa-sun text-gray-600 dark:text-gray-400'
+                : 'fas fa-moon text-gray-600 dark:text-gray-400';
+        }
+    }
+
+     // Submenu toggle function
+        function toggleSubmenu(menuId) {
+            const menu = document.getElementById(menuId);
+            const chevronId = menuId.replace('Menu', 'Chevron');
+            const chevron = document.getElementById(chevronId);
+
+            if (menu) {
+                menu.classList.toggle('hidden');
+                if (chevron) {
+                    if (menu.classList.contains('hidden')) {
+                        chevron.style.transform = 'rotate(0deg)';
+                    } else {
+                        chevron.style.transform = 'rotate(180deg)';
+                    }
+                }
+            }
+        }
+
+    // Toggle user menu
+    function toggleUserMenu() {
+        const userMenu = document.getElementById('userMenu');
+        if (userMenu) {
+            userMenu.classList.toggle('hidden');
+        }
+    }
+
+    // Export data
+    function exporter(format) {
+        const table = document.getElementById('exportable-table');
+
+        if (!table) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erreur',
+                text: 'Aucun tableau trouvé sur cette page.',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+        const title = table.getAttribute('data-export-title') || 'Export';
+        const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText.trim());
+        const rows = Array.from(table.querySelectorAll('tbody tr')).map(tr =>
+            Array.from(tr.querySelectorAll('td')).map(td => td.innerText.trim())
+        );
+
+        fetch('/api/export/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: "Export de données", columns: headers, rows: rows, format: format })
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Échec de l'export");
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `export.${format}`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        })
+        .catch(err => {
+            console.error("Erreur lors de l'export :", err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: "Impossible d'exporter les données.",
+                confirmButtonText: 'OK'
+            });
+        });
+    }
+
+    // Initialize event listeners
+    document.addEventListener('DOMContentLoaded', function () {
+        // Dark mode initialization
+        if (darkMode) {
+            document.documentElement.classList.add('dark');
+            updateDarkModeIcon(true);
+        }
+
+        // Dark mode toggle
+        document.getElementById('darkModeToggle')?.addEventListener('click', function () {
+            darkMode = !darkMode;
+            localStorage.setItem('darkMode', darkMode);
+            document.documentElement.classList.toggle('dark', darkMode);
+            updateDarkModeIcon(darkMode);
+        });
+
+        // Mobile sidebar toggle
+        document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+
+            sidebar.classList.toggle('show');
+            if (sidebar.classList.contains('show')) {
+                overlay.classList.add('opacity-50', 'pointer-events-auto');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                overlay.classList.remove('opacity-50', 'pointer-events-auto');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        // Desktop sidebar toggle
+        document.getElementById('desktopSidebarToggle')?.addEventListener('click', function () {
+            sidebarCollapsed = !sidebarCollapsed;
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const icon = document.getElementById('toggleIcon');
+
+            if (sidebarCollapsed) {
+                sidebar.classList.add('w-16');
+                sidebar.classList.remove('w-72');
+                mainContent.classList.remove('md:ml-72');
+                mainContent.classList.add('md:ml-16');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-chevron-right');
+                document.querySelectorAll('.nav-text').forEach(el => el.classList.add('hidden'));
+            } else {
+                sidebar.classList.remove('w-16');
+                sidebar.classList.add('w-72');
+                mainContent.classList.remove('md:ml-16');
+                mainContent.classList.add('md:ml-72');
+                icon.classList.remove('fa-chevron-right');
+                icon.classList.add('fa-bars');
+                document.querySelectorAll('.nav-text').forEach(el => el.classList.remove('hidden'));
+            }
+        });
+
+        // Close mobile sidebar on overlay click
+        document.getElementById('mobileOverlay')?.addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+
+            sidebar.classList.remove('show');
+            overlay.classList.remove('opacity-50', 'pointer-events-auto');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+        });
+
+        // Close user menu on outside click
+        document.addEventListener('click', function (event) {
+            const userMenu = document.getElementById('userMenu');
+            const userButton = event.target.closest('button');
+
+            if (userMenu && (!userButton || !userButton.onclick)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function () {
+            if (window.innerWidth >= 768) {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('mobileOverlay');
+
+                sidebar.classList.remove('show');
+                overlay.classList.remove('opacity-50', 'pointer-events-auto');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        // Parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const parallaxItems = document.querySelectorAll('.parallax-item');
+            const x = (window.innerWidth - e.pageX) / 100;
+            const y = (window.innerHeight - e.pageY) / 100;
+
+            parallaxItems.forEach(item => {
+                item.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    });
+</script>
+<script>
+    window.Chart = window.Chart || {};
+    window.Chart.defaults = window.Chart.defaults || {};
+    window.Chart.defaults.global = window.Chart.defaults.global || {};
+    window.Chart.defaults.global.animation = false;
+</script>
+</body>
+</html>

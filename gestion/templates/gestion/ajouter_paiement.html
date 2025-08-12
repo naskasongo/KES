@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Formulaire de Paiement{% endblock %}
+{% block extrahead %}
+<!-- Chargement du fichier JS -->
+<script src="{% static '/js/paiement.js' %}"></script>
+   <link rel="stylesheet" href="{% static 'css/paiement.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header -->
+    <div class="text-center mb-1" data-aos="fade-down">
+        <div class="mb-0 flex justify-center">
+            <div class="bg-primary-light p-4 rounded-full text-primary">
+                <i class="fas fa-cash-register text-3xl"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Gestion des Paiements</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">Enregistrez les paiements et consultez l'historique</p>
+    </div>
+
+    <!-- Alerts -->
+    <div class="mb-4 max-w-4xl mx-auto" id="alertContainer">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="bg-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-100 border-l-4 border-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-500 text-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-700 p-4 rounded-md shadow-sm mb-4" role="alert" data-aos="fade-in">
+                <div class="flex items-center">
+                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-triangle{% endif %} mr-3"></i>
+                    <div>{{ message }}</div>
+                    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-700 h-8 w-8 rounded-lg flex items-center justify-center" data-bs-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Main Content Card -->
+    <div class=" rounded-xl shadow overflow-hidden max-w-4xl mx-auto" data-aos="fade-up">
+        <!-- Tabs Navigation -->
+        <div class="border-b">
+            <div class="flex max-w-4xl mx-auto">
+                <div class="nav-tab active py-4 px-6 text-center flex-1" data-tab="nouveau">
+                    <div class="flex flex-col items-center">
+                        <i class="fas fa-plus-circle mb-2"></i>
+                        <span>Nouveau Paiement</span>
+                    </div>
+                </div>
+                <div class="nav-tab py-4 px-6 text-center flex-1" data-tab="historique">
+                    <div class="flex flex-col items-center">
+                        <i class="fas fa-history mb-2"></i>
+                        <span>Historique</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="px-8 pt-8">
+            <div class="step-container">
+                <div class="step active">
+                    <div class="step-circle">1</div>
+                    <div class="text-xs text-gray-600">Recherche</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <div class="text-xs text-gray-600">Sélection</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <div class="text-xs text-gray-600">Paiement</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <div class="text-xs text-gray-600">Confirmation</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <!-- Tab 1: Nouveau Paiement -->
+            <div class="tab-content active" id="nouveau-tab">
+                <div class="custom-card p-5 bg-white mb-6" data-aos="fade-up" data-aos-delay="150">
+                    <h3 class="font-semibold text-lg mb-4 text-gray-800">Recherche de l'élève</h3>
+                    <div class="search-student mb-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-id-card"></i>
+                            </span>
+                            <input type="text" id="id_matricule" class="form-control"
+                                   placeholder="Entrez le matricule de l'élève">
+                            <button type="button" id="btn-recherche-matricule" class="btn btn-primary">
+                                <i class="fas fa-search mr-2"></i>Rechercher
+                            </button>
+                        </div>
+                        <div id="matricule-message" class="mt-2 small text-gray-500"></div>
+                    </div>
+                </div>
+
+                <form method="post" id="paiement-form">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Informations scolaires</h3>
+                            <div class="space-y-4">
+                                <div class="form-group">
+                                    <label for="id_section" class="form-label">
+                                        <i class="fas fa-layer-group mr-2 text-primary"></i>Section
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-layer-group"></i></span>
+                                        {{ form.section }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_option" class="form-label">
+                                        <i class="fas fa-tags mr-2 text-primary"></i>Option
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-tags"></i></span>
+                                        {{ form.option }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_classe" class="form-label">
+                                        <i class="fas fa-graduation-cap mr-2 text-primary"></i>Classe
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-graduation-cap"></i></span>
+                                        {{ form.classe }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_eleve" class="form-label">
+                                        <i class="fas fa-user-graduate mr-2 text-primary"></i>Élève
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-user-graduate"></i></span>
+                                        {{ form.eleve }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="250">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Détails du paiement</h3>
+                            <div class="space-y-4">
+                                <div class="form-group">
+                                    <label for="id_frais" class="form-label">
+                                        <i class="fas fa-wallet mr-2 text-primary"></i>Frais
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-wallet"></i></span>
+                                        {{ form.frais }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_type_frais" class="form-label">
+                                        <i class="fas fa-tag mr-2 text-primary"></i>Type de Frais
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-tag"></i></span>
+                                        <input type="text" id="id_type_frais" class="form-control" readonly>
+                                    </div>
+                                    <div id="type-frais-badge" class="mt-2"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_mois" class="form-label">
+                                        <i class="fas fa-calendar-alt mr-2 text-primary"></i>Mois
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-calendar-alt"></i></span>
+                                        {{ form.mois }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_tranche" class="form-label">
+                                        <i class="fas fa-calendar-week mr-2 text-primary"></i>Tranche
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-calendar-week"></i></span>
+                                        {{ form.tranche }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-5 bg-white md:col-span-2" data-aos="fade-up" data-aos-delay="300">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Montants</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="form-group">
+                                    <label for="id_montant_a_payer" class="form-label">
+                                        <i class="fas fa-money-bill-wave mr-2 text-primary"></i>Montant à Payer
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-money-bill-wave"></i></span>
+                                        <input type="text" id="id_montant_a_payer" class="form-control" readonly>
+                                    </div>
+                                    <div id="solde-precedent-info" class="alert bg-warning-light text-warning mt-2 d-none small p-2 rounded"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_montant_paye" class="form-label">
+                                        <i class="fas fa-coins mr-2 text-primary"></i>Montant Payé
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-coins"></i></span>
+                                        {{ form.montant_paye }}
+                                    </div>
+                                    <div class="progress mt-2" id="payment-progress" style="height: 8px; display: none;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_solde_restant" class="form-label">
+                                        <i class="fas fa-piggy-bank mr-2 text-primary"></i>Solde Restant
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fas fa-piggy-bank"></i></span>
+                                        <input type="text" id="id_solde_restant" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save mr-2"></i>Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tab 2: Historique -->
+            <div class="tab-content" id="historique-tab">
+                <div class="custom-card p-5 bg-transparent" data-aos="fade-up">
+                    <h3 class="font-semibold text-lg mb-4 text-gray-800">
+                        <i class="fas fa-table mr-2 text-primary"></i>Historique des Paiements
+                    </h3>
+
+                    <div class="overflow-x-auto">
+                        <table class="table table-hover min-w-full text-sm" id="grille-paiement">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mois/Tranche</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Frais</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant Payé</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Solde</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td colspan="7" class="px-4 py-8 text-center text-gray-500">
+                                        <i class="fas fa-user-graduate text-2xl mb-3"></i>
+                                        <p class="mb-0">Sélectionnez un élève pour voir son historique</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AOS JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="{% static '/js/paiement.js' %}"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to current tab and content
+                this.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(tabId);
+            });
+        });
+
+        // Function to update steps
+        function updateSteps(currentTabId) {
+            const steps = document.querySelectorAll('.step');
+
+            // Reset all steps
+            steps.forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+
+            // Set completed and active steps based on current tab
+            if (currentTabId === 'nouveau') {
+                steps[0].classList.add('active');
+            } else if (currentTabId === 'historique') {
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            }
+        }
+    });
+</script>
+{% endblock %}

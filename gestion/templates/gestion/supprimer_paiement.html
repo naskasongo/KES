@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-danger">Confirmer la Suppression</h2>
+    <p class="text-center">
+        Êtes-vous sûr de vouloir supprimer le paiement suivant ?<br>
+        Cette action est définitive.
+    </p>
+
+    <div class="alert alert-warning w-50 mx-auto mt-3">
+        <strong>Élève :</strong> {{ paiement.eleve.nom }} {{ paiement.eleve.post_nom }}<br>
+        <strong>Frais :</strong> {{ paiement.frais.nom }}<br>
+        <strong>Mois :</strong> {{ paiement.mois|default:"-" }}<br>
+        <strong>Montant payé :</strong> {{ paiement.montant_paye }} FC<br>
+        <strong>Date :</strong> {{ paiement.date_paiement }}
+    </div>
+
+    <div class="text-center">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="password">Mot de passe administrateur</label>
+                <input type="password" id="password" name="password" class="form-control w-50 mx-auto" required>
+            </div>
+
+            <button type="submit" class="btn btn-danger mt-3">
+                <i class="bi bi-trash"></i> Confirmer la suppression
+            </button>
+            <a href="{% url 'liste_paiements' %}" class="btn btn-secondary mt-3">
+                <i class="bi bi-arrow-left"></i> Annuler
+            </a>
+        </form>
+    </div>
+</div>
+{% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

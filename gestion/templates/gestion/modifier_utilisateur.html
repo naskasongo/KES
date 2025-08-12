@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block title %}Modifier utilisateur - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Messages notifications -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible fade show alert-{{ message.tags }} mb-4">
+            <div class="d-flex align-items-center">
+                <i class="bi {% if message.tags == 'success' %}bi-check-circle-fill{% else %}bi-exclamation-triangle-fill{% endif %} me-2"></i>
+                <div>{{ message }}</div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <!-- Card Header -->
+                <div class="card-header bg-gradient-success text-white py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="h4 mb-0">
+                            <i class="bi bi-person-gear me-2"></i>Modification d'utilisateur
+                        </h2>
+                        <span class="badge bg-white text-success fs-6">ID: {{ form.instance.id }}</span>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body p-4 p-lg-5">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Username Field -->
+                        <div class="mb-4">
+                            <label for="{{ form.username.id_for_label }}" class="form-label fw-medium">
+                                <i class="bi bi-person-badge me-2 text-success"></i>Nom d'utilisateur
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="bi bi-at text-muted"></i></span>
+                                {{ form.username }}
+                            </div>
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.username.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- First & Last Name Row -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label fw-medium">
+                                    <i class="bi bi-person me-2 text-success"></i>Prénom
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-text-paragraph text-muted"></i></span>
+                                    {{ form.first_name }}
+                                </div>
+                                {% if form.first_name.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.first_name.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.last_name.id_for_label }}" class="form-label fw-medium">
+                                    <i class="bi bi-person me-2 text-success"></i>Nom
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-text-paragraph text-muted"></i></span>
+                                    {{ form.last_name }}
+                                </div>
+                                {% if form.last_name.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.last_name.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Role Field -->
+                        <div class="mb-4">
+                            <label for="{{ form.role.id_for_label }}" class="form-label fw-medium">
+                                <i class="bi bi-shield me-2 text-success"></i>Rôle
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="bi bi-list-ul text-muted"></i></span>
+                                {{ form.role }}
+                            </div>
+                            {% if form.role.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.role.errors.0 }}
+                                </div>
+                            {% endif %}
+                            <small class="text-muted mt-1 d-block">Définir les permissions de l'utilisateur</small>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-grid gap-3 d-md-flex justify-content-md-end mt-4 pt-3 border-top">
+                            <a href="{% url 'liste_utilisateurs' %}" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-arrow-left me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="bi bi-check-circle me-2"></i>Enregistrer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-success {
+        background: linear-gradient(135deg, #28a745 0%, #59d171 100%);
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+    }
+    
+    .input-group-text {
+        transition: all 0.3s ease;
+    }
+    
+    .input-group:focus-within .input-group-text {
+        background-color: #e8f5e9;
+        color: #28a745;
+    }
+    
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+</style>
+
+<script>
+    // Activer la validation Bootstrap
+    (function () {
+        'use strict'
+        
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}

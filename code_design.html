@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réinscription Élève - Interface Moderne</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+    <!-- AOS - Animate On Scroll Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #eaefff;
+            --secondary: #3a0ca3;
+            --success: #2ecc71;
+            --success-light: #e8f8f2;
+            --danger: #e74c3c;
+            --danger-light: #fdeeec;
+            --warning: #f39c12;
+            --info: #3498db;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg-light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background-color: var(--bg-light);
+        }
+
+        .bg-primary { background-color: var(--primary) !important; }
+        .bg-primary-light { background-color: var(--primary-light) !important; }
+        .bg-success-light { background-color: var(--success-light) !important; }
+        .bg-danger-light { background-color: var(--danger-light) !important; }
+
+        .text-primary { color: var(--primary) !important; }
+        .text-secondary { color: var(--secondary) !important; }
+        .text-success { color: var(--success) !important; }
+        .text-danger { color: var(--danger) !important; }
+
+        .border-primary { border-color: var(--primary) !important; }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .nav-tab {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-tab.active::after,
+        .nav-tab:hover::after {
+            width: 100%;
+        }
+
+        .nav-tab.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Custom Card Style */
+        .custom-card {
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Form Elements */
+        .form-input, .form-select {
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Custom Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #cbd5e0;
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Icon Circle */
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .icon-circle-sm {
+            width: 36px;
+            height: 36px;
+        }
+
+        /* Progress Steps */
+        .step-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 2rem;
+            z-index: 1;
+        }
+
+        .step-container::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #e2e8f0;
+            z-index: -1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-circle {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .step.completed .step-circle {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .avatar-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <div class="text-center mb-10" data-aos="fade-down">
+            <div class="mb-4 flex justify-center">
+                <div class="bg-primary-light p-4 rounded-full text-primary">
+                    <i class="fas fa-user-graduate text-3xl"></i>
+                </div>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Réinscription de l'élève</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">Complétez le formulaire pour réinscrire un élève pour la nouvelle année scolaire.</p>
+        </div>
+
+        <!-- Alerts -->
+        <div class="mb-8 max-w-4xl mx-auto" id="alertContainer">
+            <!-- Example Alert (can be dynamically generated) -->
+            <!-- <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-sm mb-4" role="alert">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-3"></i>
+                    <div>L'élève a été réinscrit avec succès!</div>
+                </div>
+            </div> -->
+        </div>
+
+        <!-- Main Content Card -->
+        <div class="bg-white rounded-xl shadow-xl overflow-hidden max-w-4xl mx-auto" data-aos="fade-up">
+            <!-- Matricule Search Form -->
+            <div class="p-6 border-b">
+                <form id="searchForm" class="max-w-xl mx-auto">
+                    <label class="form-label text-gray-700 mb-1">Matricule de l'élève</label>
+                    <div class="flex items-center">
+                        <div class="relative flex-1">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-id-card text-gray-400"></i>
+                            </div>
+                            <input type="text" id="matricule" name="matricule" placeholder="Entrez le matricule de l'élève"
+                                   class="form-input pl-10" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary ml-3">
+                            <i class="fas fa-search mr-2"></i> Rechercher
+                        </button>
+                    </div>
+                    <div class="text-right text-sm text-gray-500 mt-1">Saisissez le matricule de l'élève à réinscrire</div>
+                </form>
+            </div>
+
+            <!-- Student Data (shown after search) -->
+            <div id="studentData" class="hidden">
+                <!-- Tabs Navigation -->
+                <div class="border-b">
+                    <div class="flex max-w-4xl mx-auto">
+                        <div class="nav-tab active py-4 px-6 text-center flex-1" data-tab="identity">
+                            <div class="flex flex-col items-center">
+                                <i class="fas fa-user mb-2"></i>
+                                <span>Identité de l'élève</span>
+                            </div>
+                        </div>
+                        <div class="nav-tab py-4 px-6 text-center flex-1" data-tab="payment">
+                            <div class="flex flex-col items-center">
+                                <i class="fas fa-history mb-2"></i>
+                                <span>Historique & frais</span>
+                            </div>
+                        </div>
+                        <div class="nav-tab py-4 px-6 text-center flex-1" data-tab="class">
+                            <div class="flex flex-col items-center">
+                                <i class="fas fa-school mb-2"></i>
+                                <span>Nouvelle classe</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Steps -->
+                <div class="px-8 pt-8">
+                    <div class="step-container">
+                        <div class="step completed">
+                            <div class="step-circle">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="text-xs text-gray-600">Recherche</div>
+                        </div>
+                        <div class="step active">
+                            <div class="step-circle">2</div>
+                            <div class="text-xs text-gray-600">Vérification</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-circle">3</div>
+                            <div class="text-xs text-gray-600">Affectation</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-circle">4</div>
+                            <div class="text-xs text-gray-600">Confirmation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <!-- Tab 1: Identity -->
+                    <div class="tab-content active" id="identity-tab">
+                        <div class="flex items-center mb-6" data-aos="fade-right" data-aos-delay="100">
+                            <div class="avatar-circle mr-4">JD</div>
+                            <div>
+                                <h2 class="text-2xl font-bold">Jean Dupont</h2>
+                                <p class="text-gray-600">Matricule: MAT-2023-5678</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="150">
+                                <h3 class="font-semibold text-lg mb-4 text-gray-800">Informations personnelles</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">Nom complet</p>
+                                            <p class="font-medium">Jean Dupont Kabongo</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                            <i class="fas fa-calendar"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">Date de naissance</p>
+                                            <p class="font-medium">15/05/2007</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">Adresse</p>
+                                            <p class="font-medium">123 Avenue Centrale, Kinshasa</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="200">
+                                <h3 class="font-semibold text-lg mb-4 text-gray-800">Information académique</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">Classe précédente</p>
+                                            <p class="font-medium">5ème Secondaire</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">Section</p>
+                                            <p class="font-medium">Scientifique</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">Performance</p>
+                                            <p class="font-medium">80% (Distinction)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-5 bg-white mb-6" data-aos="fade-up" data-aos-delay="250">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Contact des parents/tuteurs</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-user-friends"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Nom du parent</p>
+                                        <p class="font-medium">André Dupont</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Téléphone</p>
+                                        <p class="font-medium">+243 89 123 4567</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Email</p>
+                                        <p class="font-medium">parent@example.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Profession</p>
+                                        <p class="font-medium">Ingénieur</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button class="btn btn-primary next-tab" data-next="payment">
+                                Continuer <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Payment History -->
+                    <div class="tab-content" id="payment-tab">
+                        <h2 class="text-xl font-bold mb-6 flex items-center" data-aos="fade-right">
+                            <i class="fas fa-history mr-3 text-primary"></i>
+                            Historique des paiements
+                        </h2>
+
+                        <div class="mb-8">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div class="custom-card p-5 text-center" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="rounded-full bg-primary-light w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-file-invoice-dollar text-primary"></i>
+                                    </div>
+                                    <h3 class="text-sm text-gray-500 uppercase font-medium">Frais à payer</h3>
+                                    <p class="text-2xl font-bold text-primary mt-2">350.000 CDF</p>
+                                </div>
+
+                                <div class="custom-card p-5 text-center" data-aos="fade-up" data-aos-delay="150">
+                                    <div class="rounded-full bg-success-light w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-money-bill-wave text-success"></i>
+                                    </div>
+                                    <h3 class="text-sm text-gray-500 uppercase font-medium">Montant payé</h3>
+                                    <p class="text-2xl font-bold text-success mt-2">280.000 CDF</p>
+                                </div>
+
+                                <div class="custom-card p-5 text-center" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="rounded-full bg-danger-light w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-exclamation-circle text-danger"></i>
+                                    </div>
+                                    <h3 class="text-sm text-gray-500 uppercase font-medium">Reste à payer</h3>
+                                    <p class="text-2xl font-bold text-danger mt-2">70.000 CDF</p>
+                                </div>
+                            </div>
+
+                            <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="250">
+                                <h3 class="font-semibold text-lg mb-4 flex items-center">
+                                    <i class="fas fa-receipt mr-2 text-primary"></i>
+                                    Récapitulatif des frais
+                                </h3>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left">
+                                        <thead>
+                                            <tr class="bg-gray-50">
+                                                <th class="px-4 py-3 text-sm font-medium text-gray-600">Type de frais</th>
+                                                <th class="px-4 py-3 text-sm font-medium text-gray-600">Montant</th>
+                                                <th class="px-4 py-3 text-sm font-medium text-gray-600">Statut</th>
+                                                <th class="px-4 py-3 text-sm font-medium text-gray-600">Date limite</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-b">
+                                                <td class="px-4 py-3">Frais d'inscription</td>
+                                                <td class="px-4 py-3">50.000 CDF</td>
+                                                <td class="px-4 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Payé</span></td>
+                                                <td class="px-4 py-3 text-sm text-gray-500">15/08/2023</td>
+                                            </tr>
+                                            <tr class="border-b">
+                                                <td class="px-4 py-3">Minerval 1er trimestre</td>
+                                                <td class="px-4 py-3">100.000 CDF</td>
+                                                <td class="px-4 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Payé</span></td>
+                                                <td class="px-4 py-3 text-sm text-gray-500">30/09/2023</td>
+                                            </tr>
+                                            <tr class="border-b">
+                                                <td class="px-4 py-3">Minerval 2ème trimestre</td>
+                                                <td class="px-4 py-3">100.000 CDF</td>
+                                                <td class="px-4 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Payé</span></td>
+                                                <td class="px-4 py-3 text-sm text-gray-500">15/01/2024</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-3">Minerval 3ème trimestre</td>
+                                                <td class="px-4 py-3">100.000 CDF</td>
+                                                <td class="px-4 py-3"><span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">Non payé</span></td>
+                                                <td class="px-4 py-3 text-sm text-gray-500">15/04/2024</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 class="text-xl font-bold mb-4 flex items-center" data-aos="fade-right">
+                            <i class="fas fa-credit-card mr-3 text-primary"></i>
+                            Transactions effectuées
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                            <div class="custom-card p-4 bg-white" data-aos="fade-up" data-aos-delay="100">
+                                <div class="flex justify-between mb-3">
+                                    <span class="px-2 py-1 bg-primary-light text-primary text-xs rounded-full">Frais d'inscription</span>
+                                    <span class="text-gray-500 text-sm">15/08/2023</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="bg-success-light rounded-full p-2 mr-3">
+                                        <i class="fas fa-check text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-success">50.000 CDF</h4>
+                                        <p class="text-xs text-gray-500">Reçu #12345</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="custom-card p-4 bg-white" data-aos="fade-up" data-aos-delay="150">
+                                <div class="flex justify-between mb-3">
+                                    <span class="px-2 py-1 bg-primary-light text-primary text-xs rounded-full">Minerval 1er trimestre</span>
+                                    <span class="text-gray-500 text-sm">30/09/2023</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="bg-success-light rounded-full p-2 mr-3">
+                                        <i class="fas fa-check text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-success">100.000 CDF</h4>
+                                        <p class="text-xs text-gray-500">Reçu #12346</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="custom-card p-4 bg-white" data-aos="fade-up" data-aos-delay="200">
+                                <div class="flex justify-between mb-3">
+                                    <span class="px-2 py-1 bg-primary-light text-primary text-xs rounded-full">Minerval 2ème trimestre</span>
+                                    <span class="text-gray-500 text-sm">15/01/2024</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="bg-success-light rounded-full p-2 mr-3">
+                                        <i class="fas fa-check text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-success">100.000 CDF</h4>
+                                        <p class="text-xs text-gray-500">Reçu #12458</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button class="btn btn-outline prev-tab" data-prev="identity">
+                                <i class="fas fa-arrow-left mr-2"></i> Retour
+                            </button>
+                            <button class="btn btn-primary next-tab" data-next="class">
+                                Continuer <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: New Class Assignment -->
+                    <div class="tab-content" id="class-tab">
+                        <h2 class="text-xl font-bold mb-6 flex items-center" data-aos="fade-right">
+                            <i class="fas fa-school mr-3 text-primary"></i>
+                            Nouvelle classe
+                        </h2>
+
+                        <div class="custom-card p-6 bg-white mb-8" data-aos="fade-up" data-aos-delay="100">
+                            <h3 class="font-semibold text-lg mb-4 flex items-center">
+                                <i class="fas fa-chalkboard-teacher mr-2 text-primary"></i>
+                                Sélection de la classe
+                            </h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div>
+                                    <label class="form-label flex items-center">
+                                        <i class="fas fa-sitemap mr-2 text-primary"></i>
+                                        Section
+                                    </label>
+                                    <select class="form-select" id="section">
+                                        <option value="">-- Choisir une section --</option>
+                                        <option value="1" selected>Scientifique</option>
+                                        <option value="2">Littéraire</option>
+                                        <option value="3">Commerciale</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="form-label flex items-center">
+                                        <i class="fas fa-tags mr-2 text-primary"></i>
+                                        Option
+                                    </label>
+                                    <select class="form-select" id="option">
+                                        <option value="">-- Choisir une option --</option>
+                                        <option value="1" selected>Biologie-Chimie</option>
+                                        <option value="2">Math-Physique</option>
+                                        <option value="3">Informatique</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="form-label flex items-center">
+                                        <i class="fas fa-graduation-cap mr-2 text-primary"></i>
+                                        Classe
+                                    </label>
+                                    <select class="form-select" id="classe" required>
+                                        <option value="">-- Choisir une classe --</option>
+                                        <option value="1" selected>6ème Scientifique</option>
+                                        <option value="2">6ème Biologie-Chimie A</option>
+                                        <option value="3">6ème Biologie-Chimie B</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 p-4 bg-primary-light rounded-lg border border-primary border-opacity-20" data-aos="fade-up" data-aos-delay="150">
+                                <div class="flex items-start">
+                                    <i class="fas fa-info-circle text-primary mt-1 mr-3"></i>
+                                    <div>
+                                        <h4 class="font-medium text-primary">Information importante</h4>
+                                        <p class="text-sm text-gray-600">L'élève sera inscrit dans la classe sélectionnée pour l'année académique 2023-2024. Assurez-vous que toutes les informations sont correctes avant de confirmer.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-6 bg-white mb-8" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="font-semibold text-lg mb-4 flex items-center">
+                                <i class="fas fa-clipboard-check mr-2 text-primary"></i>
+                                Résumé de la réinscription
+                            </h3>
+
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Élève</p>
+                                        <p class="font-medium">Jean Dupont Kabongo</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Ancienne classe</p>
+                                        <p class="font-medium">5ème Scientifique</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Nouvelle classe</p>
+                                        <p class="font-medium">6ème Scientifique</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Année académique</p>
+                                        <p class="font-medium">2023-2024</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-danger-light text-danger icon-circle-sm">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Solde impayé</p>
+                                        <p class="font-medium text-danger">70.000 CDF</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button class="btn btn-outline prev-tab" data-prev="payment">
+                                <i class="fas fa-arrow-left mr-2"></i> Retour
+                            </button>
+                            <button class="btn btn-primary" id="confirmButton">
+                                <i class="fas fa-check-circle mr-2"></i> Confirmer la réinscription
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl p-6 max-w-md mx-auto">
+            <div class="text-center mb-4">
+                <div class="bg-primary-light rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check-circle text-3xl text-primary"></i>
+                </div>
+                <h2 class="text-xl font-bold mb-2">Confirmation de réinscription</h2>
+                <p class="text-gray-600">Voulez-vous confirmer la réinscription de <span class="font-medium">Jean Dupont</span> en <span class="font-medium">6ème Scientifique</span> pour l'année 2023-2024?</p>
+            </div>
+
+            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-4">
+                <div class="flex items-start">
+                    <i class="fas fa-info-circle text-yellow-500 mt-1 mr-3"></i>
+                    <div>
+                        <p class="text-sm text-gray-700">Un solde de <span class="font-bold">70.000 CDF</span> reste impayé. La réinscription sera provisoire jusqu'au règlement complet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-3">
+                <button id="cancelButton" class="btn btn-outline">
+                    <i class="fas fa-times mr-2"></i> Annuler
+                </button>
+                <button id="proceedButton" class="btn btn-primary">
+                    <i class="fas fa-check mr-2"></i> Confirmer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div id="successNotification" class="fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 flex items-center max-w-md transform translate-y-20 opacity-0 transition-all duration-500 z-50">
+        <div class="bg-green-100 rounded-full p-2 mr-3">
+            <i class="fas fa-check text-green-500"></i>
+        </div>
+        <div>
+            <h4 class="font-medium">Réinscription réussie!</h4>
+            <p class="text-sm text-gray-600">L'élève a été réinscrit avec succès pour l'année académique 2023-2024.</p>
+        </div>
+    </div>
+
+    <!-- AOS JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab Navigation
+            const tabs = document.querySelectorAll('.nav-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to current tab and content
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+
+                    // Update steps
+                    updateSteps(tabId);
+                });
+            });
+
+            // Next/Prev tab navigation
+            const nextTabButtons = document.querySelectorAll('.next-tab');
+            const prevTabButtons = document.querySelectorAll('.prev-tab');
+
+            nextTabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const nextTabId = this.getAttribute('data-next');
+
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to next tab and content
+                    document.querySelector(`.nav-tab[data-tab="${nextTabId}"]`).classList.add('active');
+                    document.getElementById(`${nextTabId}-tab`).classList.add('active');
+
+                    // Update steps
+                    updateSteps(nextTabId);
+                });
+            });
+
+            prevTabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const prevTabId = this.getAttribute('data-prev');
+
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to previous tab and content
+                    document.querySelector(`.nav-tab[data-tab="${prevTabId}"]`).classList.add('active');
+                    document.getElementById(`${prevTabId}-tab`).classList.add('active');
+
+                    // Update steps
+                    updateSteps(prevTabId);
+                });
+            });
+
+            // Form Submit
+            const searchForm = document.getElementById('searchForm');
+            const studentData = document.getElementById('studentData');
+
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Simulate loading
+                const matricule = document.getElementById('matricule').value;
+                if (matricule.trim() === '') return;
+
+                // Show student data after "searching"
+                setTimeout(() => {
+                    studentData.classList.remove('hidden');
+                    // Add success message
+                    const alertContainer = document.getElementById('alertContainer');
+                    alertContainer.innerHTML = `
+                        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-sm mb-4" role="alert" data-aos="fade-in">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle mr-3"></i>
+                                <div>Élève trouvé! Veuillez vérifier les informations et continuer.</div>
+                            </div>
+                        </div>
+                    `;
+                    // Update steps
+                    updateSteps('identity');
+                }, 1000);
+            });
+
+            // Confirmation Modal
+            const confirmButton = document.getElementById('confirmButton');
+            const confirmationModal = document.getElementById('confirmationModal');
+            const cancelButton = document.getElementById('cancelButton');
+            const proceedButton = document.getElementById('proceedButton');
+            const successNotification = document.getElementById('successNotification');
+
+            confirmButton.addEventListener('click', function() {
+                confirmationModal.classList.remove('hidden');
+            });
+
+            cancelButton.addEventListener('click', function() {
+                confirmationModal.classList.add('hidden');
+            });
+
+            proceedButton.addEventListener('click', function() {
+                confirmationModal.classList.add('hidden');
+
+                // Show success notification
+                successNotification.classList.remove('translate-y-20', 'opacity-0');
+
+                // Hide notification after 5 seconds
+                setTimeout(() => {
+                    successNotification.classList.add('translate-y-20', 'opacity-0');
+                }, 5000);
+
+                // Add success message
+                const alertContainer = document.getElementById('alertContainer');
+                alertContainer.innerHTML = `
+                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-sm mb-4" role="alert" data-aos="fade-in">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-3"></i>
+                            <div>La réinscription a été complétée avec succès!</div>
+                        </div>
+                    </div>
+                `;
+
+                // Reset form
+                setTimeout(() => {
+                    studentData.classList.add('hidden');
+                    document.getElementById('matricule').value = '';
+                }, 2000);
+            });
+
+            // Function to update steps
+            function updateSteps(currentTabId) {
+                const steps = document.querySelectorAll('.step');
+
+                // Reset all steps
+                steps.forEach(step => {
+                    step.classList.remove('active', 'completed');
+                });
+
+                // Set completed and active steps based on current tab
+                if (currentTabId === 'identity') {
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('active');
+                } else if (currentTabId === 'payment') {
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('completed');
+                    steps[2].classList.add('active');
+                } else if (currentTabId === 'class') {
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('completed');
+                    steps[2].classList.add('completed');
+                    steps[3].classList.add('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

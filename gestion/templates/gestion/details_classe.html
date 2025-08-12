@@ -1,0 +1,400 @@
+    {% extends "base.html" %}
+    {% block title %}Détails de la Classe - {{ classe.nom }}{% endblock %}
+
+    {% block content %}
+    <div class="container-fluid py-4">
+        <!-- Header Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h2 text-gradient text-primary mb-0">
+                    <i class="bi bi-people-fill me-2"></i>{{ classe.nom }} {{ classe.option.nom }}
+                </h1>
+                <p class="mb-0 text-muted">Gestion des paiements et statistiques de la classe</p>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0"><i class="bi bi-funnel me-2"></i>Filtres</h5>
+            </div>
+            <div class="card-body">
+                <form method="get">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <select name="frais" id="frais" class="form-select">
+                                    <option value="">Tous les frais</option>
+                                    {% for item in frais %}
+                                    <option value="{{ item.id }}" {% if request.GET.frais == item.id|stringformat:"s" %}selected{% endif %}>{{ item.nom }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="frais">Type de frais</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <select name="mois" id="mois" class="form-select">
+                                    <option value="">Tous les mois</option>
+                                    {% for mois in mois_de_paiement %}
+                                    <option value="{{ mois }}" {% if request.GET.mois == mois %}selected{% endif %}>{{ mois }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="mois">Mois</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <select name="tranche" id="tranche" class="form-select">
+                                    <option value="">Toutes les tranches</option>
+                                    <option value="1ère Tranche" {% if request.GET.tranche == '1ère Tranche' %}selected{% endif %}>1ère Tranche</option>
+                                    <option value="2ème Tranche" {% if request.GET.tranche == '2ème Tranche' %}selected{% endif %}>2ème Tranche</option>
+                                    <option value="3ème Tranche" {% if request.GET.tranche == '3ème Tranche' %}selected{% endif %}>3ème Tranche</option>
+                                </select>
+                                <label for="tranche">Tranche</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex gap-2">
+                            <button type="submit" class="btn btn-primary flex-grow-1">
+                                <i class="bi bi-funnel-fill me-1"></i> Appliquer
+                            </button>
+                            <a href="{% url 'details_classe' classe.id %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card card-stats hover-lift hover-shadow-lg">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon icon-shape bg-gradient-success text-white rounded-circle shadow text-center me-3">
+                                <i class="bi bi-cash-stack"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="text-sm mb-0">Montant Total Payé</h6>
+                                <h3 class="mb-0">{{ stats.total_paye|default:"0" }} FC</h3>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-success" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-stats hover-lift hover-shadow-lg">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon icon-shape bg-gradient-danger text-white rounded-circle shadow text-center me-3">
+                                <i class="bi bi-check2-circle"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="text-sm mb-0">Statut des Paiements</h6>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <span class="badge bg-success">{{ stats.en_ordre }} Payé(s)</span>
+                                    </div>
+                                    <div>
+                                        <span class="badge bg-danger">{{ stats.non_en_ordre }} Impayé(s)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-success" style="width: {% widthratio stats.en_ordre stats.en_ordre|add:stats.non_en_ordre 100 %}%"></div>
+                                <div class="progress-bar bg-danger" style="width: {% widthratio stats.non_en_ordre stats.en_ordre|add:stats.non_en_ordre 100 %}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-pie-chart"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Répartition par Frais</h6>
+                            <div class="chart-pie pt-2">
+                                <canvas id="fraisChart" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Légende interactive -->
+                    <div class="mt-3 small" id="fraisLegend" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0"><i class="bi bi-bar-chart-line me-2"></i>Évolution des Paiements Mensuels</h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="chart-area" style="height: 400px;">
+                            <canvas id="paiementsMensuelsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0"><i class="bi bi-calendar-month me-2"></i>Répartition par Mois</h5>
+                    </div>
+                    <div class="card-body">
+                       <ul class="list-group list-group-flush">
+                            {% for mois in stats.par_mois %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-primary me-3">{{ forloop.counter }}</span>
+                                    <span class="fw-bold">{{ mois.mois|title }}</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="text-primary fw-bold">{{ mois.total }} FC</span>
+                                    <span class="badge bg-secondary ms-2">{{ mois.nombre_eleves }}</span>
+                                </div>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-center">Aucune donnée disponible</li>
+                            {% endfor %}
+                        </ul>
+
+                                            </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students Table -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="bi bi-table me-2"></i>Liste des Élèves</h5>
+                <div>
+                    <span class="badge bg-primary">{{ eleves|length }} Élève(s)</span>
+                </div>
+            </div>
+            <div class="card-body px-0">
+                <div  id="exportable-table"  class="table-responsive">
+                    <table class="table table-hover align-items-center mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="ps-4">#</th>
+                                <th>Matricule</th>
+                                <th>Nom</th>
+                                <th>Post-nom</th>
+                                <th>Prénom</th>
+                                <th>Sexe</th>
+                                <th class="text-end pe-4">Dernier Paiement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eleve in eleves %}
+                            <tr class="{% if eleve.mois_recent == '-' %}table-danger{% endif %}">
+                                <td class="ps-4">{{ forloop.counter }}</td>
+                                <td>
+                                    <a href="{% url 'details_eleve' eleve.id %}" class="text-primary font-weight-bold text-decoration-none">
+                                        {{ eleve.matricule }}
+                                    </a>
+                                </td>
+                                <td>{{ eleve.nom }}</td>
+                                <td>{{ eleve.post_nom }}</td>
+                                <td>{{ eleve.prenom }}</td>
+                                <td>
+                                    <span class="badge bg-{% if eleve.get_sexe_display == 'M' %}primary{% else %}pink{% endif %}">
+                                        {{ eleve.get_sexe_display }}
+                                    </span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    {% if eleve.mois_recent != '-' %}
+                                    <span class="badge bg-success">{{ eleve.mois_recent }}</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">Impayé</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center py-4">Aucun élève trouvé</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Main Chart
+         const paiementsMensuelsCtx = document.getElementById('paiementsMensuelsChart').getContext('2d');
+    const paiementsMensuelsChart = new Chart(paiementsMensuelsCtx, {
+        type: 'line',
+        data: {
+            labels: [{% for item in stats.paiements_mensuels %}'{{ item.mois }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                label: 'Montant Payé (FC)',
+                data: [{% for item in stats.paiements_mensuels %}{{ item.total }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+                tension: 0.3,
+                borderColor: '#5e72e4',
+                backgroundColor: 'rgba(94, 114, 228, 0.1)',
+                borderWidth: 2,
+                pointBackgroundColor: '#fff',
+                pointBorderWidth: 2,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y + ' FC';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value + ' FC';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const ctxFrais = document.getElementById('fraisChart').getContext('2d');
+
+    // Récupérer les données depuis le template
+    const fraisLabels = [{% for item in stats.par_frais %}'{{ item.frais__nom }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
+    const fraisData = [{% for item in stats.par_frais %}{{ item.total }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+
+    // Palette de couleurs dynamique
+    const COLORS = ['#5e72e4', '#2dce89', '#f5365c', '#fb6340', '#ffd600', '#11cdef', '#8965e0', '#3a416f'];
+
+    const chartData = {
+        labels: fraisLabels,
+        datasets: [{
+            data: fraisData,
+            backgroundColor: COLORS.slice(0, fraisLabels.length),
+            borderWidth: 0
+        }]
+    };
+
+    const fraisChart = new Chart(ctxFrais, {
+        type: 'doughnut',
+        data: chartData,
+        options: {
+            responsive: true,
+            cutout: '70%',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let value = context.parsed || 0;
+                            return `${label}: ${value.toLocaleString()} FC`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Générer la légende cliquable
+    const legendContainer = document.getElementById('fraisLegend');
+    chartData.labels.forEach((label, index) => {
+        const color = chartData.datasets[0].backgroundColor[index];
+        const legendItem = document.createElement('div');
+        legendItem.style.display = 'flex';
+        legendItem.style.alignItems = 'center';
+        legendItem.style.gap = '0.3rem';
+        legendItem.style.cursor = 'pointer';
+
+        legendItem.innerHTML = `
+            <span style="background:${color}; width:12px; height:12px; display:inline-block; border-radius:2px;"></span>
+            <span>${label}</span>
+        `;
+
+        legendItem.addEventListener('click', () => {
+            const meta = fraisChart.getDatasetMeta(0);
+            meta.data[index].hidden = !meta.data[index].hidden;
+            fraisChart.update();
+        });
+
+        legendContainer.appendChild(legendItem);
+    });
+
+
+    </script>
+
+    <style>
+        /* Custom Styles */
+        .card-stats {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 12px;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+        .hover-shadow-lg:hover {
+            box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+        }
+        .icon-shape {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chart-area {
+            position: relative;
+            height: 250px;
+        }
+        .chart-pie {
+            position: relative;
+            height: 60px;
+        }
+        .table-responsive {
+            min-height: 300px;
+        }
+        .badge.bg-pink {
+            background-color: #f3a4b5;
+            color: #fff;
+        }
+        .progress {
+            height: 6px;
+        }
+#fraisLegend div:hover {
+    opacity: 0.7;
+}
+
+    </style>
+    {% endblock %}

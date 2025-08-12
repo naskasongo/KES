@@ -1,0 +1,598 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header -->
+    <div class="text-center mb-0" data-aos="fade-down">
+        <div class="mb-0 flex justify-center">
+            <div class="bg-primary-light p-4 rounded-full text-primary">
+                <i class="fas fa-user-graduate text-3xl"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Réinscription de l'élève</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">Complétez le formulaire pour réinscrire un élève pour la nouvelle année scolaire.</p>
+    </div>
+
+    <!-- Alerts -->
+    <div class="mb-4 max-w-4xl mx-auto" id="alertContainer">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="bg-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-100 border-l-4 border-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-500 text-{% if message.tags == 'success' %}green{% elif message.tags == 'warning' %}yellow{% else %}red{% endif %}-700 p-4 rounded-md shadow-sm mb-4" role="alert" data-aos="fade-in">
+            <div class="flex items-center">
+                <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-times-circle{% endif %} mr-3"></i>
+                <div>{{ message }}</div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="bg-transparent rounded-xl  overflow-hidden max-w-4xl mx-auto" data-aos="fade-up">
+        <!-- Matricule Search Form -->
+        <div class="p-6 border-b">
+            <form method="post" id="searchForm" class="max-w-xl mx-auto">
+                {% csrf_token %}
+                <label class="form-label text-gray-700 mb-1">Matricule de l'élève</label>
+                <div class="flex items-center">
+                    <div class="relative flex-1">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-id-card text-gray-400"></i>
+                        </div>
+                        <input type="text" id="matricule" name="matricule" value="{{ matricule|default:'' }}" placeholder="Entrez le matricule de l'élève"
+                               class="form-input pl-10" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary ml-3">
+                        <i class="fas fa-search mr-2"></i> Rechercher
+                    </button>
+                </div>
+                <div class="text-right text-sm text-gray-500 mt-1">Saisissez le matricule de l'élève à réinscrire</div>
+            </form>
+        </div>
+
+        <!-- Student Data (shown after search) -->
+        <div id="studentData" class="{% if not eleve %}hidden{% endif %}">
+            <!-- Tabs Navigation -->
+            <div class="border-b">
+                <div class="flex max-w-4xl mx-auto">
+                    <div class="nav-tab {% if eleve %}active{% endif %} py-4 px-6 text-center flex-1" data-tab="identity">
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-user mb-2"></i>
+                            <span>Identité de l'élève</span>
+                        </div>
+                    </div>
+                    <div class="nav-tab py-4 px-6 text-center flex-1" data-tab="payment">
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-history mb-2"></i>
+                            <span>Historique & frais</span>
+                        </div>
+                    </div>
+                    <div class="nav-tab py-4 px-6 text-center flex-1" data-tab="class">
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-school mb-2"></i>
+                            <span>Nouvelle classe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="px-8 pt-8">
+                <div class="step-container">
+                    <div class="step {% if eleve %}completed{% endif %}">
+                        <div class="step-circle">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="text-xs text-gray-600">Recherche</div>
+                    </div>
+                    <div class="step {% if eleve %}active{% endif %}">
+                        <div class="step-circle">2</div>
+                        <div class="text-xs text-gray-600">Vérification</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-circle">3</div>
+                        <div class="text-xs text-gray-600">Affectation</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-circle">4</div>
+                        <div class="text-xs text-gray-600">Confirmation</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- Tab 1: Identity -->
+                <div class="tab-content {% if eleve %}active{% endif %}" id="identity-tab">
+                    {% if eleve %}
+                    <div class="flex items-center mb-6" data-aos="fade-right" data-aos-delay="100">
+                        <div class="avatar-circle mr-4">{{ eleve.nom.0 }}{{ eleve.prenom.0 }}</div>
+                        <div>
+                            <h2 class="text-2xl font-bold">{{ eleve.nom }} {{ eleve.post_nom }} {{ eleve.prenom }}</h2>
+                            <p class="text-gray-600">Matricule: {{ eleve.matricule }}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="150">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Informations personnelles</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Nom complet</p>
+                                        <p class="font-medium">{{ eleve.nom }} {{ eleve.post_nom }} {{ eleve.prenom }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Date de naissance</p>
+                                        <p class="font-medium">{{ eleve.date_naissance|date:"d/m/Y" }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Lieu de naissance</p>
+                                        <p class="font-medium">{{ eleve.lieu_naissance|default:"Non spécifié" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Information académique</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Classe précédente</p>
+                                        <p class="font-medium">{{ eleve.classe.nom }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Section</p>
+                                        <p class="font-medium">{{ eleve.classe.section.nom }}</p>
+                                    </div>
+                                </div>
+                                {% if eleve.classe.option %}
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-tags"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Option</p>
+                                        <p class="font-medium">{{ eleve.classe.option.nom }}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="custom-card p-5 bg-white mb-6" data-aos="fade-up" data-aos-delay="250">
+                        <h3 class="font-semibold text-lg mb-4 text-gray-800">Contact des parents/tuteurs</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-start">
+                                <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Nom du parent</p>
+                                    <p class="font-medium">{{ eleve.parent_nom }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Téléphone</p>
+                                    <p class="font-medium">{{ eleve.parent_telephone }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Email</p>
+                                    <p class="font-medium">{{ eleve.parent_email|default:"Non spécifié" }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Profession</p>
+                                    <p class="font-medium">{{ eleve.parent_profession|default:"Non spécifiée" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button class="btn btn-primary next-tab" data-next="payment">
+                            Continuer <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Tab 2: Payment History -->
+                <div class="tab-content" id="payment-tab">
+                    <h2 class="text-xl font-bold mb-6 flex items-center" data-aos="fade-right">
+                        <i class="fas fa-history mr-3 text-primary"></i>
+                        Historique des paiements
+                    </h2>
+
+                    <div class="mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="custom-card p-5 text-center" data-aos="fade-up" data-aos-delay="100">
+                                <div class="rounded-full bg-primary-light w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-file-invoice-dollar text-primary"></i>
+                                </div>
+                                <h3 class="text-sm text-gray-500 uppercase font-medium">Frais à payer</h3>
+                                <p class="text-2xl font-bold text-primary mt-2">{{ frais_a_payer|default:0 }} CDF</p>
+                            </div>
+
+                            <div class="custom-card p-5 text-center" data-aos="fade-up" data-aos-delay="150">
+                                <div class="rounded-full bg-success-light w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-money-bill-wave text-success"></i>
+                                </div>
+                                <h3 class="text-sm text-gray-500 uppercase font-medium">Montant payé</h3>
+                                <p class="text-2xl font-bold text-success mt-2">{{ total_paye|default:0 }} CDF</p>
+                            </div>
+
+                            <div class="custom-card p-5 text-center" data-aos="fade-up" data-aos-delay="200">
+                                <div class="rounded-full bg-danger-light w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-exclamation-circle text-danger"></i>
+                                </div>
+                                <h3 class="text-sm text-gray-500 uppercase font-medium">Reste à payer</h3>
+                                <p class="text-2xl font-bold text-danger mt-2">{{ reste_a_payer|default:0 }} CDF</p>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="250">
+                            <h3 class="font-semibold text-lg mb-4 flex items-center">
+                                <i class="fas fa-receipt mr-2 text-primary"></i>
+                                Récapitulatif des frais
+                            </h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left">
+                                    <thead>
+                                        <tr class="bg-gray-50">
+                                            <th class="px-4 py-3 text-sm font-medium text-gray-600">Type de frais</th>
+                                            <th class="px-4 py-3 text-sm font-medium text-gray-600">Montant</th>
+                                            <th class="px-4 py-3 text-sm font-medium text-gray-600">Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if paiements_precedents %}
+                                            {% for paiement in paiements_precedents %}
+                                            <tr class="border-b">
+                                                <td class="px-4 py-3">{{ paiement.frais.type_frais }}</td>
+                                                <td class="px-4 py-3">{{ paiement.montant_paye }} CDF</td>
+                                                <td class="px-4 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Payé</span></td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="3" class="px-4 py-3 text-center text-gray-500">Aucun paiement enregistré pour cet élève pour l'année précédente.</td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-xl font-bold mb-4 flex items-center" data-aos="fade-right">
+                        <i class="fas fa-credit-card mr-3 text-primary"></i>
+                        Transactions effectuées
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                        {% if paiements %}
+                            {% for paiement in paiements %}
+                            <div class="custom-card p-4 bg-white" data-aos="fade-up" data-aos-delay="100">
+                                <div class="flex justify-between mb-3">
+                                    <span class="px-2 py-1 bg-primary-light text-primary text-xs rounded-full">{{ paiement.frais.type_frais }}</span>
+                                    <span class="text-gray-500 text-sm">{{ paiement.date_paiement|date:"d/m/Y" }}</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="bg-success-light rounded-full p-2 mr-3">
+                                        <i class="fas fa-check text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-success">{{ paiement.montant_paye }} CDF</h4>
+                                        <p class="text-xs text-gray-500">Reçu #{{ paiement.recu_numero }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-span-3">
+                                <div class="custom-card p-4 bg-white text-center" data-aos="fade-up">
+                                    <div class="flex justify-center mb-3">
+                                        <i class="fas fa-info-circle text-primary text-2xl"></i>
+                                    </div>
+                                    <p class="text-gray-600">Aucun paiement effectué pour cette réinscription.</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button class="btn btn-outline prev-tab" data-prev="identity">
+                            <i class="fas fa-arrow-left mr-2"></i> Retour
+                        </button>
+                        <button class="btn btn-primary next-tab" data-next="class">
+                            Continuer <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 3: New Class Assignment -->
+                <div class="tab-content" id="class-tab">
+                    <h2 class="text-xl font-bold mb-6 flex items-center" data-aos="fade-right">
+                        <i class="fas fa-school mr-3 text-primary"></i>
+                        Nouvelle classe
+                    </h2>
+
+                    <form method="post" id="reinscriptionForm">
+                        {% csrf_token %}
+                        <div class="custom-card p-6 bg-white mb-8" data-aos="fade-up" data-aos-delay="100">
+                            <h3 class="font-semibold text-lg mb-4 flex items-center">
+                                <i class="fas fa-chalkboard-teacher mr-2 text-primary"></i>
+                                Sélection de la classe
+                            </h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div>
+                                    <label class="form-label flex items-center">
+                                        <i class="fas fa-sitemap mr-2 text-primary"></i>
+                                        Section
+                                    </label>
+                                    <select class="form-select" name="section" id="id_section" disabled>
+                                        <option value="">-- Choisir une section --</option>
+                                        {% for classe in classes_suivantes %}
+                                        <option value="{{ classe.section.id }}" selected>{{ classe.section.nom }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="form-label flex items-center">
+                                        <i class="fas fa-tags mr-2 text-primary"></i>
+                                        Option
+                                    </label>
+                                    <select class="form-select" name="option" id="id_option" {% if not eleve.classe.option %}disabled{% endif %}>
+                                        <option value="">-- Choisir une option --</option>
+                                        {% for option in options %}
+                                        <option value="{{ option.id }}">{{ option.nom }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="form-label flex items-center">
+                                        <i class="fas fa-graduation-cap mr-2 text-primary"></i>
+                                        Classe
+                                    </label>
+                                    <select class="form-select" name="classe" required>
+                                        <option value="">-- Choisir une classe --</option>
+                                        {% for classe in classes_suivantes %}
+                                        <option value="{{ classe.id }}" {% if forloop.first %}selected{% endif %}>
+                                            {{ classe.nom }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 p-4 bg-primary-light rounded-lg border border-primary border-opacity-20" data-aos="fade-up" data-aos-delay="150">
+                                <div class="flex items-start">
+                                    <i class="fas fa-info-circle text-primary mt-1 mr-3"></i>
+                                    <div>
+                                        <h4 class="font-medium text-primary">Information importante</h4>
+                                        <p class="text-sm text-gray-600">L'élève sera inscrit dans la classe sélectionnée pour l'année académique en cours. Assurez-vous que toutes les informations sont correctes avant de confirmer.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-6 bg-white mb-8" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="font-semibold text-lg mb-4 flex items-center">
+                                <i class="fas fa-clipboard-check mr-2 text-primary"></i>
+                                Résumé de la réinscription
+                            </h3>
+
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Élève</p>
+                                        <p class="font-medium">{{ eleve.nom }} {{ eleve.post_nom }} {{ eleve.prenom }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Ancienne classe</p>
+                                        <p class="font-medium">{{ eleve.classe.nom }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-primary-light text-primary icon-circle-sm">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Nouvelle classe</p>
+                                        <p class="font-medium" id="selectedClassDisplay">-- Non sélectionnée --</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="icon-circle bg-danger-light text-danger icon-circle-sm">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Solde impayé</p>
+                                        <p class="font-medium text-danger">{{ reste_a_payer|default:0 }} CDF</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button class="btn btn-outline prev-tab" data-prev="payment">
+                                <i class="fas fa-arrow-left mr-2"></i> Retour
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check-circle mr-2"></i> Confirmer la réinscription
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AOS JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to current tab and content
+                this.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(tabId);
+            });
+        });
+
+        // Next/Prev tab navigation
+        const nextTabButtons = document.querySelectorAll('.next-tab');
+        const prevTabButtons = document.querySelectorAll('.prev-tab');
+
+        nextTabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const nextTabId = this.getAttribute('data-next');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to next tab and content
+                document.querySelector(`.nav-tab[data-tab="${nextTabId}"]`).classList.add('active');
+                document.getElementById(`${nextTabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(nextTabId);
+            });
+        });
+
+        prevTabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const prevTabId = this.getAttribute('data-prev');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to previous tab and content
+                document.querySelector(`.nav-tab[data-tab="${prevTabId}"]`).classList.add('active');
+                document.getElementById(`${prevTabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(prevTabId);
+            });
+        });
+
+        // Update selected class display
+        const classSelect = document.querySelector('select[name="classe"]');
+        const selectedClassDisplay = document.getElementById('selectedClassDisplay');
+
+        if (classSelect) {
+            classSelect.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                if (selectedClassDisplay) {
+                    selectedClassDisplay.textContent = selectedOption.textContent;
+                }
+            });
+        }
+
+        // Function to update steps
+        function updateSteps(currentTabId) {
+            const steps = document.querySelectorAll('.step');
+
+            // Reset all steps
+            steps.forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+
+            // Set completed and active steps based on current tab
+            if (currentTabId === 'identity') {
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            } else if (currentTabId === 'payment') {
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('active');
+            } else if (currentTabId === 'class') {
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('completed');
+                steps[3].classList.add('active');
+            }
+        }
+
+        // Initialize steps based on current state
+        {% if eleve %}
+        updateSteps('identity');
+        {% endif %}
+    });
+</script>
+{% endblock %}

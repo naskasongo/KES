@@ -1,0 +1,270 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container mx-auto px-4 py-8 max-w-6xl" style="box-shadow: none !important; background: none !important;">
+    <!-- Header -->
+    <div class="text-center mb-0" data-aos="fade-down">
+        <div class="mb-0 flex justify-center">
+            <div class="bg-transparent p-4 rounded-full text-primary">
+                <i class="fas fa-user-friends text-3xl"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Détails du Parent</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">Informations complètes sur le parent et ses enfants</p>
+    </div>
+
+    <!-- Alerts -->
+    <div class="mb-4 max-w-4xl mx-auto" id="alertContainer">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} flex items-center" role="alert" data-aos="fade-in">
+                <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-times-circle{% endif %} mr-3 text-xl"></i>
+                <div class="flex-grow-1">{{ message }}</div>
+                <button type="button" class="ml-4 text-xl" data-bs-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="custom-card  max-w-4xl mx-auto" data-aos="fade-up">
+        <!-- Tabs Navigation -->
+        <div class="border-b">
+            <div class="flex max-w-4xl mx-auto">
+                <div class="nav-tab active py-4 px-6 text-center flex-1" data-tab="info">
+                    <div class="flex flex-col items-center">
+                        <i class="fas fa-user mb-2"></i>
+                        <span>Informations du Parent</span>
+                    </div>
+                </div>
+                <div class="nav-tab py-4 px-6 text-center flex-1" data-tab="eleves">
+                    <div class="flex flex-col items-center">
+                        <i class="fas fa-users mb-2"></i>
+                        <span>Élèves Associés</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="px-8 pt-8">
+            <div class="step-container">
+                <div class="step active">
+                    <div class="step-circle">1</div>
+                    <div class="text-xs text-gray-600">Informations</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <div class="text-xs text-gray-600">Élèves</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <form method="post" id="parentForm">
+                {% csrf_token %}
+
+                <!-- Tab 1: Informations du parent -->
+                <div class="tab-content active" id="info-tab">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="150">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Informations de base</h3>
+                            <div class="space-y-4">
+                                <div class="detail-row">
+                                    <div class="detail-label">Nom complet:</div>
+                                    <div class="detail-value">{{ parent.nom }}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Téléphone:</div>
+                                    <div class="detail-value">{{ parent.telephone }}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Email:</div>
+                                    <div class="detail-value">{{ parent.email|default:"Non renseigné" }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="font-semibold text-lg mb-4 text-gray-800">Détails supplémentaires</h3>
+                            <div class="space-y-4">
+                                <div class="detail-row">
+                                    <div class="detail-label">Adresse:</div>
+                                    <div class="detail-value">{{ parent.adresse|default:"Non renseigné" }}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Profession:</div>
+                                    <div class="detail-value">{{ parent.profession|default:"Non renseigné" }}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Relation:</div>
+                                    <div class="detail-value">
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">
+                                            {{ parent.relation }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="btn btn-primary next-tab" data-next="eleves">
+                            Continuer <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Élèves associés -->
+                <div class="tab-content" id="eleves-tab">
+                    <div class="custom-card p-5 bg-white mb-8" data-aos="fade-up" data-aos-delay="150">
+                        <h3 class="font-semibold text-lg mb-4 text-gray-800">Liste des élèves</h3>
+                        {% if parent.eleves.all %}
+                        <div class="table-responsive">
+                            <table id="exportable-table" class="min-w-full table-auto">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Post-nom</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Classe</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Section</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    {% for eleve in parent.eleves.all %}
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 whitespace-nowrap">{{ eleve.nom }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">{{ eleve.post_nom }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">
+                                            <span class="bg-primary-light text-primary px-3 py-1 rounded-full text-sm">
+                                                {{ eleve.classe.nom }}
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-3 whitespace-nowrap">{{ eleve.section.nom }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-center">
+                                            <a href="{% url 'details_eleve' eleve.id %}" class="btn btn-outline">
+                                                <i class="fas fa-eye mr-2"></i> Voir
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-warning flex items-center" role="alert">
+                            <i class="fas fa-exclamation-circle text-xl mr-3"></i>
+                            <div class="flex-grow-1">Aucun élève associé à ce parent.</div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button type="button" class="btn btn-outline prev-tab" data-prev="info">
+                            <i class="fas fa-arrow-left mr-2"></i> Retour
+                        </button>
+                        <a href="{% url 'liste_parents' %}" class="btn btn-primary">
+                            <i class="fas fa-list mr-2"></i> Liste des Parents
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- AOS JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to current tab and content
+                this.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(tabId);
+            });
+        });
+
+        // Next/Prev tab navigation
+        const nextTabButtons = document.querySelectorAll('.next-tab');
+        const prevTabButtons = document.querySelectorAll('.prev-tab');
+
+        nextTabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const nextTabId = this.getAttribute('data-next');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to next tab and content
+                document.querySelector(`.nav-tab[data-tab="${nextTabId}"]`).classList.add('active');
+                document.getElementById(`${nextTabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(nextTabId);
+            });
+        });
+
+        prevTabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const prevTabId = this.getAttribute('data-prev');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to previous tab and content
+                document.querySelector(`.nav-tab[data-tab="${prevTabId}"]`).classList.add('active');
+                document.getElementById(`${prevTabId}-tab`).classList.add('active');
+
+                // Update steps
+                updateSteps(prevTabId);
+            });
+        });
+
+        // Function to update steps
+        function updateSteps(currentTabId) {
+            const steps = document.querySelectorAll('.step');
+
+            // Reset all steps
+            steps.forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+
+            // Set completed and active steps based on current tab
+            if (currentTabId === 'info') {
+                steps[0].classList.add('active');
+            } else if (currentTabId === 'eleves') {
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            }
+        }
+    });
+</script>
+{% endblock %}

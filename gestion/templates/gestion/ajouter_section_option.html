@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Ajouter Section/Option{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0 font-weight-light">
+                        <i class="fas fa-plus-circle me-2"></i>Ajouter une Section ou une Option
+                    </h4>
+                </div>
+
+                <div class="card-body px-5 py-4">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-dismissible fade show {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        <div class="mb-4">
+                            <h5 class="mb-3 text-dark">Type d'opération</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="operation" value="section" id="id_operation_section" checked>
+                                <label class="form-check-label" for="id_operation_section">
+                                    <i class="fas fa-layer-group me-1"></i> Nouvelle section
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="operation" value="option" id="id_operation_option">
+                                <label class="form-check-label" for="id_operation_option">
+                                    <i class="fas fa-cog me-1"></i> Nouvelle option
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="section_fields" class="mb-4">
+                            <div class="mb-3">
+                                <label for="{{ form.nom_section.id_for_label }}" class="form-label">
+                                    <i class="fas fa-tag me-1"></i>Nom de la section
+                                </label>
+                                {{ form.nom_section }}
+                                <div class="invalid-feedback">
+                                    Veuillez saisir un nom de section valide.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.type_section.id_for_label }}" class="form-label">
+                                    <i class="fas fa-list-alt me-1"></i>Type de section
+                                </label>
+                                {{ form.type_section }}
+                            </div>
+                        </div>
+
+                        <div id="option_fields" style="display: none;" class="mb-4">
+                            <div class="mb-3">
+                                <label for="{{ form.section_existant.id_for_label }}" class="form-label">
+                                    <i class="fas fa-layer-group me-1"></i>Section existante
+                                </label>
+                                {{ form.section_existant }}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.nom_option.id_for_label }}" class="form-label">
+                                    <i class="fas fa-tag me-1"></i>Nom de l'option
+                                </label>
+                                {{ form.nom_option }}
+                                <div class="invalid-feedback">
+                                    Veuillez saisir un nom d'option valide.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill">
+                                <i class="fas fa-check me-2"></i>Confirmer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-footer bg-light text-muted text-center py-3">
+                    <small>Remplissez tous les champs requis pour ajouter une nouvelle section ou option</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion de l'affichage des champs
+    const operationRadios = document.querySelectorAll('input[name="operation"]');
+    const sectionFields = document.getElementById('section_fields');
+    const optionFields = document.getElementById('option_fields');
+
+    function updateFormDisplay() {
+        const selectedValue = document.querySelector('input[name="operation"]:checked').value;
+        sectionFields.style.display = selectedValue === 'section' ? 'block' : 'none';
+        optionFields.style.display = selectedValue === 'option' ? 'block' : 'none';
+    }
+
+    // Initial display
+    updateFormDisplay();
+
+    // Add event listeners
+    operationRadios.forEach(radio => {
+        radio.addEventListener('change', updateFormDisplay);
+    });
+
+    // Validation du formulaire
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+});
+</script>
+
+<style>
+/* Custom styles for the form */
+.form-check {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.form-check-input {
+    position: absolute;
+    margin-top: 0.3rem;
+    margin-left: -1.5rem;
+}
+
+.form-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6c757d;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+</style>
+
+<script>
+// Script pour améliorer l'interactivité
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajout de classes pour les erreurs
+    const errorFields = document.querySelectorAll('.errorlist');
+    errorFields.forEach(function(errorField) {
+        const fieldId = errorField.closest('.form-group').querySelector('input, select').id;
+        document.getElementById(fieldId).classList.add('is-invalid');
+    });
+
+    // Initialisation de Select2 si utilisé
+    if ($ && $.fn.select2) {
+        $('.select2').select2({
+            width: '100%',
+            theme: 'bootstrap-5'
+        });
+    }
+});
+</script>
+{% endblock %}

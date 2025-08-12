@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+
+{% block title %}Liste des élèves{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 text-gradient text-primary mb-0">
+                <i class="bi bi-people-fill me-2"></i> Registre des Élèves
+            </h1>
+            <p class="mb-0 text-muted">Gestion complète des élèves inscrits</p>
+        </div>
+        <div>
+            <a href="{% url 'ajouter_eleve' %}" class="btn btn-success">
+                <i class="bi bi-person-plus me-1"></i> Nouvelle Inscription
+            </a>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0"><i class="bi bi-funnel me-2"></i>Filtres</h5>
+        </div>
+        <div class="card-body">
+            <form method="get">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <select class="form-select" name="section" id="section">
+                                <option value="">Toutes les sections</option>
+                                {% for section in sections %}
+                                <option value="{{ section.id }}" {% if request.GET.section == section.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ section.nom }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <label for="section"><i class="bi bi-diagram-3 me-2"></i>Section</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <select class="form-select" name="option" id="option">
+                                <option value="">Toutes les options</option>
+                                {% for option in options %}
+                                <option value="{{ option.id }}" {% if request.GET.option == option.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ option.nom }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <label for="option"><i class="bi bi-layers me-2"></i>Option</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <select class="form-select" name="classe" id="classe">
+                                <option value="">Toutes les classes</option>
+                                {% for classe in classes %}
+                                <option value="{{ classe.id }}" {% if request.GET.classe == classe.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ classe.nom }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <label for="classe"><i class="bi bi-journal-bookmark me-2"></i>Classe</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <select class="form-select" name="annee_scolaire" id="annee_scolaire">
+                                <option value="">Toutes les années</option>
+                                {% for annee in annees_scolaires %}
+                                <option value="{{ annee.id }}" {% if request.GET.annee_scolaire == annee.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ annee.annee }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <label for="annee_scolaire"><i class="bi bi-calendar-week me-2"></i>Année scolaire</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-floating">
+                            <select class="form-select" name="sexe" id="sexe">
+                                <option value="">Tous</option>
+                                <option value="M" {% if request.GET.sexe == "M" %}selected{% endif %}>Masculin</option>
+                                <option value="F" {% if request.GET.sexe == "F" %}selected{% endif %}>Féminin</option>
+                            </select>
+                            <label for="sexe"><i class="bi bi-gender-ambiguous me-2"></i>Sexe</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <input type="text" name="matricule" id="matricule" class="form-control" placeholder="Matricule"
+                                   value="{{ request.GET.matricule }}">
+                            <label for="matricule"><i class="bi bi-upc-scan me-2"></i>Matricule</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 d-flex gap-2 align-items-end">
+                        <button type="submit" class="btn btn-primary flex-grow-1">
+                            <i class="bi bi-funnel-fill me-1"></i> Appliquer
+                        </button>
+                        <a href="{% url 'liste_eleves' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-primary text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Total Élèves</h6>
+                            <h3 class="mb-0">{{ stats.total }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-success text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-gender-male"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Garçons</h6>
+                            <h3 class="mb-0">{{ stats.garcons }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-gender-female"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Filles</h6>
+                            <h3 class="mb-0">{{ stats.filles }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Students Table -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-table me-2"></i>Liste des Élèves</h5>
+            <div>
+                <span class="badge bg-primary">{{ eleves.paginator.count }} Élève(s)</span>
+            </div>
+        </div>
+        <div class="card-body px-0">
+            <div  id="exportable-table"  class="table-responsive">
+                <table class="table table-hover align-items-center mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="ps-4">#</th>
+                            <th>Matricule</th>
+                            <th>Nom</th>
+                            <th>Post-nom</th>
+                            <th>Prénom</th>
+                            <th>Sexe</th>
+                            <th>Classe</th>
+                            <th>Année Scolaire</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for eleve in eleves %}
+                        <tr>
+                            <td class="ps-4">{{ forloop.counter }}</td>
+                            <td>
+                                <a href="{% url 'details_eleve' eleve.id %}" class="text-primary font-weight-bold text-decoration-none">
+                                    {{ eleve.matricule }}
+                                </a>
+                            </td>
+                            <td>{{ eleve.nom }}</td>
+                            <td>{{ eleve.post_nom }}</td>
+                            <td>{{ eleve.prenom }}</td>
+                            <td>
+                                <span class="badge bg-{% if eleve.get_sexe_display == 'M' %}primary{% else %}pink{% endif %}">
+                                    {{ eleve.get_sexe_display }}
+                                </span>
+                            </td>
+                            <td>{{ eleve.classe.nom }}</td>
+                            <td>{{ eleve.annee_scolaire.annee }}</td>
+                            <td class="text-end pe-4">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <a href="{% url 'details_eleve' eleve.id %}" class="btn btn-sm btn-info">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{% url 'modifier_eleve' eleve.id %}" class="btn btn-sm btn-warning">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="{% url 'supprimer_eleve' eleve.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élève ?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center py-4 text-muted">Aucun élève trouvé pour les critères sélectionnés</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            {% if eleves.paginator.num_pages > 1 %}
+            <div class="card-footer bg-white border-top">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center mb-0">
+                        {% if eleves.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ eleves.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in eleves.paginator.page_range %}
+                            {% if eleves.number == num %}
+                            <li class="page-item active">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                            {% elif num > eleves.number|add:'-3' and num < eleves.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if eleves.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ eleves.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ eleves.paginator.num_pages }}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const sectionSelect = document.getElementById("section");
+    const optionSelect = document.getElementById("option");
+    const classeSelect = document.getElementById("classe");
+
+    // Fonction pour charger les options selon la section
+    function updateOptions() {
+        const sectionId = sectionSelect.value;
+        if (!sectionId) return;
+
+        fetch(`/api/get-options/${sectionId}/`)
+            .then(res => res.json())
+            .then(data => {
+                // Vider les champs précédents
+                optionSelect.innerHTML = '<option value="">-- Choisir --</option>';
+                classeSelect.innerHTML = '<option value="">-- Choisir --</option>';
+
+                // Récupérer le nom de la section sélectionnée
+                const selectedSection = sectionSelect.options[sectionSelect.selectedIndex]?.text.trim();
+
+                // Activer/désactiver l'option selon la section
+                if (["Humanités", "ITM"].includes(selectedSection)) {
+                    data.options.forEach(opt => {
+                        const option = new Option(opt.nom, opt.id);
+                        optionSelect.add(option);
+                    });
+                    optionSelect.disabled = false;
+                } else {
+                    optionSelect.disabled = true;
+                }
+
+                // Charger les classes en fonction de la section
+                updateClasses();
+            })
+            .catch(err => console.error("Erreur lors du chargement des options:", err));
+    }
+
+    // Fonction pour charger les classes selon la section et l'option
+    function updateClasses() {
+        const sectionId = sectionSelect.value;
+        const optionId = optionSelect.value || null;
+
+        let url = `/api/get-classes/${sectionId}/`;
+
+        // Si une option est sélectionnée ET la section est Humanités ou ITM, inclure l'option
+        const selectedSection = sectionSelect.options[sectionSelect.selectedIndex]?.text.trim();
+        if (optionId && ["Humanités", "ITM"].includes(selectedSection)) {
+            url += `${optionId}/`;
+        }
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                classeSelect.innerHTML = '<option value="">-- Choisir --</option>';
+                data.classes.forEach(classe => {
+                    const option = new Option(classe.nom, classe.id);
+                    classeSelect.add(option);
+                });
+            })
+            .catch(err => console.error("Erreur lors du chargement des classes:", err));
+    }
+
+    // Gestion des événements
+    sectionSelect.addEventListener("change", function () {
+        updateOptions();
+    });
+
+    optionSelect.addEventListener("change", function () {
+        updateClasses();
+    });
+
+    // Chargement initial si une section est déjà sélectionnée
+    if (sectionSelect.value) {
+        updateOptions();
+    }
+});
+</script>
+
+<style>
+    /* Custom Styles */
+    .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .text-gradient.text-primary {
+        background-image: linear-gradient(135deg, #5e72e4 0%, #825ee4 100%);
+    }
+
+    /* Card Stats */
+    .card-stats {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 12px;
+    }
+    .hover-lift:hover {
+        transform: translateY(-5px);
+    }
+    .hover-shadow-lg:hover {
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+
+    /* Icon Shapes */
+    .icon-shape {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+    }
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #5e72e4 0%, #825ee4 100%);
+    }
+    .bg-gradient-success {
+        background: linear-gradient(135deg, #2dce89 0%, #2dcecc 100%);
+    }
+    .bg-gradient-pink {
+        background: linear-gradient(135deg, #f5365c 0%, #f56036 100%);
+    }
+
+    /* Table Styles */
+    .table-responsive {
+        min-height: 300px;
+    }
+    .table {
+        margin-bottom: 0;
+    }
+    .table thead th {
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .table tbody tr {
+        transition: all 0.2s ease;
+    }
+    .table tbody tr:hover {
+        background-color: rgba(94, 114, 228, 0.05);
+    }
+
+    /* Badge Styles */
+    .badge {
+        font-weight: 500;
+        padding: 0.35em 0.65em;
+        border-radius: 8px;
+    }
+    .bg-pink {
+        background-color: #f3a4b5;
+        color: #fff;
+    }
+
+    /* Form Floating */
+    .form-floating label {
+        padding-left: 2.5rem;
+    }
+    .form-floating .form-control ~ label::after {
+        background-color: transparent !important;
+    }
+
+    /* Pagination */
+    .page-item.active .page-link {
+        background-color: #5e72e4;
+        border-color: #5e72e4;
+    }
+    .page-link {
+        color: #5e72e4;
+    }
+    /* Pour désactiver les champs non applicables */
+.form-select:disabled {
+    background-color: #f8f9fa;
+    opacity: 0.6;
+}
+
+/* Animation légère sur mise à jour */
+.form-select {
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+</style>
+
+{% endblock %}

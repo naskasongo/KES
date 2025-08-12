@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+
+{% block title %}Modifier un Frais{% endblock %}
+
+{% block content %}
+
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header -->
+    <div class="text-center mb-10" data-aos="fade-down">
+        <div class="mb-4 flex justify-center">
+            <div class="bg-warning-light p-4 rounded-full text-warning">
+                <i class="fas fa-pencil-alt text-3xl"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Modifier un Frais</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">Mettez à jour les informations du frais</p>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex justify-between items-center mb-6">
+        <div class="text-sm font-medium bg-primary text-white px-4 py-2 rounded-full">
+            Année Scolaire: {{ frais.annee_scolaire.annee }}
+        </div>
+        <a href="{% url 'liste_frais' %}" class="btn btn-outline">
+            <i class="fas fa-arrow-left mr-2"></i> Retour à la liste
+        </a>
+    </div>
+
+    <!-- Messages d'alerte -->
+    {% if messages %}
+    <div class="mb-8 max-w-4xl mx-auto" id="alertContainer">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} flex items-center" role="alert" data-aos="fade-in">
+            <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-times-circle{% endif %} mr-3 text-xl"></i>
+            <div class="flex-grow-1">{{ message }}</div>
+            <button type="button" class="ml-4 text-xl" data-bs-dismiss="alert" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Card -->
+    <div class="custom-card bg-white" data-aos="fade-up">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-file-invoice mr-3 text-warning"></i>Modifier le Frais
+                </h2>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <form method="post" id="fraisForm">
+                {% csrf_token %}
+
+                <!-- Formulaire -->
+                <div class="form-group position-relative animate-fadeInUp">
+                    <div class="flex items-center mb-6">
+                        <span class="badge bg-warning text-white text-lg mr-3">1</span>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-0">Informations sur le frais</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Colonne gauche -->
+                        <div>
+                            <div class="mb-4">
+                                <label for="{{ form.nom.id_for_label }}" class="form-label">Nom du Frais</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fas fa-tag text-gray-500"></i>
+                                    </span>
+                                    {{ form.nom }}
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="{{ form.montant.id_for_label }}" class="form-label">Montant (FC)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fas fa-money-bill-wave text-gray-500"></i>
+                                    </span>
+                                    {{ form.montant }}
+                                </div>
+                                <div class="text-sm text-gray-500 mt-1">Montant en francs congolais</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="{{ form.type_frais.id_for_label }}" class="form-label">Type de Frais</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fas fa-calendar-alt text-gray-500"></i>
+                                    </span>
+                                    {{ form.type_frais }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Colonne droite -->
+                        <div>
+                            <div class="mb-4">
+                                <label for="{{ form.section.id_for_label }}" class="form-label">Section</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fas fa-building text-gray-500"></i>
+                                    </span>
+                                    {{ form.section }}
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="{{ form.option.id_for_label }}" class="form-label">Option</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fas fa-diagram-project text-gray-500"></i>
+                                    </span>
+                                    {{ form.option }}
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="{{ form.classes.id_for_label }}" class="form-label">Classe(s)</label>
+                                {{ form.classes }}
+                                <div class="text-sm text-gray-500 mt-1">Maintenez Ctrl (Windows) ou Cmd (Mac) pour sélection multiple</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-end mt-6 gap-3">
+                    <a href="{% url 'liste_frais' %}" class="btn btn-outline">
+                        <i class="fas fa-arrow-left mr-2"></i> Annuler
+                    </a>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-save mr-2"></i> Mettre à jour
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- AOS JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gestion des sections/options/classes
+        const sectionSelect = document.getElementById('{{ form.section.id_for_label }}');
+        const optionSelect = document.getElementById('{{ form.option.id_for_label }}');
+        const classeSelect = document.getElementById('{{ form.classes.id_for_label }}');
+
+        // Sections qui n'ont pas d'options
+        const SECTIONS_SANS_OPTIONS = ['Maternelle', 'Primaire', 'Secondaire'];
+
+        // Fonction pour charger les options
+        function loadOptions(sectionId, optionField) {
+            if (!sectionId) {
+                optionField.innerHTML = '<option value="">-- Sélectionner une section d\'abord --</option>';
+                return;
+            }
+
+            optionField.disabled = true;
+            optionField.innerHTML = '<option value="">-- Chargement... --</option>';
+
+            fetch(`/api/get-options/${sectionId}/`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Erreur réseau');
+                    return response.json();
+                })
+                .then(data => {
+                    optionField.innerHTML = '<option value="">-- Sélectionner une option --</option>';
+                    if (data.options && data.options.length > 0) {
+                        data.options.forEach(option => {
+                            const opt = document.createElement('option');
+                            opt.value = option.id;
+                            opt.textContent = option.nom;
+                            optionField.appendChild(opt);
+                        });
+                    } else {
+                        optionField.innerHTML = '<option value="">-- Aucune option disponible --</option>';
+                    }
+                    optionField.disabled = false;
+                })
+                .catch(err => {
+                    console.error('Erreur:', err);
+                    optionField.innerHTML = '<option value="">-- Erreur de chargement --</option>';
+                    optionField.disabled = false;
+                });
+        }
+
+        // Fonction pour charger les classes
+        function loadClasses(sectionId, optionId, classeField) {
+            if (!sectionId) {
+                classeField.innerHTML = '<option value="">-- Sélectionnez une section d\'abord --</option>';
+                return;
+            }
+
+            classeField.disabled = true;
+            classeField.innerHTML = '<option value="">-- Chargement en cours --</option>';
+
+            // Gestion spéciale pour les valeurs null/undefined
+            const effectiveOptionId = (optionId && optionId !== 'null' && optionId !== 'undefined') ? optionId : null;
+            const url = effectiveOptionId
+                ? `/api/get-classes/${sectionId}/${effectiveOptionId}/`
+                : `/api/get-classes/${sectionId}/`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    classeField.innerHTML = '';
+
+                    if (data.classes && data.classes.length > 0) {
+                        data.classes.forEach(classe => {
+                            const option = document.createElement('option');
+                            option.value = classe.id;
+                            option.textContent = classe.nom;
+                            classeField.appendChild(option);
+                        });
+                    } else {
+                        const option = document.createElement('option');
+                        option.value = '';
+                        option.textContent = '-- Aucune classe disponible --';
+                        option.disabled = true;
+                        classeField.appendChild(option);
+                    }
+                    classeField.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    classeField.innerHTML = '<option value="" disabled>-- Erreur de chargement --</option>';
+                    classeField.disabled = false;
+                });
+        }
+
+        // Fonction pour gérer le comportement spécifique des sections
+        function updateFormBehavior() {
+            if (!sectionSelect || !optionSelect || !classeSelect) return;
+
+            const sectionName = sectionSelect.options[sectionSelect.selectedIndex]?.text;
+
+            // Masquer le champ option pour les sections sans options
+            if (sectionName && SECTIONS_SANS_OPTIONS.includes(sectionName)) {
+                optionSelect.closest('.mb-4').style.display = 'none';
+                optionSelect.value = '';
+                loadClasses(sectionSelect.value, null, classeSelect);
+            } else {
+                optionSelect.closest('.mb-4').style.display = 'block';
+                if (sectionSelect.value) {
+                    loadOptions(sectionSelect.value, optionSelect);
+                }
+            }
+        }
+
+        // Écouteur pour le changement de section
+        if (sectionSelect) {
+            sectionSelect.addEventListener('change', function() {
+                updateFormBehavior();
+
+                // Si c'est une section avec options, charger les classes sans option d'abord
+                const sectionName = this.options[this.selectedIndex]?.text;
+                if (!SECTIONS_SANS_OPTIONS.includes(sectionName)) {
+                    loadClasses(this.value, null, classeSelect);
+                }
+            });
+        }
+
+        // Écouteur pour le changement d'option
+        if (optionSelect) {
+            optionSelect.addEventListener('change', function() {
+                if (sectionSelect && sectionSelect.value && classeSelect) {
+                    loadClasses(sectionSelect.value, this.value, classeSelect);
+                }
+            });
+        }
+
+        // Initialiser le comportement selon la section sélectionnée
+        updateFormBehavior();
+    });
+</script>
+{% endblock %}

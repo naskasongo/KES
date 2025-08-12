@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %}Reçu de Paiement{% endblock %}
+{% block content %}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <!-- Carte principale modernisée -->
+            <div class="receipt-card shadow-sm p-4 bg-white rounded-lg">
+                <!-- En-tête avec fond coloré -->
+                <div class="receipt-header bg-primary text-white rounded-top p-3 mb-4 text-center">
+                    <div class="school-logo mb-2">
+                        <i class="bi bi-building" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <div class="text-white">
+                    <h4 class="mb-1 fw-bold text-white">COMPLEXE SCOLAIRE WANTASHI</h4>
+                    <h5 class="mb-0 text-white">Direction des Finances</h5></div>
+                </div>
+
+                <!-- Numéro de reçu mis en valeur -->
+                <div class="receipt-number bg-light p-2 mb-4 text-center rounded">
+                    <span class="fw-bold text-primary">REÇU DE PAIEMENT N°: {{ paiement.recu_numero }}</span>
+                </div>
+
+                <!-- Section élève avec icônes -->
+                <div class="student-info mb-4 p-3 border rounded">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-person-circle me-2 text-primary"></i>
+                        <h5 class="mb-0">Informations de l'élève</h5>
+                    </div>
+                    <div class="ps-4">
+                        <p class="mb-2"><strong>Élève:</strong> {{ paiement.eleve.nom }} {{ paiement.eleve.post_nom }}</p>
+                        <p class="mb-2"><strong>Matricule:</strong> {{ paiement.eleve.matricule }}</p>
+                        <p class="mb-0"><strong>Classe:</strong> {{ paiement.eleve.classe.nom }} {% if paiement.eleve.option %}({{ paiement.eleve.option.nom }}){% endif %}</p>
+                    </div>
+                </div>
+
+                <!-- Détails du paiement - table modernisée -->
+                <div class="payment-details mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-cash-stack me-2 text-primary"></i>
+                        <h5 class="mb-0">Détails du paiement</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table  id="exportable-table"  class="table table-hover table-borderless">
+                            <tbody>
+                                <tr class="border-bottom">
+                                    <td class="fw-bold text-muted">Frais payé:</td>
+                                    <td class="text-end">{{ paiement.frais.nom }}</td>
+                                </tr>
+                                <tr class="border-bottom">
+                                    <td class="fw-bold text-muted">Tranche:</td>
+                                    <td class="text-end">{{ paiement.tranche }}</td>
+                                </tr>
+                                <!-- Display mois if not trimestriel -->
+                                {% if not paiement.frais.type_frais == 'trimestriel' %}
+                                <tr class="border-bottom">
+                                    <td class="fw-bold text-muted">Mois:</td>
+                                    <td class="text-end">{{ paiement.mois }}</td>
+                                </tr>
+                                {% endif %}
+                                <tr class="border-bottom">
+                                    <td class="fw-bold text-muted">Montant:</td>
+                                    <td class="text-end fw-bold text-success">{{ paiement.montant_paye }} FC</td>
+                                </tr>
+                                <tr class="border-bottom">
+                                    <td class="fw-bold text-muted">Solde restant:</td>
+                                    <td class="text-end fw-bold {% if paiement.solde_restant > 0 %}text-warning{% else %}text-success{% endif %}">
+                                        {{ paiement.solde_restant }} FC
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-muted">Date:</td>
+                                    <td class="text-end">{{ paiement.date_paiement }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Section signature avec effet de carte -->
+                <div class="signature-section bg-light p-3 rounded mb-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-person-check me-2 text-primary"></i>
+                                <h6 class="mb-0">Caissier</h6>
+                            </div>
+                            <p class="mb-0 ps-4">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-pen me-2 text-primary"></i>
+                                <h6 class="mb-0">Signature</h6>
+                            </div>
+                            <div class="signature-line ps-4">
+                                <div style="height: 2px; background: linear-gradient(90deg, #6c757d, transparent);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boutons d'action avec espacement amélioré -->
+                <div class="d-flex justify-content-between mt-4 no-print">
+                    <a href="{% url 'ajouter_paiement' %}" class="btn btn-outline-primary rounded-pill px-4">
+                        <i class="bi bi-arrow-left me-2"></i> Retour
+                    </a>
+                    <button onclick="window.print()" class="btn btn-primary rounded-pill px-4">
+                        <i class="bi bi-printer me-2"></i> Imprimer
+                    </button>
+                </div>
+
+                <!-- Mention légère stylisée -->
+                <div class="text-center mt-4 small text-muted">
+                    <div class="divider mb-2">
+                        <span class="divider-line"></span>
+                        <span class="divider-text px-2">✻</span>
+                        <span class="divider-line"></span>
+                    </div>
+                    <p class="mb-0">Ce reçu fait foi de paiement</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .container, .container * {
+            visibility: visible;
+        }
+        .container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            padding: 0;
+        }
+        .no-print {
+            display: none !important;
+        }
+        .receipt-card {
+            box-shadow: none !important;
+            border: 1px solid #dee2e6 !important;
+        }
+        .receipt-header {
+            background-color: #0d6efd !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    }
+
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .receipt-card {
+        max-width: 600px;
+        margin: 0 auto;
+        border: none;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    }
+
+    .receipt-header {
+        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+        margin: -1rem -1rem 0 -1rem;
+    }
+
+    .receipt-number {
+        border-left: 4px solid #0d6efd;
+    }
+
+    .student-info, .payment-details, .signature-section {
+        transition: all 0.3s ease;
+    }
+
+    .student-info:hover, .payment-details:hover, .signature-section:hover {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+    }
+
+    .divider-line {
+        flex-grow: 1;
+        height: 1px;
+        background-color: #dee2e6;
+    }
+
+    .divider-text {
+        color: #6c757d;
+    }
+
+    .table-borderless tbody tr:last-child {
+        border-bottom: none !important;
+    }
+
+    .rounded-lg {
+        border-radius: 0.75rem !important;
+    }
+
+    .signature-line {
+        position: relative;
+        height: 30px;
+    }
+
+    .signature-line::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #6c757d, transparent);
+    }
+</style>
+
+{% endblock %}

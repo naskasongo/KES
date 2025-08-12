@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% block title %}Statistiques{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-primary mt-4 mb-5"><i class="bi bi-bar-chart-fill"></i> Statistiques</h2>
+
+    <!-- Première ligne : Cartes principales -->
+    <div class="row gy-4">
+        <!-- Carte des paiements -->
+        <div class="col-md-4">
+            <div class="card bg-white shadow-sm hover-shadow border border-success rounded custom-border">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-cash fs-1 mb-3 text-success"></i>
+                    <h5 class="card-title fs-4">Total Paiements</h5>
+                    <p class="display-6">{{ paiements.total_paiements|default:"0" }} FC</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte des dépenses -->
+        <div class="col-md-4">
+            <div class="card bg-white shadow-sm hover-shadow border border-danger rounded custom-border">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-cart4 fs-1 mb-3 text-danger"></i>
+                    <h5 class="card-title fs-4">Total Dépenses</h5>
+                    <p class="display-6">{{ depenses.total_depenses|default:"0" }} FC</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte du solde global -->
+        <div class="col-md-4">
+            <div class="card bg-white shadow-sm hover-shadow border border-primary rounded custom-border">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-bank fs-1 mb-3 text-primary"></i>
+                    <h5 class="card-title fs-4">Solde Global</h5>
+                    <p class="display-6">{{ solde_global|default:"0" }} FC</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deuxième ligne : Cartes secondaires -->
+    <div class="row gy-4 mt-5">
+        <!-- Carte du nombre total d'élèves -->
+        <div class="col-md-6">
+            <div class="card bg-white shadow-sm hover-shadow border border-info rounded custom-border">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-people fs-1 mb-3 text-info"></i>
+                    <h5 class="card-title fs-4">Nombre Total d'Élèves</h5>
+                    <p class="display-6">{{ total_eleves }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte du taux de paiement -->
+        <div class="col-md-6">
+            <div class="card bg-white shadow-sm hover-shadow border border-warning rounded custom-border">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-cash-coin fs-1 mb-3 text-warning"></i>
+                    <h5 class="card-title fs-4">Taux de Paiement</h5>
+                    <p class="display-6">{{ taux_paiement|floatformat:2 }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Troisième section : Graphiques -->
+    <div class="row gy-4 mt-5">
+        <!-- Histogramme : Répartition par section -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-light d-flex align-items-center">
+                    <i class="bi bi-bar-chart-fill me-2"></i> Répartition des Élèves par Section
+                </div>
+                <div class="chart-container">
+                    <canvas id="sectionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagramme Circulaire : Répartition par sexe -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-light d-flex align-items-center">
+                    <i class="bi bi-gender-ambiguous me-2"></i> Répartition par Sexe
+                </div>
+                <div class="chart-container">
+                    <canvas id="genderChart"></canvas>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inclusion de Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Script pour générer les graphiques -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Récupération des données depuis le contexte Django
+        const repartitionParSection = {{ repartition_par_section|safe }};
+        const repartitionParSexe = {{ repartition_par_sexe|safe }};
+
+        // Extraction des labels et des données pour l'histogramme (répartition par section)
+        const sectionLabels = repartitionParSection.map(item => item.classe__section__nom);
+        const sectionData = repartitionParSection.map(item => item.total);
+
+        // Extraction des labels et des données pour le diagramme circulaire (répartition par sexe)
+        const genderLabels = repartitionParSexe.map(item => item.sexe);
+        const genderData = repartitionParSexe.map(item => item.total);
+
+        // Debugging
+        console.log("Répartition par section:", repartitionParSection);
+        console.log("Répartition par sexe:", repartitionParSexe);
+
+        // Histogramme : Répartition par section
+        const sectionCtx = document.getElementById('sectionChart').getContext('2d');
+        new Chart(sectionCtx, {
+            type: 'bar',
+            data: {
+                labels: sectionLabels,
+                datasets: [{
+                    label: 'Nombre d\'élèves',
+                    data: sectionData,
+                    backgroundColor: ['#3498db', '#e74c3c', '#f1c40f', '#2ecc71'],
+                    borderColor: ['#2980b9', '#c0392b', '#f39c12', '#27ae60'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1 }
+                    }
+                }
+            }
+        });
+
+        // Diagramme Circulaire : Répartition par sexe
+        const genderCtx = document.getElementById('genderChart').getContext('2d');
+        new Chart(genderCtx, {
+            type: 'doughnut', // Utilisation de doughnut pour un espace au centre
+            data: {
+                labels: genderLabels,
+                datasets: [{
+                    label: 'Répartition par sexe',
+                    data: genderData,
+                    backgroundColor: ['#3498db', '#e74c3c'],
+                    borderColor: ['#2980b9', '#c0392b'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: { enabled: true }
+                },
+                cutout: '50%' // Ajoute un espace au centre du camembert
+            }
+        });
+    });
+</script>
+
+<!-- Styles personnalisés -->
+
+    <style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 8px 5px rgba(0, 0, 0, 0.2);
+    }
+    .card-header {
+        font-weight: bold;
+    }
+    .card.border-success {
+        border-color: #28a745; /* Vert */
+    }
+    .card.border-danger {
+        border-color: #dc3545; /* Rouge */
+    }
+    .card.border-primary {
+        border-color: #007bff; /* Bleu */
+    }
+    .card.border-info {
+        border-color: #17a2b8; /* Cyan */
+    }
+    .card.border-warning {
+        border-color: #ffc107; /* Orange */
+    }
+    .card.border-success i {
+        color: #28a745;
+    }
+    .card.border-danger i {
+        color: #dc3545;
+    }
+    .card.border-primary i {
+        color: #007bff;
+    }
+    .card.border-info i {
+        color: #17a2b8;
+    }
+    .card.border-warning i {
+        color: #ffc107;
+    }
+    .border {
+    border-radius: 120px;
+}
+
+.custom-border {
+    border-width: 8px !important;
+}
+
+
+.chart-container {
+    height: auto;  /* même hauteur pour les deux graphiques */
+    position: relative;
+}
+</style>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Supprimer un Frais{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Carte pour contenir le formulaire -->
+            <div class="card border-danger shadow-sm animate__animated animate__fadeIn">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="h5 mb-0">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        Confirmation de suppression
+                    </h2>
+                </div>
+
+                <div class="card-body">
+                    <!-- Message d'alerte amélioré -->
+                    <div class="alert alert-danger bg-light-danger border-danger">
+                        <div class="d-flex">
+                            <i class="bi bi-exclamation-octagon-fill text-danger fs-4 me-3"></i>
+                            <div>
+                                <h3 class="alert-heading h6 text-danger mb-2">Attention ! Cette action est irréversible</h3>
+                                <p class="mb-0">
+                                    Vous êtes sur le point de supprimer définitivement le frais
+                                    <span class="fw-bold">"{{ frais.nom }}"</span> d'un montant de
+                                    <span class="fw-bold">{{ frais.montant }} FC</span>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Boutons d'action -->
+                    <div class="d-flex justify-content-between mt-4 pt-2 border-top">
+                        <a href="{% url 'liste_frais' %}" class="btn btn-outline-secondary rounded-pill px-4">
+                            <i class="bi bi-arrow-left-circle me-2"></i> Annuler
+                        </a>
+                        <form method="post" class="mb-0">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger rounded-pill px-4 shadow-sm">
+                                <i class="bi bi-trash-fill me-2"></i> Confirmer la suppression
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light-danger {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
+    .rounded-pill {
+        border-radius: 50rem !important;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,303 @@
+<!-- templates/gestion/liste_frais.html -->
+{% extends "base.html" %}
+{% block title %}Liste des frais{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 text-gradient text-primary mb-0">
+                <i class="bi bi-list me-2"></i> Liste des Frais
+            </h1>
+            <p class="mb-0 text-muted">Gestion et configuration des frais scolaires</p>
+        </div>
+        <div>
+            <a href="{% url 'ajouter_frais' %}" class="btn btn-sm btn-success">
+                <i class="bi bi-plus-circle me-1"></i> Ajouter un frais
+            </a>
+        </div>
+    </div>
+
+    <!-- Filtres -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0"><i class="bi bi-funnel me-2"></i>Filtres</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label for="section" class="form-label fw-semibold">Section</label>
+                    <select name="section" id="section" class="form-select">
+                        <option value="">-- Toutes les sections --</option>
+                        {% for section in sections %}
+                            <option value="{{ section.id }}" {% if section.id|stringformat:"s" == request.GET.section %}selected{% endif %}>
+                                {{ section.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="option" class="form-label fw-semibold">Option</label>
+                    <select name="option" id="option" class="form-select" {% if not options %}disabled{% endif %}>
+                        <option value="">-- Toutes les options --</option>
+                        {% for option in options %}
+                            <option value="{{ option.id }}" {% if option.id|stringformat:"s" == request.GET.option %}selected{% endif %}>
+                                {{ option.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="classe" class="form-label fw-semibold">Classe</label>
+                    <select name="classe" id="classe" class="form-select" {% if not classes %}disabled{% endif %}>
+                        <option value="">-- Toutes les classes --</option>
+                        {% for classe in classes %}
+                            <option value="{{ classe.id }}" {% if classe.id|stringformat:"s" == request.GET.classe %}selected{% endif %}>
+                                {{ classe.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="bi bi-funnel-fill me-1"></i> Appliquer
+                    </button>
+                    <a href="{% url 'liste_frais' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-counterclockwise"></i> Réinitialiser
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-success text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Total des Frais</h6>
+                            <h3 class="mb-0">{{ total_frais|default:"0" }} FC</h3>
+                            <p class="text-sm text-success mb-0">
+                                <i class="bi bi-arrow-up-short"></i> {{ frais|length }} types de frais configurés
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-primary text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-mortarboard"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Frais par Section</h6>
+                            <h3 class="mb-0">{{ frais_par_section|default:"0" }}</h3>
+                            <p class="text-sm text-primary mb-0">
+                                <i class="bi bi-info-circle"></i> Répartition optimisée
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-stats hover-lift hover-shadow-lg">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow text-center me-3">
+                            <i class="bi bi-calendar3"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-sm mb-0">Année Scolaire</h6>
+                            <h3 class="mb-0">{{ annee_scolaire|default:"2024-2025" }}</h3>
+                            <p class="text-sm text-info mb-0">
+                                <i class="bi bi-check-circle"></i> Configuration active
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau des frais -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-table me-2"></i>Liste des Frais</h5>
+            <div><span class="badge bg-primary">{{ frais|length }} Frais configurés</span></div>
+        </div>
+        <div class="card-body px-0">
+            {% if frais %}
+                <div class="table-responsive">
+                    <table  id="exportable-table" class="table table-hover align-items-center mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="ps-4">Nom du frais</th>
+                                <th>Montant</th>
+                                <th>Type</th>
+                                <th>Section</th>
+                                <th>Classes</th>
+                                <th>Année scolaire</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for frais_item in frais %}
+                                <tr>
+                                    <td class="ps-4 fw-semibold text-primary">{{ frais_item.nom }}</td>
+                                    <td><span class="fw-semibold">{{ frais_item.montant }} FC</span></td>
+                                    <td><span class="badge bg-secondary">{{ frais_item.type_frais }}</span></td>
+                                    <td>{{ frais_item.section.nom }}</td>
+                                    <td>
+                                        {% for classe in frais_item.classes.all %}
+                                            <span class="badge bg-light text-dark border">{{ classe.nom }}</span>
+                                        {% endfor %}
+                                    </td>
+                                    <td><span class="badge bg-opacity-10 text-info">{{ frais_item.annee_scolaire.annee }}</span></td>
+                                    <td class="text-end pe-4">
+                                        <div class="d-flex gap-2 justify-content-end">
+                                            <a href="{% url 'modifier_frais' frais_item.id %}" class="btn btn-sm btn-warning">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#confirmModal{{ frais_item.id }}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Modal de confirmation -->
+                                        <div class="modal fade" id="confirmModal{{ frais_item.id }}" tabindex="-1"
+                                             aria-labelledby="modalLabel{{ frais_item.id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger text-white">
+                                                        <h5 class="modal-title" id="modalLabel{{ frais_item.id }}">
+                                                            <i class="bi bi-exclamation-triangle me-2"></i>Confirmation
+                                                        </h5>
+                                                        <button type="button" class="btn-close btn-close-white"
+                                                                data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="mb-0">Voulez-vous vraiment supprimer le frais <strong>{{ frais_item.nom }}</strong> ?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Annuler</button>
+                                                        <form method="post"
+                                                              action="{% url 'supprimer_frais' frais_item.id %}">
+                                                            {% csrf_token %}
+                                                            <button type="submit" class="btn btn-danger">
+                                                                <i class="bi bi-trash me-1"></i> Supprimer
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="7" class="text-center">Aucun frais trouvé.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <div class="icon-shape bg-light rounded-circle mx-auto mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-info-circle text-muted fs-3"></i>
+                    </div>
+                    <h5 class="text-muted">Aucun frais trouvé pour les filtres sélectionnés.</h5>
+                    <a href="{% url 'ajouter_frais' %}" class="btn btn-primary mt-3">
+                        <i class="bi bi-plus-circle me-1"></i> Ajouter un frais
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const sectionSelect = document.getElementById("section");
+    const optionSelect = document.getElementById("option");
+    const classeSelect = document.getElementById("classe");
+
+    // Charger les options via AJAX
+    async function loadOptions(sectionId) {
+        const response = await fetch(`/api/options/${sectionId}`);
+        const data = await response.json();
+
+        optionSelect.innerHTML = '<option value="">-- Toutes les options --</option>';
+        if (data.options && data.options.length > 0) {
+            data.options.forEach(opt => {
+                const option = document.createElement("option");
+                option.value = opt.id;
+                option.textContent = opt.nom;
+                optionSelect.appendChild(option);
+            });
+            optionSelect.disabled = false;
+        } else {
+            optionSelect.disabled = true;
+        }
+        loadClasses(sectionId, null); // Réinitialiser les classes
+    }
+
+    // Charger les classes via AJAX
+    async function loadClasses(sectionId, optionId = null) {
+        const response = await fetch(`/api/classes/${sectionId}/${optionId || 'null'}`);
+        const data = await response.json();
+
+        classeSelect.innerHTML = '<option value="">-- Toutes les classes --</option>';
+        if (data.classes && data.classes.length > 0) {
+            data.classes.forEach(cls => {
+                const option = document.createElement("option");
+                option.value = cls.id;
+                option.textContent = cls.nom;
+                classeSelect.appendChild(option);
+            });
+            classeSelect.disabled = false;
+        } else {
+            classeSelect.disabled = true;
+        }
+    }
+
+    // Événements
+    sectionSelect.addEventListener("change", function () {
+        const sectionId = this.value;
+        if (sectionId) {
+            loadOptions(sectionId);
+        } else {
+            optionSelect.innerHTML = '<option value="">-- Toutes les options --</option>';
+            optionSelect.disabled = true;
+            classeSelect.innerHTML = '<option value="">-- Toutes les classes --</option>';
+            classeSelect.disabled = true;
+        }
+    });
+
+    optionSelect.addEventListener("change", function () {
+        const sectionId = sectionSelect.value;
+        const optionId = this.value || null;
+        if (sectionId) {
+            loadClasses(sectionId, optionId);
+        }
+    });
+});
+</script>
+{% endblock %}

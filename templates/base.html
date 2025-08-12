@@ -1,0 +1,43 @@
+{% load static %}
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Wantashi - Gestion{% endblock %}</title>
+    <!-- Intégration de Bootstrap CSS (si installé en local dans /static/bootstrap/) -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <!-- Contenu principal -->
+    {% endblock %}
+    <!-- Intégration de Bootstrap JS -->
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+
+  {% if user.is_authenticated %}
+    <ul>
+        {% if user.role == "admin" or user.role == "directeur" %}
+            <li><a href="{% url 'gestion_maternelle_primaire' %}">Gestion Maternelle & Primaire</a></li>
+        {% endif %}
+
+        {% if user.role == "admin" or user.role == "prefet" %}
+            <li><a href="{% url 'gestion_secondaire_humanites' %}">Gestion Secondaire & Humanités</a></li>
+        {% endif %}
+
+        {% if user.role == "admin" or user.role == "prefet_itm" %}
+            <li><a href="{% url 'gestion_itm' %}">Gestion ITM</a></li>
+        {% endif %}
+
+        {% if user.role == "admin" or user.role == "financier" %}
+            <li><a href="{% url 'gestion_finances' %}">Gestion Financière</a></li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+
+
+  </body>
+</html>

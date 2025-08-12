@@ -1,0 +1,27 @@
+<!-- templates/gestion/supprimer_utilisateur.html -->
+
+{% extends "base.html" %}
+{% block title %}Supprimer utilisateur - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-danger text-white text-center py-3">
+                    <h4>Confirmer la suppression</h4>
+                </div>
+                <div class="card-body p-4">
+                    <p>Êtes-vous sûr de vouloir supprimer l'utilisateur <strong>{{ utilisateur.username }}</strong> ?</p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger me-2">Supprimer</button>
+                        <a href="{% url 'liste_utilisateurs' %}" class="btn btn-secondary">Annuler</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

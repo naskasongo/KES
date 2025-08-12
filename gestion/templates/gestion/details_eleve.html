@@ -1,0 +1,543 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profil de {{ eleve.nom }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Messages d'alerte -->
+    {% if messages %}
+    <div class="row mb-3">
+        <div class="col-12">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 text-gradient text-primary mb-0">
+                <i class="bi bi-person-badge me-2"></i>{{ eleve.nom }} {{ eleve.post_nom }} {{ eleve.prenom }}
+            </h1>
+            <p class="mb-0 text-muted">Matricule: {{ eleve.matricule }} | Classe: {{ eleve.classe.nom }} {{ eleve.option.nom }}</p>
+        </div>
+        <div class="dropdown">
+            <a href="#" class="btn btn-sm btn-outline-secondary ms-2">
+                <i class="bi bi-pencil-square me-1"></i> Modifier
+            </a>
+        </div>
+    </div>
+
+    <!-- Sélecteur d'année scolaire -->
+
+
+    {% if has_inscription %}
+    <!-- Contenu principal - Elève inscrit cette année -->
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Student Info Card -->
+            <div class="card shadow-sm mb-4 hover-lift hover-shadow-lg">
+                <div class="card-header bg-white border-bottom d-flex align-items-center">
+                    <i class="bi bi-person-lines-fill text-primary me-2 fs-4"></i>
+                    <h5 class="mb-0">Informations personnelles</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item px-0 py-2 d-flex justify-content-between">
+                                    <span class="text-muted">Nom complet</span>
+                                    <span class="fw-bold">{{ eleve.nom }} {{ eleve.post_nom }} {{ eleve.prenom }}</span>
+                                </li>
+                                <li class="list-group-item px-0 py-2 d-flex justify-content-between">
+                                    <span class="text-muted">Sexe</span>
+                                    <span class="badge bg-{% if eleve.get_sexe_display == 'M' %}primary{% else %}pink{% endif %}">
+                                        {{ eleve.get_sexe_display }}
+                                    </span>
+                                </li>
+                                <li class="list-group-item px-0 py-2 d-flex justify-content-between">
+                                    <span class="text-muted">Date de naissance</span>
+                                    <span class="fw-bold">{{ eleve.date_naissance }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item px-0 py-2 d-flex justify-content-between">
+                                    <span class="text-muted">Lieu de naissance</span>
+                                    <span class="fw-bold">{{ eleve.lieu_naissance }}</span>
+                                </li>
+                                <li class="list-group-item px-0 py-2 d-flex justify-content-between">
+                                    <span class="text-muted">Classe/Section</span>
+                                    <span class="fw-bold">{{ eleve.classe.section.nom }}</span>
+                                </li>
+                                <li class="list-group-item px-0 py-2 d-flex justify-content-between">
+                                    <span class="text-muted">Parent</span>
+                                    <span class="fw-bold">
+                                        {% if eleve.parent %}
+                                            <a href="{% url 'detail_parent' eleve.parent.id %}" class="text-decoration-none">{{ eleve.parent.nom }}</a>
+                                        {% else %}
+                                            Non renseigné
+                                        {% endif %}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Tabs -->
+            <div class="card shadow-sm hover-lift hover-shadow-lg" id="payment-section">
+                <div class="card-header bg-white border-bottom">
+                    <ul class="nav nav-tabs card-header-tabs" id="paymentTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button" role="tab">
+                                <i class="bi bi-calendar-week me-1"></i> Mensuels
+                                <span class="badge bg-primary ms-1">{{ paiements_mensuels_count }}</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="quarterly-tab" data-bs-toggle="tab" data-bs-target="#quarterly" type="button" role="tab">
+                                <i class="bi bi-calendar-range me-1"></i> Trimestriels
+                                <span class="badge bg-primary ms-1">{{ paiements_trimestriels_count }}</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="annual-tab" data-bs-toggle="tab" data-bs-target="#annual" type="button" role="tab">
+                                <i class="bi bi-calendar-check me-1"></i> Annuels
+                                <span class="badge bg-primary ms-1">{{ paiements_annuels_count }}</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="paymentTabsContent">
+                        <!-- Monthly Payments -->
+                        <div class="tab-pane fade show active" id="monthly" role="tabpanel">
+  {% if has_paiements_mensuels %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Mois</th>
+          <th>Montant</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in paiements_mensuels %}
+        <tr>
+          <td>{{ p.mois|default:"-" }}</td>
+          <td>{{ p.montant_paye }} FC</td>
+          <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-info">Aucun paiement mensuel</div>
+  {% endif %}
+</div>
+
+                        <!-- Quarterly Payments -->
+                        <div class="tab-pane fade" id="quarterly" role="tabpanel">
+  {% if has_paiements_trimestriels %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Tranche</th>
+          <th>Montant</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in paiements_trimestriels %}
+        <tr>
+          <td>{{ p.tranche }}</td>
+          <td>{{ p.montant_paye }} FC</td>
+          <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-info">Aucun paiement trimestriel</div>
+  {% endif %}
+</div>
+
+                        <!-- Annual Payments -->
+                        <div class="tab-pane fade" id="annual" role="tabpanel">
+  {% if has_paiements_annuels %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Montant</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in paiements_annuels %}
+        <tr>
+          <td>{{ p.frais.nom }}</td>
+          <td>{{ p.montant_paye }} FC</td>
+          <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-info">Aucun paiement annuel</div>
+  {% endif %}
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="card shadow-sm mb-4 hover-lift hover-shadow-lg">
+                <div class="card-header bg-white border-bottom d-flex align-items-center">
+                    <i class="bi bi-lightning-charge text-warning me-2 fs-4"></i>
+                    <h5 class="mb-0">Actions rapides</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'liste_eleves' %}" class="btn btn-outline-primary text-start">
+                            <i class="bi bi-arrow-left me-2"></i> Retour à la liste
+                        </a>
+                        <a href="{% url 'eleves_par_classe' eleve.classe.id %}" class="btn btn-outline-success text-start">
+                            <i class="bi bi-people me-2"></i> Élèves de {{ eleve.classe.nom }}
+                        </a>
+                        <a href="{% url 'eleves_par_section' eleve.classe.section.id %}" class="btn btn-outline-info text-start">
+                            <i class="bi bi-collection me-2"></i> Tous les élèves de la section
+                        </a>
+                        <button class="btn btn-outline-danger text-start" data-bs-toggle="modal" data-bs-target="#newPaymentModal">
+                            <i class="bi bi-cash-coin me-2"></i> Nouveau paiement
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Summary -->
+            <div class="card shadow-sm hover-lift hover-shadow-lg">
+                <div class="card-header bg-white border-bottom d-flex align-items-center">
+                    <i class="bi bi-pie-chart text-info me-2 fs-4"></i>
+                    <h5 class="mb-0">Résumé des paiements</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Total payé</span>
+                        <span class="fw-bold text-success">{{ total_paye|floatformat:2 }} FC</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Mensuels</span>
+                        <span class="fw-bold">{{ paiements_mensuels_count }} paiement(s)</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Trimestriels</span>
+                        <span class="fw-bold">{{ paiements_trimestriels_count }} paiement(s)</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Annuels</span>
+                        <span class="fw-bold">{{ paiements_annuels_count }} paiement(s)</span>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <small class="text-muted">Dernier paiement: {{ dernier_paiement.date_paiement|date:"d/m/Y"|default:"Aucun" }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Payment Modal -->
+    <div class="modal fade" id="newPaymentModal" tabindex="-1" aria-labelledby="newPaymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newPaymentModalLabel">Nouveau paiement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="paymentForm" method="post" action="{% url 'ajouter_paiement' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="eleve_id" value="{{ eleve.id }}">
+                        <input type="hidden" name="annee_scolaire" value="{{ selected_annee.id }}">
+
+                        <div class="mb-3">
+                            <label for="fraisType" class="form-label">Type de frais</label>
+                            <select class="form-select" id="fraisType" name="frais_type" required>
+                                <option value="" selected disabled>Sélectionnez un type</option>
+                                <option value="Mensuel">Mensuel</option>
+                                <option value="Trimestriel">Trimestriel</option>
+                                <option value="Annuel">Annuel</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3" id="monthField" style="display: none;">
+                            <label for="month" class="form-label">Mois</label>
+                            <select class="form-select" id="month" name="month">
+                                {% for month in months %}
+                                <option value="{{ month }}">{{ month }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3" id="trancheField" style="display: none;">
+                            <label for="tranche" class="form-label">Tranche</label>
+                            <select class="form-select" id="tranche" name="tranche">
+                                <option value="1ère Tranche">1ère Tranche</option>
+                                <option value="2ème Tranche">2ème Tranche</option>
+                                <option value="3ème Tranche">3ème Tranche</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3" id="annualField" style="display: none;">
+                            <label for="annualFrais" class="form-label">Frais annuel</label>
+                            <select class="form-select" id="annualFrais" name="frais_id">
+                                {% for frais in frais_annuels %}
+                                <option value="{{ frais.id }}">{{ frais.nom }} ({{ frais.montant }} FC)</option>
+                                {% empty %}
+                                <option value="" disabled>Aucun frais annuel défini</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Montant (FC)</label>
+                            <input type="number" class="form-control" id="amount" name="amount" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="paymentDate" class="form-label">Date de paiement</label>
+                            <input type="date" class="form-control" id="paymentDate" name="payment_date" required value="{{ today|date:'Y-m-d' }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="receiptNumber" class="form-label">Numéro de reçu</label>
+                            <input type="text" class="form-control" id="receiptNumber" name="receipt_number" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" form="paymentForm" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<!-- Elève non inscrit pour cette année -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-exclamation-triangle fs-1 text-warning"></i>
+                <h3 class="mt-3">Aucune inscription trouvée</h3>
+                <p class="text-muted">
+                    Cet élève n'est pas inscrit pour l'année scolaire {{ annee_courante }}.
+                </p>
+                <a href="{% url 'liste_eleves' %}" class="btn btn-primary mt-3">
+                    <i class="bi bi-arrow-left me-1"></i> Retour à la liste
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Styles et scripts restent identiques -->
+<style>
+    /* Vos styles CSS existants */
+</style>
+    <script src="{% static 'js/details_eleve.js' %}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gestion des onglets de paiement
+        const fraisTypeSelect = document.getElementById('fraisType');
+        if (fraisTypeSelect) {
+            fraisTypeSelect.addEventListener('change', function() {
+                document.getElementById('monthField').style.display = 'none';
+                document.getElementById('trancheField').style.display = 'none';
+                document.getElementById('annualField').style.display = 'none';
+
+                if (this.value === 'Mensuel') {
+                    document.getElementById('monthField').style.display = 'block';
+                } else if (this.value === 'Trimestriel') {
+                    document.getElementById('trancheField').style.display = 'block';
+                } else if (this.value === 'Annuel') {
+                    document.getElementById('annualField').style.display = 'block';
+                }
+            });
+        }
+
+        // Définir la date du jour par défaut
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('paymentDate').value = today;
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+  // Activation des onglets Bootstrap
+  const tabEls = document.querySelectorAll('button[data-bs-toggle="tab"]');
+  tabEls.forEach(tabEl => {
+    tabEl.addEventListener('click', function(e) {
+      e.preventDefault();
+      new bootstrap.Tab(this).show();
+    });
+  });
+
+  // Debug: Affiche les données reçues
+  console.log("Paiements mensuels:", {{ paiements_mensuels|safe }});
+  console.log("Paiements trimestriels:", {{ paiements_trimestriels|safe }});
+});
+</script>
+
+<!-- Print Styles -->
+<style media="print">
+    @page {
+        size: A4 portrait;
+        margin: 1cm;
+    }
+    body * {
+        visibility: hidden;
+    }
+    #print-section, #print-section * {
+        visibility: visible;
+    }
+    #print-section {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .no-print {
+        display: none !important;
+    }
+    .card {
+        border: none;
+        box-shadow: none;
+    }
+    .table {
+        width: 100%;
+    }
+    .badge {
+        border: 1px solid #000;
+        color: #000;
+        background-color: transparent !important;
+    }
+</style>
+
+<style>
+    /* Custom Styles */
+    .hover-lift {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 12px;
+    }
+    .hover-lift:hover {
+        transform: translateY(-5px);
+    }
+    .hover-shadow-lg:hover {
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+    .nav-tabs .nav-link {
+        border: none;
+        padding: 0.75rem 1rem;
+        color: #6c757d;
+        font-weight: 500;
+    }
+    .nav-tabs .nav-link.active {
+        color: #5e72e4;
+        background: transparent;
+        border-bottom: 3px solid #5e72e4;
+    }
+    .table-responsive {
+        min-height: 300px;
+    }
+    .badge.bg-pink {
+        background-color: #f3a4b5;
+        color: #fff;
+    }
+    .list-group-item {
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0,.05);
+    }
+    .text-gradient {
+        background: linear-gradient(90deg, #5e72e4 0%, #825ee4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
+
+<script>
+    // Activer les tooltips
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        // Gestion du type de frais
+        document.getElementById('fraisType').addEventListener('change', function() {
+            const type = this.value;
+            document.getElementById('monthField').style.display = 'none';
+            document.getElementById('trancheField').style.display = 'none';
+            document.getElementById('annualField').style.display = 'none';
+
+            if (type === 'Mensuel') {
+                document.getElementById('monthField').style.display = 'block';
+            } else if (type === 'Trimestriel') {
+                document.getElementById('trancheField').style.display = 'block';
+            } else if (type === 'Annuel') {
+                document.getElementById('annualField').style.display = 'block';
+            }
+        });
+
+        // Définir la date du jour par défaut
+        document.getElementById('paymentDate').valueAsDate = new Date();
+    });
+
+    // Fonction d'impression
+    function printPage() {
+        // Créer un clone de la section à imprimer
+        const printContent = document.createElement('div');
+        printContent.id = 'print-section';
+
+        // Clone de l'en-tête
+        const header = document.querySelector('.container-fluid.py-4 > .d-flex').cloneNode(true);
+        header.querySelector('.dropdown').remove();
+        printContent.appendChild(header);
+
+        // Clone des informations personnelles
+        const infoCard = document.querySelector('.card.shadow-sm.mb-4').cloneNode(true);
+        printContent.appendChild(infoCard);
+
+        // Clone des paiements (onglet actif seulement)
+        const activeTab = document.querySelector('.tab-pane.active');
+        if (activeTab) {
+            const paymentClone = activeTab.cloneNode(true);
+            printContent.appendChild(paymentClone);
+        }
+
+        // Ajouter au body et imprimer
+        document.body.appendChild(printContent);
+        window.print();
+        document.body.removeChild(printContent);
+    }
+
+    // Export Excel (fonction côté serveur via les URLs)
+    // Export PDF (fonction côté serveur via les URLs)
+</script>
+{% endblock %}

@@ -1,0 +1,243 @@
+<!-- templates/gestion/bilan_financier.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Bilan Financier{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 mt-4">
+    <h2 class="fw-bold text-uppercase text-center mb-4" style="color: #ffffff;">
+        <i class="bi bi-bar-chart text-primary  "></i> Bilan Financier
+    </h2>
+
+    <!-- Filtres -->
+
+
+    <!-- Statistiques -->
+    <div class="row text-center mt-4">
+        <div class="col-md-4">
+            <div class="card border-success-custom shadow-sm rounded-4">
+                <div class="card-body">
+                    <p class="text-muted fw-bold mb-1">TOTAL RECETTES</p>
+                    <h3 class="text-success">{{ total_encaisse|floatformat:2 }} FC</h3>
+                    <i class="bi bi-cash-coin fs-2 text-success"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-danger-custom shadow-sm rounded-4">
+                <div class="card-body">
+                    <p class="text-muted fw-bold mb-1">TOTAL DÉPENSES</p>
+                    <h3 class="text-danger">{{ total_depenses|floatformat:2 }} FC</h3>
+                    <i class="bi bi-credit-card-2-front fs-2 text-danger"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-primary-custom shadow-sm rounded-4">
+                <div class="card-body">
+                    <p class="text-muted fw-bold mb-1">SOLDE NET</p>
+                    <h3 class="text-primary">{{ solde_final|floatformat:2 }} FC</h3>
+                    <i class="bi bi-wallet2 fs-2 text-primary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphique Évolution -->
+    <div class="card mt-5 shadow-sm rounded-4">
+        <div class="card-header bg-white border-bottom rounded-top-4">
+            <h6 class="mb-0 fw-bold">Évolution Financière Mensuelle</h6>
+        </div>
+        <div class="card-body">
+            <canvas id="financialChart" height="75%"></canvas>
+        </div>
+    </div>
+
+    <!-- Top 5 Frais -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom">
+                    <h6 class="mb-0 fw-bold">Top 5 des Frais</h6>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for frais in top_frais %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ frais.frais__nom }}
+                            <span class="badge bg-success rounded-pill">{{ frais.total|floatformat:2 }} FC</span>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">Aucun frais trouvé.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Taux de Retard -->
+        <div class="col-md-4">
+            <div class="card border-warning-custom shadow-sm rounded-4">
+                <div class="card-body">
+                    <p class="text-muted fw-bold mb-1">Taux de Retard</p>
+                    <h3 class="text-warning">{{ taux_retard }}%</h3>
+                    <i class="bi bi-clock-history fs-2 text-warning"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Répartition Dépenses -->
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom">
+                    <h6 class="mb-0 fw-bold">Répartition des Dépenses</h6>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for depense in repartition_depenses %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ depense.motif }}
+                            <span class="badge bg-primary rounded-pill">{{ depense.total|floatformat:2 }} FC</span>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">Aucune dépense enregistrée.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recettes par Classe -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom">
+                    <h6 class="mb-0 fw-bold">Recettes par Classe</h6>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table  id="exportable-table"  class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Classe</th>
+                                    <th>Total Recettes</th>
+                                    <th>Nombre de Paiements</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in repartition_par_classe %}
+                                    <tr>
+                                        <td>{{ item.eleve__classe__nom }}</td>
+                                        <td>{{ item.total|floatformat:2 }} FC</td>
+                                        <td>{{ item.count }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted">Aucune donnée disponible</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles personnalisés -->
+<style>
+    .border-success-custom {
+        border: 5px solid #198754 !important;
+        box-shadow: 0 0 10px #19875450;
+    }
+
+    .border-danger-custom {
+        border: 5px solid #dc3545 !important;
+        box-shadow: 0 0 10px #dc354550;
+    }
+
+    .border-primary-custom {
+        border: 5px solid #0d6efd !important;
+        box-shadow: 0 0 10px #0d6efd50;
+    }
+
+    .border-warning-custom {
+        border: 5px solid #ffc107 !important;
+        box-shadow: 0 0 10px #ffc10750;
+    }
+</style>
+
+<!-- Intégration de Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Modifiez la partie script du graphique comme suit -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('financialChart').getContext('2d');
+        const rawData = JSON.parse('{{ chart_json|escapejs }}');
+
+        // Vérification des données
+        console.log("Données du graphique:", rawData);
+
+        if (rawData.labels.length > 0) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: rawData.labels,
+                    datasets: [
+                        {
+                            label: 'Recettes',
+                            data: rawData.recettes,
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Dépenses',
+                            data: rawData.depenses,
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Solde Net',
+                            data: rawData.solde,
+                            borderColor: '#0d6efd',
+                            backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toLocaleString() + ' FC';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toLocaleString() + ' FC';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        } else {
+            console.warn("Aucune donnée disponible pour le graphique");
+            ctx.fillText("Aucune donnée disponible", 10, 50);
+        }
+    });
+</script>
+
+{% endblock %}

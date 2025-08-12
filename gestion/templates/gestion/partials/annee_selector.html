@@ -1,0 +1,23 @@
+<div class="annee-selection mb-4">
+    <label for="annee-select" class="form-label">Sélectionner une année scolaire:</label>
+    <select id="annee-select" class="form-select" onchange="updateAnneeScolaire(this.value)">
+        {% for annee in annees_disponibles %}
+            <option value="{{ annee.id }}" {% if annee.est_courante %}selected{% endif %}>
+                {{ annee.nom }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
+<script>
+function updateAnneeScolaire(anneeId) {
+    // Récupérer l'URL actuelle
+    let currentUrl = new URL(window.location.href);
+
+    // Mettre à jour le paramètre d'année
+    currentUrl.searchParams.set('annee_scolaire', anneeId);
+
+    // Rediriger vers la nouvelle URL
+    window.location.href = currentUrl.toString();
+}
+</script>

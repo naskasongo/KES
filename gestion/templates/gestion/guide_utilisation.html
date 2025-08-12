@@ -1,0 +1,1000 @@
+<!-- Ajout de la section Accès et Permissions -->
+<!-- templates/gestion/guide_utilisation.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Guide d'Utilisation - Système de Gestion des Paiements{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Introduction -->
+    <section id="introduction">
+        <h2 class="mb-4">Introduction</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <p>Le système de gestion des paiements est un module complet qui permet de gérer efficacement les frais scolaires, les paiements et les dépenses dans l'établissement.</p>
+
+                <h5 class="mt-4">Objectifs du Guide</h5>
+                <ul class="list-group list-group-flush mt-2">
+                    <li class="list-group-item"><i class="fas fa-angle-right me-2 text-primary"></i>Présenter les fonctionnalités clés</li>
+                    <li class="list-group-item"><i class="fas fa-angle-right me-2 text-primary"></i>Expliquer la procédure d'ajout de paiements</li>
+                    <li class="list-group-item"><i class="fas fa-angle-right me-2 text-primary"></i>Indiquer comment consulter et modifier des paiements</li>
+                    <li class="list-group-item"><i class="fas fa-angle-right me-2 text-primary"></i>Présenter les fonctionnalités de recherche et de reporting</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connexion au système -->
+    <section id="connexion">
+        <h2 class="mb-4">Connexion au Système</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Étapes de connexion</h5>
+                <ol class="list-group list-group-numbered mt-3">
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Accéder à la page de connexion</div>
+                            Saisissez l'URL du système dans votre navigateur web : <code>{{ request.get_host }}/login</code>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Saisir vos identifiants</div>
+                            Entrez votre nom d'utilisateur et votre mot de passe dans les champs prévus à cet effet.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Valider la connexion</div>
+                            Cliquez sur le bouton "Connexion" pour accéder au tableau de bord.
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="alert alert-info mt-4 mb-0" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    En cas d'oubli de mot de passe, cliquez sur "Mot de passe oublié" pour procéder à la réinitialisation.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ajout d'un paiement -->
+    <section id="ajout-paiement">
+        <h2 class="mb-4">Ajout d'un Paiement</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Procédure d'enregistrement d'un paiement</h5>
+
+                <ol class="list-group list-group-numbered mt-3">
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Accéder au formulaire d'ajout</div>
+                            Dans le menu principal, sélectionnez "Paiements" > "Ajouter un paiement"
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Sélectionner la section</div>
+                            Choisissez la section (ex: ITM, Secondaire) dans la liste déroulante
+                            <div class="mt-2">
+                                <img src="{% static 'images/guide/etape1.png' %}" alt="Sélection de section" class="img-fluid rounded shadow-sm" width="600">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Choisir l'option et la classe</div>
+                            Sélectionnez l'option (si applicable) et la classe de l'élève
+                            <div class="mt-2">
+                                <img src="{% static 'images/guide/etape2.png' %}" alt="Sélection option et classe" class="img-fluid rounded shadow-sm" width="600">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Sélectionner l'élève et le frais</div>
+                            Choisissez l'élève concerné et le type de frais à enregistrer
+                            <div class="mt-2">
+                                <img src="{% static 'images/guide/etape3.png' %}" alt="Sélection élève et frais" class="img-fluid rounded shadow-sm" width="600">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Saisir les détails du paiement</div>
+                            <p>Remplissez les informations suivantes :</p>
+                            <ul>
+                                <li><strong>Mensuel :</strong> Sélectionnez le mois concerné</li>
+                                <li><strong>Trimestriel :</strong> Choisissez la tranche (1ère, 2ème ou 3ème)</li>
+                                <li><strong>Montant payé :</strong> Saisissez le montant versé</li>
+                            </ul>
+                            <div class="mt-2">
+                                <img src="{% static 'images/guide/etape4.png' %}" alt="Détails du paiement" class="img-fluid rounded shadow-sm" width="600">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Confirmer l'opération</div>
+                            Cliquez sur le bouton "Enregistrer" pour finaliser le paiement.
+
+                            <div class="alert alert-success mt-3" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Un reçu de paiement est généré automatiquement avec un numéro unique (ex: REC-2024-0001).
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation des paiements -->
+    <section id="consultation">
+        <h2 class="mb-4">Consultation des Paiements</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Recherche et filtrage des paiements</h5>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6>Par filtres</h6>
+                        <p>Utilisez les filtres par section, option, classe et type de frais pour affiner votre recherche.</p>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Champ</th>
+                                        <th>Description</th>
+                                        <th>Fonctionnalité</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Section</td>
+                                        <td>Filtrer par niveau (Maternelle, ITM, Humanités, etc.)</td>
+                                        <td>Automatique selon les droits de l'utilisateur</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Option</td>
+                                        <td>Filtrer par spécialité (Informatique, Électronique, etc.)</td>
+                                        <td>Lié à la section sélectionnée</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Classe</td>
+                                        <td>Filtrer par année d'étude</td>
+                                        <td>Lié à la section et à l'option</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type de frais</td>
+                                        <td>Filtrer par catégorie (Inscription, Minerval, etc.)</td>
+                                        <td>Liste dynamique selon la classe</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h6>Par recherche libre</h6>
+                        <p>Utilisez la barre de recherche pour trouver un paiement par matricule d'élève ou numéro de reçu.</p>
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Rechercher un paiement...">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
+                        <div class="alert alert-light border mt-3" role="alert">
+                            <strong>Exemples de recherche :</strong>
+                            <ul class="mb-0">
+                                <li>Matricule : "24JO001"</li>
+                                <li>Numéro de reçu : "REC-2024-0001"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Visualisation des détails</h5>
+
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Élève</th>
+                                <th>Frais</th>
+                                <th>Montant</th>
+                                <th>Mois/Tranche</th>
+                                <th>Solde restant</th>
+                                <th>Reçu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for paiement in paiements %}
+                            <tr>
+                                <td>{{ paiement.date_paiement|date:"d/m/Y" }}</td>
+                                <td>{{ paiement.eleve.nom }} {{ paiement.eleve.post_nom }}</td>
+                                <td>{{ paiement.frais.nom }}</td>
+                                <td>{{ paiement.montant_paye }} FC</td>
+                                <td>{{ paiement.mois|default:paiement.tranche }}</td>
+                                <td>{{ paiement.solde_restant }} FC</td>
+                                <td>
+                                    <a href="{% url 'detail_paiement' paiement.id %}" class="btn btn-sm btn-info" target="_blank">
+                                        <i class="fas fa-print"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">Aucun paiement trouvé</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-3">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Les paiements mensuels sont cumulatifs : le solde non payé du mois précédent est reporté au mois suivant.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modification d'un paiement -->
+    <section id="modification">
+        <h2 class="mb-4">Modification d'un Paiement</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Procédure de modification</h5>
+
+                <ol class="list-group list-group-numbered mt-3">
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Accéder à la liste des paiements</div>
+                            Cliquez sur "Paiements" > "Historique" dans le menu principal
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Rechercher le paiement</div>
+                            Utilisez les filtres ou la barre de recherche pour trouver le paiement à modifier
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Accéder à l'édition</div>
+                            Cliquez sur le bouton "Modifier" à côté du paiement concerné
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Mettre à jour les informations</div>
+                            <p>Seul le montant payé peut être modifié. Les autres champs sont verrouillés pour éviter les erreurs.</p>
+                            <pre class="bg-light p-3 rounded code-block">
+class ModifierPaiementForm(forms.ModelForm):
+    class Meta:
+        model = Paiement
+        fields = ['montant_paye']
+                            </pre>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Valider la modification</div>
+                            Cliquez sur "Enregistrer" pour sauvegarder les changements
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="alert alert-danger mt-4" role="alert">
+                    <i class="fas fa-lock me-2"></i>
+                    La modification des paiements n'est autorisée qu'aux administrateurs et aux responsables financiers.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Export et reporting -->
+    <section id="export">
+        <h2 class="mb-4">Export et Reporting</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Export des données</h5>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-center">Format PDF</h6>
+                                <div class="text-center my-3">
+                                    <i class="fas fa-file-pdf fa-3x text-danger"></i>
+                                </div>
+                                <p class="card-text text-center">Pour l'impression et l'archivage</p>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-download me-2"></i>Exporter en PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-center">Format Excel</h6>
+                                <div class="text-center my-3">
+                                    <i class="fas fa-file-excel fa-3x text-success"></i>
+                                </div>
+                                <p class="card-text text-center">Pour l'analyse et le traitement</p>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-sm btn-outline-success">
+                                        <i class="fas fa-download me-2"></i>Exporter en Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-center">Format CSV</h6>
+                                <div class="text-center my-3">
+                                    <i class="fas fa-file-csv fa-3x text-info"></i>
+                                </div>
+                                <p class="card-text text-center">Pour les importations externes</p>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-sm btn-outline-info">
+                                        <i class="fas fa-download me-2"></i>Exporter en CSV
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h6>Options de filtrage pour les exports</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Type de filtre</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Période</td>
+                                            <td>Par jour, mois ou année scolaire</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Section</td>
+                                            <td>Choix de la section (ITM, Humanités, etc.)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Frais</td>
+                                            <td>Filtrage par type de frais (Inscription, Minerval, etc.)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <img src="{% static 'images/guide/export.png' %}" alt="Options d'export" class="img-fluid rounded shadow-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Codes d'erreur -->
+    <section id="erreurs">
+        <h2 class="mb-4">Codes d'Erreur et Solutions</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Erreurs Fréquentes</h5>
+                        <div class="accordion mt-3" id="erreurAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="erreurOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Erreur : Montant supérieur au solde
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="erreurOne" data-bs-parent="#erreurAccordion">
+                                    <div class="accordion-body">
+                                        <strong>Cause : </strong>Le montant saisi dépasse le montant total du frais<br>
+                                        <strong>Solution : </strong>Vérifiez le montant à payer dans la section "Frais" et entrez un montant inférieur ou égal à ce montant
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="erreurTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Erreur : Accès refusé
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="erreurTwo" data-bs-parent="#erreurAccordion">
+                                    <div class="accordion-body">
+                                        <strong>Cause : </strong>L'utilisateur n'a pas les permissions nécessaires<br>
+                                        <strong>Solution : </strong>Contactez l'administrateur pour obtenir les droits d'accès appropriés
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="erreurThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Erreur : Paiement déjà effectué
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="erreurThree" data-bs-parent="#erreurAccordion">
+                                    <div class="accordion-body">
+                                        <strong>Cause : </strong>Un paiement existe déjà pour ce mois et ce frais<br>
+                                        <strong>Solution : </strong>Consultez l'historique pour vérifier les paiements précédents
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h5>Message d'erreur type</h5>
+                        <div class="bg-light p-3 rounded">
+                            <pre class="code-block">
+Erreur : Le montant payé (50000 FC) dépasse le montant net à payer (30000 FC)
+(Compte tenu d'un solde précédent de 20000 FC)
+                            </pre>
+                        </div>
+
+                        <div class="alert alert-info mt-3" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Les messages d'erreur contiennent toujours des informations détaillées pour faciliter la résolution du problème.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bonnes pratiques -->
+    <section id="bonnes-pratiques">
+        <h2 class="mb-4">Bonnes Pratiques</h2>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex align-items-center">
+                            <i class="fas fa-check-circle text-success me-2"></i>Procédures de saisie
+                        </h5>
+                        <ul class="mt-3">
+                            <li>Toujours vérifier le solde restant avant d'enregistrer un paiement</li>
+                            <li>Conserver les justificatifs papier des paiements</li>
+                            <li>Enregistrer les paiements dès leur réception</li>
+                            <li>Vérifier régulièrement l'historique des actions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex align-items-center">
+                            <i class="fas fa-shield-alt text-primary me-2"></i>Sécurité
+                        </h5>
+                        <ul class="mt-3">
+                            <li>Ne partagez jamais vos identifiants</li>
+                            <li>Déconnectez-vous toujours après utilisation</li>
+                            <li>Signalez immédiatement toute anomalie</li>
+                            <li>Effectuez les paiements depuis des appareils sécurisés</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <h2 class="mb-4">FAQ - Questions Fréquentes</h2>
+
+        <div class="accordion" id="guideFaq">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Comment consulter l'historique des paiements d'un élève ?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#guideFaq">
+                    <div class="accordion-body">
+                        <p>Depuis le menu "Élèves" > "Liste des élèves", cliquez sur le bouton "Détails" à côté de l'élève concerné, puis sélectionnez l'onglet "Paiements".</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Que faire en cas de paiement incorrect ?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#guideFaq">
+                    <div class="accordion-body">
+                        <p>Contactez immédiatement un administrateur système pour corriger l'erreur. Les paiements ne peuvent pas être supprimés mais peuvent être corrigés via un ajustement comptable.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Comment imprimer un reçu ?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#guideFaq">
+                    <div class="accordion-body">
+                        <p>Après l'enregistrement d'un paiement, un bouton "Imprimer" apparaît. Cliquez dessus pour générer le reçu en format PDF.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact support -->
+    <section id="contact">
+        <h2 class="mb-4">Contact et Support Technique</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Support Technique</h5>
+                        <p>concepteur du systeme</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-phone me-2"></i> +243 970 338 991</li>
+                            <li><i class="fas fa-envelope me-2"></i> jonaskasongo7@gmail.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h5>Horaires d'assistance</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-clock me-2"></i> Lundi - Vendredi : 7h - 17h</li>
+                            <li><i class="fas fa-clock me-2"></i> Samedi : 7h - 12h</li>
+                        </ul>
+
+                        <div class="alert alert-warning mt-3" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Pour les problèmes urgents en dehors des horaires de bureau, appelez le responsable informatique d'astreinte.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<section id="acces-permissions">
+    <h2 class="mb-4">Accès et Permissions</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Roles et Accès</h5>
+            <div class="table-responsive mt-3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Rôle</th>
+                            <th>Accès</th>
+                            <th>Permissions Spécifiques</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Administrateur</td>
+                            <td>Toutes les sections</td>
+                            <td>Gestion complète du système</td>
+                        </tr>
+                        <tr>
+                            <td>Directeur</td>
+                            <td>Maternelle & Primaire</td>
+                            <td>Lecture seule des données</td>
+                        </tr>
+                        <tr>
+                            <td>Préfet</td>
+                            <td>Secondaire & Humanités</td>
+                            <td>Gestion des élèves et paiements</td>
+                        </tr>
+                        <tr>
+                            <td>Préfet ITM</td>
+                            <td>ITM</td>
+                            <td>Gestion des options et classes</td>
+                        </tr>
+                        <tr>
+                            <td>Directeur Financier</td>
+                            <td>Maternelle & Primaire (Finances)</td>
+                            <td>Gestion des frais et recettes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Restrictions d'accès</h5>
+            <ul class="list-group list-group-flush mt-2">
+                <li class="list-group-item"><i class="fas fa-shield-alt me-2 text-primary"></i>Les utilisateurs ne peuvent consulter que les données de leur section assignée</li>
+                <li class="list-group-item"><i class="fas fa-shield-alt me-2 text-primary"></i>Les modifications nécessitent des privilèges administratifs</li>
+                <li class="list-group-item"><i class="fas fa-shield-alt me-2 text-primary"></i>Les historiques d'actions sont enregistrés pour chaque modification</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Ajout de la section Notifications -->
+<section id="notifications">
+    <h2 class="mb-4">Notifications et Historique</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Notifications</h5>
+            <p>Le système génère automatiquement des notifications pour les actions importantes :</p>
+            
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-bell me-2"></i>Création de paiements
+                    </div>
+                    <div class="alert alert-success" role="alert">
+                        <i class="fas fa-bell me-2"></i>Modifications de données
+                    </div>
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-bell me-2"></i>Erreurs critiques
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="" alt="Notifications" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Historique des Actions</h5>
+            <p>L'ensemble des actions sont enregistrées dans l'historique avec les détails suivants :</p>
+            
+            <div class="table-responsive mt-3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Utilisateur</th>
+                            <th>Action</th>
+                            <th>Détails</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-03-15 10:30</td>
+                            <td>Admin</td>
+                            <td>Création</td>
+                            <td>Paiement élève 24JO001 - 50000 FC</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ajout de la section Statistiques -->
+<section id="statistiques">
+    <h2 class="mb-4">Statistiques et Rapports</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Tableaux de Bord</h5>
+            <p>Le système propose plusieurs vues statistiques disponibles dans le menu "Rapports"</p>
+            
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="card-title">Recettes Mensuelles</h6>
+                            <canvas id="recettesChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="card-title">Répartition par Frais</h6>
+                            <canvas id="fraisChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="card-title">Taux de Paiement</h6>
+                            <canvas id="tauxPaiementChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Filtres et Export</h5>
+            <p>Les statistiques peuvent être filtrées par :</p>
+            
+            <ul class="list-group list-group-flush mt-2">
+                <li class="list-group-item"><i class="fas fa-filter me-2 text-primary"></i>Période (jour, mois, année)</li>
+                <li class="list-group-item"><i class="fas fa-filter me-2 text-primary"></i>Section et classe</li>
+                <li class="list-group-item"><i class="fas fa-filter me-2 text-primary"></i>Type de frais</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Mise à jour de la section FAQ -->
+<section id="faq">
+    <h2 class="mb-4">FAQ - Questions Fréquentes</h2>
+
+    <div class="accordion" id="guideFaq">
+        <!-- Question existante 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faqOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Comment consulter l'historique des paiements d'un élève ?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#guideFaq">
+                <div class="accordion-body">
+                    <p>Depuis le menu "Élèves" > "Liste des élèves", cliquez sur le bouton "Détails" à côté de l'élève concerné, puis sélectionnez l'onglet "Paiements".</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nouvelle Question -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faqFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Comment accéder aux statistiques financières ?
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#guideFaq">
+                <div class="accordion-body">
+                    <p>Allez dans le menu "Rapports" > "Statistiques financières". Vous pouvez filtrer les données par période, section et type de frais.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nouvelle Question -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faqFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Comment gérer les notifications ?
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#guideFaq">
+                <div class="accordion-body">
+                    <p>Les notifications sont accessibles via l'icône de cloche en haut à droite. Cliquez dessus pour marquer toutes les notifications comme lues ou consultez-les individuellement.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ajout de la section Sécurité et Bonnes Pratiques -->
+<section id="securite">
+    <h2 class="mb-4">Sécurité et Bonnes Pratiques</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex align-items-center">
+                        <i class="fas fa-lock text-primary me-2"></i>Procédures de Sécurité
+                    </h5>
+                    <ul class="mt-3">
+                        <li>Changer régulièrement son mot de passe</li>
+                        <li>Ne pas partager ses identifiants</li>
+                        <li>Déconnecter son compte après utilisation</li>
+                        <li>Signaler toute activité suspecte</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex align-items-center">
+                        <i class="fas fa-chart-line text-success me-2"></i>Bonnes Pratiques de Saisie
+                    </h5>
+                    <ul class="mt-3">
+                        <li>Saisir les données immédiatement après leur réception</li>
+                        <li>Vérifier systématiquement les montants avant validation</li>
+                        <li>Conserver les justificatifs physiques</li>
+                        <li>Archiver régulièrement les documents</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ajout de la section Gestion des Utilisateurs -->
+<section id="gestion-utilisateurs">
+    <h2 class="mb-4">Gestion des Utilisateurs</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Création d'un Utilisateur</h5>
+            <ol class="list-group list-group-numbered mt-3">
+                <li class="list-group-item d-flex align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Accéder au formulaire</div>
+                        Menu "Utilisateurs" > "Ajouter un utilisateur"
+                    </div>
+                </li>
+                <li class="list-group-item d-flex align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Remplir les informations</div>
+                        Nom, prénom, email, rôle et mot de passe
+                    </div>
+                </li>
+                <li class="list-group-item d-flex align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Valider l'opération</div>
+                        Cliquez sur "Enregistrer"
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Modification d'un Utilisateur</h5>
+            <p>Seuls les administrateurs peuvent modifier les informations des utilisateurs.</p>
+            <ul>
+                <li>Accéder à la liste des utilisateurs</li>
+                <li>Cliquer sur "Détails" à côté de l'utilisateur</li>
+                <li>Modifier les informations nécessaires</li>
+                <li>Enregistrer les changements</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Mise à jour des bonnes pratiques -->
+<section id="bonnes-pratiques">
+    <h2 class="mb-4">Bonnes Pratiques</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>Procédures de saisie
+                    </h5>
+                    <ul class="mt-3">
+                        <li>Toujours vérifier le solde restant avant d'enregistrer un paiement</li>
+                        <li>Conserver les justificatifs papier des paiements</li>
+                        <li>Enregistrer les paiements dès leur réception</li>
+                        <li>Vérifier régulièrement l'historique des actions</li>
+                        <li>Utiliser des mots de passe sécurisés</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title d-flex align-items-center">
+                        <i class="fas fa-shield-alt text-primary me-2"></i>Sécurité
+                    </h5>
+                    <ul class="mt-3">
+                        <li>Ne partagez jamais vos identifiants</li>
+                        <li>Déconnectez-vous toujours après utilisation</li>
+                        <li>Signalez immédiatement toute anomalie</li>
+                        <li>Effectuez les paiements depuis des appareils sécurisés</li>
+                        <li>Conservez des sauvegardes régulières</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mise à jour du style -->
+<style>
+    /* Styles existants */
+    .code-block {
+        background-color: #f1f3f5;
+        padding: 1rem;
+        border-radius: 0.375rem;
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        border: 1px solid #e2e8f0;
+    }
+
+    /* Styles supplémentaires */
+    .card-title i {
+        min-width: 1.5rem;
+    }
+    
+    .accordion-button {
+        background-color: #f8f9fa;
+        color: #212529;
+        border: none;
+    }
+    
+    .accordion-button:focus {
+        z-index: 0;
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    
+    .accordion-body {
+        background-color: #fbfcfd;
+    }
+    
+    .list-group-item {
+        border: none;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .list-group-item:last-child {
+        border-bottom: none;
+    }
+</style>
+{% endblock %}

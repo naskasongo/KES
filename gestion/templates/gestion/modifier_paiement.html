@@ -1,0 +1,96 @@
+{% extends "base-login.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="col-md-6 offset-md-3 form-container">
+        <!-- Display Django messages -->
+        {% if messages %}
+            <div class="mb-3">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" id="modifier-paiement-form">
+            {% csrf_token %}
+            <fieldset class="border p-4 rounded">
+                <legend class="w-auto">Détails du Paiement</legend>
+
+                {% for field in form %}
+                    <div class="form-group mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="text-danger">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </fieldset>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Enregistrer
+                </button>
+                <a href="{% url 'liste_paiements' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Retour
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('modifier-paiement-form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            }
+        })
+        .then(response => {
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                return response.json();
+            } else {
+                throw new Error('La réponse du serveur n\'est pas au format JSON');
+            }
+        })
+        .then(data => {
+            if (data.success) {
+                // Use Django messages for success
+                window.location.href = '{% url "liste_paiements" %}';
+            } else {
+                // Display form errors
+                const errors = data.errors || {};
+                for (const [field, messages] of Object.entries(errors)) {
+                    alert(`Erreur dans le champ ${field}: ${messages.join(', ')}`);
+                }
+            }
+        })
+        .catch(error => {
+            alert('Erreur: ' + error.message);
+        });
+    });
+});
+</script>
+
+<style>
+  .readonly-bg {
+    pointer-events: none; /* Empêche toute interaction avec le champ */
+    border: 1px solid #ced4da; /* Bordure similaire aux champs modifiables */
+    color: #495057; /* Texte sombre pour rester lisible */
+}
+</style>
+{% endblock %}

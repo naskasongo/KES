@@ -1,0 +1,476 @@
+{% extends "base-login.html" %}
+{% load static %}
+{% block title %}Connexion - CS Wantashi{% endblock %}
+
+{% block content %}
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+<!-- AOS - Animate On Scroll Library -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #1e3a8a;        /* Night blue */
+        --primary-dark: #1e3a8a;
+        --primary-light: #dbeafe;
+        --secondary: #3b82f6;      /* Lighter blue */
+        --success: #10b981;
+        --success-light: #d1fae5;
+        --danger: #ef4444;
+        --danger-light: #fee2e2;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        --text: #1e293b;
+        --text-light: #64748b;
+        --bg-light: #c5d7ea;
+        --dark-bg: #0f172a;        /* Dark background */
+        --card-bg: #ffffff;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text);
+        background-color: var(--bg-light);
+    }
+
+    .bg-primary { background-color: var(--primary) !important; }
+    .bg-primary-light { background-color: var(--primary-light) !important; }
+    .bg-success-light { background-color: var(--success-light) !important; }
+    .bg-danger-light { background-color: var(--danger-light) !important; }
+    .bg-warning-light { background-color: #fffbeb !important; }
+    .bg-dark-blue { background-color: var(--dark-bg) !important; }
+
+    .text-primary { color: var(--primary) !important; }
+    .text-secondary { color: var(--secondary) !important; }
+    .text-success { color: var(--success) !important; }
+    .text-danger { color: var(--danger) !important; }
+    .text-warning { color: var(--warning) !important; }
+
+    .border-primary { border-color: var(--primary) !important; }
+
+    /* Custom Card Style */
+    .custom-card {
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        border: none;
+        background-color: var(--card-bg);
+    }
+
+    .custom-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Custom Form Elements */
+    .form-input, .form-select {
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        padding: 0.75rem 1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+        background-color: var(--card-bg);
+    }
+
+    .form-input:focus, .form-select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    /* Custom Button */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.25rem;
+        border-radius: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+    .btn-outline {
+        background-color: transparent;
+        border: 1px solid #cbd5e0;
+        color: var(--text);
+    }
+
+    .btn-outline:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    /* Input Group */
+    .input-group {
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .input-group-text {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #6c757d;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #f1f5f9;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px 0 0 10px;
+        border-right: 0;
+    }
+
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: var(--card-bg);
+        background-clip: padding-box;
+        border: 2px solid #e2e8f0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 10px;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-control:focus {
+        color: #212529;
+        background-color: var(--card-bg);
+        border-color: var(--primary);
+        outline: 0;
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+    }
+
+    /* Login Image */
+    .login-image {
+        background-size: cover;
+        background-position: center;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(15, 23, 42, 0.9) 100%);
+    }
+
+    .image-content {
+        position: relative;
+        z-index: 2;
+        padding: 2rem;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 1.5rem;
+    }
+
+    .feature-list li {
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .feature-list i {
+        margin-right: 10px;
+        color: var(--success);
+    }
+
+    .toggle-password {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-color: #f1f5f9;
+        border: 2px solid #e2e8f0;
+        border-left: 0;
+        border-radius: 0 10px 10px 0;
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .toggle-password:hover {
+        color: var(--primary);
+    }
+
+    /* Alert */
+    .alert {
+        border-radius: 10px;
+        border: none;
+        padding: 1rem;
+    }
+
+    .alert-danger {
+        background-color: var(--danger-light);
+        color: var(--danger);
+    }
+
+    /* Checkbox */
+    .form-check-input {
+        border-radius: 4px;
+        border: 2px solid #cbd5e0;
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+    }
+
+    .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+
+    /* Links */
+    a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    a:hover {
+        color: var(--secondary);
+        text-decoration: underline;
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fadeInUp {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    @media (max-width: 992px) {
+        .login-image {
+            display: none;
+        }
+    }
+</style>
+
+<div class="min-h-screen flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl w-full">
+        <div class="flex flex-col lg:flex-row rounded-2xl overflow-hidden bg-white shadow-xl" style="max-height: 550px;">
+            <!-- Left Column - Form -->
+            <div class="w-full lg:w-5/12">
+                <div class="p-6 md:p-8 animate-fadeInUp" style="animation-delay: 0.1s;">
+                    <div class="text-center mb-6">
+                        <div class="flex justify-center mb-3">
+                            <div class="bg-primary-light p-2 rounded-full">
+                                <i class="fas fa-graduation-cap text-primary text-xl"></i>
+                            </div>
+                        </div>
+                        <h2 class="text-xl font-bold text-gray-800 mb-1">Bienvenue sur CS Wantashi</h2>
+                        <p class="text-gray-600 text-sm">Connectez-vous à votre espace</p>
+                    </div>
+
+                    <form method="post" action="{% url 'login' %}" class="space-y-4">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}">
+
+                        {% if form.errors %}
+                            <div class="alert alert-danger flex items-center text-sm" role="alert">
+                                <i class="fas fa-exclamation-circle mr-2"></i>
+                                <div>
+                                    <strong>Identifiants incorrects</strong> - Veuillez vérifier vos informations
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div>
+                            <label for="{{ form.username.id_for_label }}" class="form-label text-sm">Identifiant</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </span>
+                                <input type="text"
+                                       class="form-control"
+                                       id="{{ form.username.id_for_label }}"
+                                       name="{{ form.username.html_name }}"
+                                       placeholder="Nom d'utilisateur ou email"
+                                       required
+                                       autofocus>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="{{ form.password.id_for_label }}" class="form-label text-sm">Mot de passe</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-lock text-gray-500"></i>
+                                </span>
+                                <input type="password"
+                                       class="form-control"
+                                       id="{{ form.password.id_for_label }}"
+                                       name="{{ form.password.html_name }}"
+                                       placeholder="••••••••"
+                                       required>
+                                <button class="toggle-password" type="button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="text-right mt-1">
+                                <a href="{% url 'password_reset' %}" class="text-xs">Mot de passe oublié ?</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me">
+                                <label class="ml-2 text-xs text-gray-700" for="rememberMe">Se souvenir de moi</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-full py-2.5">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Connexion
+                        </button>
+
+                        <div class="text-center pt-4 border-t border-gray-200">
+                            <p class="text-gray-600 text-sm">
+                                Nouveau sur la plateforme ?
+                                <a href="{% url 'register' %}" class="font-medium">Créer un compte</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column - Image -->
+            <div class="hidden lg:block w-7/12">
+                <div class="login-image h-full" style="background-image: url('{% static 'argon/img/home-decor-1.jpg' %}')">
+                    <div class="image-content text-white">
+                        <h2 class="text-2xl font-bold mb-3">Gestion Scolaire Intelligente</h2>
+                        <p class="text-sm mb-4">Accédez à toutes les fonctionnalités pour une gestion optimale de votre établissement.</p>
+
+                        <ul class="feature-list space-y-2">
+                            <li class="flex items-start">
+                                <div class="bg-success-light text-success w-5 h-5 rounded-full flex items-center justify-center mr-2 mt-0.5">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <span class="text-sm">Tableau de bord personnalisable</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-success-light text-success w-5 h-5 rounded-full flex items-center justify-center mr-2 mt-0.5">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <span class="text-sm">Gestion des élèves et paiements</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-success-light text-success w-5 h-5 rounded-full flex items-center justify-center mr-2 mt-0.5">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <span class="text-sm">Rapports financiers détaillés</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-success-light text-success w-5 h-5 rounded-full flex items-center justify-center mr-2 mt-0.5">
+                                    <i class="fas fa-check text-xs"></i>
+                                </div>
+                                <span class="text-sm">Interface intuitive</span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-6 pt-4 border-t border-gray-700 border-opacity-30">
+                            <div class="flex items-center">
+                                <div class="bg-primary-light text-primary w-10 h-10 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs opacity-75">Solution complète</p>
+                                    <p class="font-bold">CS Wantashi Manager Pro</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AOS JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    // Toggle password visibility with better UX
+    document.querySelectorAll('.toggle-password').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const input = this.closest('.input-group').querySelector('input');
+            const icon = this.querySelector('i');
+            const isPassword = input.type === 'password';
+
+            input.type = isPassword ? 'text' : 'password';
+            icon.classList.toggle('fa-eye-slash', isPassword);
+            icon.classList.toggle('fa-eye', !isPassword);
+
+            // Add focus to input after toggle
+            input.focus();
+        });
+    });
+
+    // Auto-focus username field
+    document.addEventListener('DOMContentLoaded', function() {
+        const usernameField = document.getElementById('{{ form.username.id_for_label }}');
+        if (usernameField && !usernameField.value) {
+            usernameField.focus();
+        }
+    });
+</script>
+{% endblock %}

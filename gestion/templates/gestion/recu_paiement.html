@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Reçu de Paiement{% endblock %}
+{% block content %}
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .recu-container {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .recu-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .recu-details {
+            margin-bottom: 20px;
+        }
+        .recu-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .print-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+<div class="container">
+    <div class="card shadow-lg p-4 mt-4">
+        <h2 class="text-center text-primary"><i class="bi bi-receipt"></i> Reçu de Paiement</h2>
+        <hr>
+
+        <p><strong>Élève :</strong> {{ paiement.eleve.nom }} {{ paiement.eleve.post_nom }}</p>
+        <p><strong>Matricule :</strong> {{ paiement.eleve.matricule }}</p> <!-- Ajout du matricule de l'élève -->
+        <p><strong>Classe :</strong> {{ paiement.eleve.classe.nom }} {% if paiement.eleve.option %}({{ paiement.eleve.option.nom }}){% endif %}</p>
+        <p><strong>Frais :</strong> {{ paiement.frais.nom }}</p>
+        <p><strong>Mois :</strong> {{ paiement.mois }}</p>
+        <p><strong>Montant Payé :</strong> {{ paiement.montant_paye }} FC</p>
+        <p><strong>Solde Restant :</strong> {{ paiement.solde_restant }} FC</p>
+        <p><strong>Numéro de Reçu :</strong> {{ paiement.recu_numero }}</p>
+        <p><strong>Date de Paiement :</strong> {{ paiement.date_paiement }}</p>
+
+        <p><strong>Caissier :</strong> {{ request.user.first_name }} {{ request.user.last_name }}</p> <!-- Nom et prénom du caissier -->
+
+        <button onclick="window.print()" class="btn btn-primary mt-3"><i class="bi bi-printer"></i> Imprimer</button>
+        <a href="{% url 'liste_paiements' %}" class="btn btn-secondary mt-3">Retour</a>
+    </div>
+</div>
+
+{% endblock %}

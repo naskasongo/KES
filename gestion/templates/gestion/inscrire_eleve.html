@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Inscription de {{ eleve.nom }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4 text-center"><i class="bi bi-person-plus"></i> Inscription d'un élève</h2>
+    
+    <div class="card mt-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5>Élève : {{ eleve.nom }} {{ eleve.post_nom }}</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                <h5><i class="bi bi-file-earmark-text"></i> Documents fournis</h5>
+                <div class="form-group">
+                    {{ form.documents_fournis }}
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3">
+                    <i class="bi bi-check-circle"></i> Valider l'inscription
+                </button>
+                <a href="{% url 'liste_inscriptions' %}" class="btn btn-secondary mt-3">
+                    <i class="bi bi-arrow-left"></i> Retour
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
