@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328896cd-7ba4-48a9-aa15-ceeaf669889e" name="Changes" comment="commit message">
-      <change afterPath="$PROJECT_DIR$/gestion/static/js/base.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gestion/static/js/dashboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gestion/static/js/details_eleve.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gestion/static/js/reinscription.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/.venv/bin/Activate.ps1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/.venv/bin/activate" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/.venv/bin/activate.csh" beforeDir="false" />
@@ -10587,7 +10582,7 @@
       <workItem from="1754914930184" duration="3340000" />
       <workItem from="1755001573430" duration="1481000" />
       <workItem from="1755034565631" duration="274000" />
-      <workItem from="1755100048963" duration="4963000" />
+      <workItem from="1755100048963" duration="6265000" />
     </task>
     <task id="LOCAL-00001" summary="commit message">
       <option name="closed" value="true" />
