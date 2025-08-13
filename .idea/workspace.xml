@@ -5,6 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328896cd-7ba4-48a9-aa15-ceeaf669889e" name="Changes" comment="commit message">
+      <change afterPath="$PROJECT_DIR$/gestion/static/js/base.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion/static/js/dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion/static/js/details_eleve.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion/static/js/reinscription.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/.venv/bin/Activate.ps1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/.venv/bin/activate" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/.venv/bin/activate.csh" beforeDir="false" />
@@ -5236,6 +5243,7 @@
       <change beforePath="$PROJECT_DIR$/wantashi/static/bootstrap/js/bootstrap.min.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/templates/HH.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/templates/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wantashi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/wantashi/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/venv/Lib/site-packages/Django-5.1.6.dist-info/AUTHORS" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/venv/Lib/site-packages/Django-5.1.6.dist-info/INSTALLER" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/venv/Lib/site-packages/Django-5.1.6.dist-info/LICENSE" beforeDir="false" />
@@ -10266,7 +10274,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/wantashi" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -10319,7 +10327,7 @@
     "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
     "django.template.preview.state": "SHOW_EDITOR",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Projects/school/gestion/templates",
+    "last_opened_file_path": "D:/Projects/school/gestion/static/js",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -10337,11 +10345,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\school\gestion\static\js" />
       <recent name="D:\Projects\school\gestion\templates" />
       <recent name="D:\Projects\school\static" />
       <recent name="D:\Projects\wantashi\gestion" />
       <recent name="D:\Projects\wantashi" />
-      <recent name="D:\Projects\wantashi\wantashi\wantashi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\school\gestion\static\css" />
@@ -10577,7 +10585,9 @@
       <workItem from="1753960892803" duration="10370000" />
       <workItem from="1754914538999" duration="305000" />
       <workItem from="1754914930184" duration="3340000" />
-      <workItem from="1755001573430" duration="1174000" />
+      <workItem from="1755001573430" duration="1481000" />
+      <workItem from="1755034565631" duration="274000" />
+      <workItem from="1755100048963" duration="4963000" />
     </task>
     <task id="LOCAL-00001" summary="commit message">
       <option name="closed" value="true" />
