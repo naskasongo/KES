@@ -163,7 +163,7 @@
   --bs-primary-border-subtle: rgb(56.4, 68.4, 136.8);
   --bs-secondary-border-subtle: rgb(78.6, 87.6, 102.6);
   --bs-success-border-subtle: rgb(27, .6, 82.2);
-  --bs-info-border-subtle: rgb(10.2,2 , 143.4);
+  --bs-info-border-subtle: rgb(10.2, , 143.4);
   --bs-warning-border-subtle: rgb(150.6, 59.4, 38.4);
   --bs-danger-border-subtle: rgb(147, 32.4, 55.2);
   --bs-light-border-subtle: #495057;
@@ -26715,6 +26715,7 @@ body.dark-version {
   background: #fff;
   -webkit-box-shadow: 0 8px 26px -4px rgba(20, 20, 20, 0.15), 0 8px 9px -5px rgba(20, 20, 20, 0.06);
 }
+
 
 .flatpickr-calendar.open,
 .flatpickr-calendar.inline {

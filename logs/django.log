@@ -1,0 +1,13 @@
+2025-08-19 18:37:44,333 INFO Serving on http://0.0.0.0:8000
+2025-08-19 18:40:40,037 WARNING Task queue depth is 1
+2025-08-19 18:40:40,058 WARNING Task queue depth is 2
+2025-08-19 18:40:41,032 WARNING Task queue depth is 2
+2025-08-19 18:42:57,749 INFO Watching for file changes with StatReloader
+2025-08-19 18:43:03,196 INFO "GET /dashboard/ HTTP/1.1" 200 138137
+2025-08-19 18:43:03,673 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 273
+2025-08-19 18:43:03,680 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 273
+2025-08-19 18:43:03,680 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 273
+2025-08-19 18:43:03,758 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 273
+2025-08-19 18:43:08,732 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 124991
+2025-08-19 18:43:13,715 INFO "GET /paiements/ HTTP/1.1" 200 324312
+2025-08-19 18:43:26,307 INFO Serving on http://0.0.0.0:8000

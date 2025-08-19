@@ -134,17 +134,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-
-
-# Si tu as un dossier spécifique pour les fichiers statiques supplémentaires
+# Correction de l'ordre et de la configuration des dossiers statiques
 STATICFILES_DIRS = [
-    BASE_DIR / "gestion/static",
-    BASE_DIR / "static",  # Ajoutez cette ligne
+    BASE_DIR / "static",  # Dossier statique principal en premier
+    BASE_DIR / "gestion/static",  # Dossier statique de l'application
 ]
 
-# Répertoire où les fichiers statiques seront collectés pour le déploiement (lors de la commande collectstatic)
+# Répertoire où les fichiers statiques seront collectés pour le déploiement
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
@@ -194,7 +192,7 @@ def get_local_ip():
 
 # Configuration de l'adresse IP statique du serveur
 # Vous pouvez également définir cette variable d'environnement
-SERVER_IP = os.environ.get('SERVER_IP', '192.168.204.95')
+SERVER_IP = os.environ.get('SERVER_IP', '192.168.100.188')
 
 # Configuration des hôtes autorisés
 ALLOWED_HOSTS = [
@@ -237,3 +235,77 @@ DEFAULT_FROM_EMAIL = 'webmaster@localhost'
 
 
 LOGIN_URL = '/login/'
+# Configuration des logs pour Waitress
+# Configuration des logs simplifiée pour Waitress
+import logging
+
+# Configuration de base pour afficher les logs
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(name)s %(message)s'
+)
+
+# Activer les logs Django
+import django
+from django.conf import settings
+
+if not settings.configured:
+    django.setup()
+
+
+import os
+from pathlib import Path
+
+# Configuration des logs pour enregistrer dans un fichier
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{asctime} {levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs' / 'django.log',
+            'formatter': 'simple',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'waitress': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
+# Créer le dossier logs s'il n'existe pas
+LOGS_DIR = BASE_DIR / 'logs'
+LOGS_DIR.mkdir(exist_ok=True)

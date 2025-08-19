@@ -6,3 +6,7 @@ qrcode[pil]
 pyotp
 django-extensions werkzeug
 pyOpenSSL
+python-dateutil
+pandas
+reportlab
+djangorestframework

@@ -1,6 +1,53 @@
-//script pour la fiche de paiement
-console.log("Fichier paiement.js chargé et exécuté");
+function updateOptionField() {
+    const sectionId = sectionSelect.value;
+    const isHumanitesOrITM = ["4", "5"].includes(sectionId); // 修改为直接匹配特定ID
+    
+    // 更新选项
+    optionSelect.disabled = !isHumanitesOrITM || sectionId === "";
+    
+    if (isHumanitesOrITM && sectionId !== "") {
+        fetch(`/api/get-options/${sectionId}/`)
+            .then(response => response.json())
+            .then(data => {
+                optionSelect.innerHTML = '<option value="">-- Sélectionner --</option>';
+                
+                // 修改：添加过滤器防止显示无权限的选项
+                data.options.filter(option => 
+                    check_section_access(request.user, option.section.nom)
+                ).forEach(option => {
+                    optionSelect.appendChild(new Option(option.nom, option.id));
+                });
+            });
+    }
+}
 
+function updateClasseField() {
+    const sectionId = sectionSelect.value;
+    const optionId = optionSelect.value || "";
+    
+    if (!sectionId) return;
+    
+    const url = optionId 
+        ? `/api/get-classes/${sectionId}/${optionId}/`
+        : `/api/get-classes/${sectionId}/`;
+    
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            classeSelect.innerHTML = '<option value="">-- Sélectionner --</option>';
+            
+            // 修改：过滤返回的班级数据
+            data.classes.filter(classe => 
+                check_section_access(request.user, classe.section.nom)
+            ).forEach(classe => {
+                classeSelect.appendChild(
+                    new Option(classe.nom, classe.id)
+                );
+            });
+        });
+}
+
+//script pour la fiche de paiement
 document.addEventListener("DOMContentLoaded", function() {
     // Initialisation des éléments du DOM
     const elements = {
@@ -523,6 +570,95 @@ async function searchByMatricule() {
         if (elements.paymentProgress) elements.paymentProgress.style.display = 'none';
     }
 
+
+    // 17. Fonction pour gérer l'affichage de l'historique dans le tab2
+function setupTab2() {
+    const tab2Content = document.getElementById('tab2-content');
+    if (!tab2Content) return;
+
+    // Créer la structure du tableau pour le tab2
+    tab2Content.innerHTML = `
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Frais</th>
+                        <th>Type</th>
+                        <th>Période</th>
+                        <th>Montant</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="historique-tab2">
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            Sélectionnez un élève pour afficher l'historique
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>`;
+
+    // Écouteur pour l'onglet Historique
+    const tab2Link = document.querySelector('[data-bs-toggle="tab"][href="#tab2"]');
+    if (tab2Link) {
+        tab2Link.addEventListener('click', function() {
+            if (elements.eleve.value) {
+                refreshTab2Historique();
+            }
+        });
+    }
+}
+
+// 18. Fonction pour rafraîchir l'historique dans le tab2
+function refreshTab2Historique() {
+    const historiqueTab2 = document.getElementById('historique-tab2');
+    if (!historiqueTab2) return;
+
+    // Sauvegarder la cible originale
+    const originalTarget = elements.grillePaiement;
+
+    // Temporairement remplacer la cible par le tableau du tab2
+    elements.grillePaiement = historiqueTab2;
+
+    // Appeler la fonction existante
+    updateHistorique();
+
+    // Restaurer la cible originale
+    elements.grillePaiement = originalTarget;
+}
+
+// Modifier la fonction updateEleves() pour rafraîchir les deux onglets
+async function updateEleves() {
+    const classeId = elements.classe.value;
+
+    if (!classeId) return;
+
+    try {
+        const data = await fetchData(`/api/get-eleves/${classeId}/`);
+        elements.eleve.innerHTML = '<option value="">-- Sélectionner --</option>';
+        data.eleves.forEach(eleve => {
+            elements.eleve.add(new Option(
+                `${eleve.nom} ${eleve.post_nom} (${eleve.matricule})`,
+                eleve.id
+            ));
+        });
+
+        // Rafraîchir les deux onglets si un élève est sélectionné
+        if (elements.eleve.value) {
+            await updateHistorique();
+            refreshTab2Historique();
+        }
+    } catch (error) {
+        console.error('Erreur élèves:', error);
+    }
+}
+
+// Ajouter à la fonction setupEventListeners()
+
+
     // 16. Configuration des écouteurs d'événements
     function setupEventListeners() {
         elements.section.addEventListener("change", async () => {
@@ -556,6 +692,13 @@ async function searchByMatricule() {
 
         elements.btnRecherche.addEventListener("click", searchByMatricule);
     }
+     setupTab2();
+
+    // Rafraîchir le tab2 quand on change d'élève
+    elements.eleve.addEventListener("change", async () => {
+        await updateHistorique();
+        refreshTab2Historique();
+    });
 
     // Initialisation
     setupEventListeners();
