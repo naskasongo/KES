@@ -41,6 +41,15 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize',
 
+    #double  authentification avec qrcode
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
+    'qrcode',
+
+    #HTTPS
+    'django_extensions',
+
 ]
 
 MIDDLEWARE = [
@@ -52,6 +61,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    #double  authentification avec qrcode
+'django_otp.middleware.OTPMiddleware',
 ]
 
 ROOT_URLCONF = 'wantashi.urls'
@@ -151,6 +163,69 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
 }
 
+#OTP settings
+OTP_TOTP_ISSUER = "CS Wantashi"
+
+
+# SECURITY WARNING: update this when moving to production
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '192.168.66.95']
+
+import socket
+import os
+
+# Obtenir l'adresse IP locale de manière plus robuste
+def get_local_ip():
+    try:
+        # Méthode 1: Connexion à une adresse externe
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except Exception:
+        try:
+            # Méthode 2: Utilisation de gethostbyname
+            hostname = socket.gethostname()
+            ip = socket.gethostbyname(hostname)
+            return ip
+        except Exception:
+            # Méthode 3: Valeur par défaut
+            return '127.0.0.1'
+
+# Configuration de l'adresse IP statique du serveur
+# Vous pouvez également définir cette variable d'environnement
+SERVER_IP = os.environ.get('SERVER_IP', '192.168.204.95')
+
+# Configuration des hôtes autorisés
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '0.0.0.0',
+    SERVER_IP,  # Votre adresse IP statique
+]
+
+# Charger les paramètres locaux s'ils existent
+try:
+    from config.local_settings import *
+    # Si SERVER_IP est défini dans local_settings, utilisez-le
+    if 'SERVER_IP' in globals():
+        if SERVER_IP not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(SERVER_IP)
+except ImportError:
+    pass
+
+
+
+# Configuration HTTPS - pour développement local
+SECURE_SSL_REDIRECT = False  # Désactivé en développement pour éviter les problèmes de redirection
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_HSTS_SECONDS = 0  # Désactivé en développement
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_PRELOAD = False
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = False  # Désactivé en développement
+CSRF_COOKIE_SECURE = False     # Désactivé en développement
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Pour débogage
 EMAIL_HOST = 'smtp.gmail.com'  # Utilisez le client SMTP réel dans un environnement de production

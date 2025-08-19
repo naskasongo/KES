@@ -4,31 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="328896cd-7ba4-48a9-aa15-ceeaf669889e" name="Changes" comment="commit message">
-      <change afterPath="$PROJECT_DIR$/backup/deploy.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backup/update.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backup/update_checker.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/local_settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gestion/templates/gestion/login_2fa.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gestion/templates/gestion/setup_2fa.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gestion/templates/gestion/verify_2fa.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/Screenshot 2025-08-19 124451.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/base-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/base-login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/detail_utilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/detail_utilisateur.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/details_eleve.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/details_eleve.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/password_change_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/password_change_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/password_reset_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/profil_utilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/profil_utilisateur.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="328896cd-7ba4-48a9-aa15-ceeaf669889e" name="Changes" comment="commit message" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -359,7 +335,7 @@
       <workItem from="1755034565631" duration="274000" />
       <workItem from="1755100048963" duration="11822000" />
       <workItem from="1755117002382" duration="2573000" />
-      <workItem from="1755446092064" duration="32820000" />
+      <workItem from="1755446092064" duration="33160000" />
     </task>
     <task id="LOCAL-00001" summary="commit message">
       <option name="closed" value="true" />
@@ -481,7 +457,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755112544402</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="commit message">
+      <option name="closed" value="true" />
+      <created>1755609885088</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1755609885088</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
