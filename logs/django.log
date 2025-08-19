@@ -11,3 +11,10 @@
 2025-08-19 18:43:08,732 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 124991
 2025-08-19 18:43:13,715 INFO "GET /paiements/ HTTP/1.1" 200 324312
 2025-08-19 18:43:26,307 INFO Serving on http://0.0.0.0:8000
+2025-08-19 18:49:50,275 WARNING Task queue depth is 1
+2025-08-19 18:54:42,598 WARNING Task queue depth is 1
+2025-08-19 18:54:42,607 WARNING Task queue depth is 2
+2025-08-19 18:58:29,297 WARNING Not Found: /profil_utilisateur/1/
+2025-08-19 18:58:30,094 WARNING Not Found: /favicon.ico
+2025-08-19 18:58:52,903 WARNING Not Found: /profil/1/
+2025-08-19 19:04:43,457 WARNING Task queue depth is 1
