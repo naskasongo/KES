@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Vérification 2FA - CS Wantashi{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-gradient-primary text-white py-4 text-center">
+                    <h2 class="mb-0">
+                        <i class="bi bi-shield-lock me-2"></i>Vérification 2FA
+                    </h2>
+                </div>
+                
+                <div class="card-body p-4 p-lg-5">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="text-center mb-4">
+                        <div class="avatar-lg mx-auto mb-4">
+                            <div class="avatar-initials rounded-circle bg-light text-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 2rem;">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                        </div>
+                        <h3 class="mb-2">Vérification requise</h3>
+                        <p class="text-muted">
+                            Entrez le code à 6 chiffres généré par votre application Google Authenticator
+                        </p>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="token" class="form-label text-center d-block">Code de vérification</label>
+                            <input type="text" 
+                                   class="form-control form-control-lg text-center" 
+                                   id="token" 
+                                   name="token" 
+                                   placeholder="000000" 
+                                   maxlength="6" 
+                                   required
+                                   style="letter-spacing: 5px; font-size: 1.5rem; height: 60px;">
+                            <div class="form-text text-center">
+                                Ouvrez votre application Google Authenticator pour obtenir le code actuel
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-check-circle me-2"></i>Vérifier et continuer
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'setup_2fa' %}" class="text-decoration-none me-3">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i>Reconfigurer
+                        </a>
+                        <a href="{% url 'profil_utilisateur' %}" class="text-decoration-none">
+                            <i class="bi bi-person me-1"></i>Profil utilisateur
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+    }
+</style>
+{% endblock %}

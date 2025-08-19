@@ -141,6 +141,12 @@ path('suivi-financier/', views.suivi_financier, name='suivi_financier'),
     #notifications
     path('notifications/', liste_notifications, name='liste_notifications'),
     path('notifications/<int:notification_id>/', details_notification, name='details_notification'),
+
+    path('setup-2fa/', views.setup_2fa, name='setup_2fa'),
+    path('verify-2fa-setup/', views.verify_2fa_setup, name='verify_2fa_setup'),
+    path('login-2fa/', views.login_2fa, name='login_2fa'),
+
+
 # Admin
     path('admin/', admin.site.urls),
 ]

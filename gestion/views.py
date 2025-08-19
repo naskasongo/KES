@@ -175,19 +175,211 @@ class PasswordResetView(View):
 
 
 # Vue pour la connexion
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
+from django_otp import devices_for_user
+from django_otp.plugins.otp_totp.models import TOTPDevice
+import pyotp
+import qrcode
+import base64
+from io import BytesIO
+
+User = get_user_model()
+
+# Importer le modèle UserProfile
+from .models import UserProfile
+
+
 def user_login(request):
     if request.method == 'POST':
-        form = CustomAuthenticationForm(request, data=request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
+            # Vérifier si l'utilisateur a activé la 2FA
+            try:
+                user_profile = user.userprofile
+                print(f"User: {user.username}")
+                print(f"2FA Enabled: {user_profile.is_2fa_enabled}")
+                print(f"TOTP Secret: {user_profile.totp_secret}")
+                if user_profile.is_2fa_enabled and user_profile.totp_secret:
+                    # Stocker l'utilisateur dans la session pour la 2FA
+                    request.session['user_id_for_2fa'] = user.id
+                    print("Redirecting to 2FA login")
+                    # Rediriger vers la page de vérification 2FA
+                    return redirect('login_2fa')
+                else:
+                    print("2FA not enabled or secret missing")
+            except UserProfile.DoesNotExist:
+                # Créer un UserProfile si nécessaire
+                UserProfile.objects.get_or_create(user=user)
+                print("UserProfile created")
+                pass
+
+            # Si la 2FA n'est pas activée, connecter l'utilisateur normalement
             login(request, user)
             messages.success(request, f"Bienvenue {user.username} ! Vous êtes connecté.")
-            return redirect('dashboard')  # Modifiez 'dashboard' avec votre URL réelle
+            return redirect('dashboard')
         else:
             messages.error(request, "Nom d'utilisateur ou mot de passe incorrect.")
     else:
-        form = CustomAuthenticationForm()
+        form = AuthenticationForm()
     return render(request, 'gestion/login.html', {'form': form})
+
+
+
+
+# Nouvelles vues pour la gestion de la 2FA
+
+@login_required
+def setup_2fa(request):
+    """Configuration de la 2FA pour l'utilisateur"""
+    try:
+        user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+        # Rafraîchir depuis la base de données
+        user_profile.refresh_from_db()
+
+        if not user_profile.totp_secret:
+            # Générer un nouveau secret
+            user_profile.totp_secret = pyotp.random_base32()
+            user_profile.save()
+            messages.info(request, 'Nouvelle clé secrète générée pour la 2FA.')
+
+        # Si c'est une requête POST, cela signifie que l'utilisateur a soumis le formulaire
+        # mais sans action correcte - rediriger vers la page de vérification
+        if request.method == 'POST':
+            messages.info(request, 'Veuillez entrer votre code dans le formulaire de vérification.')
+            return redirect('verify_2fa_setup')
+
+        # Générer l'URI TOTP pour Google Authenticator
+        totp_uri = pyotp.totp.TOTP(user_profile.totp_secret).provisioning_uri(
+            name=request.user.username,
+            issuer_name="CS Wantashi"
+        )
+
+        # Créer le QR code
+        qr = qrcode.QRCode(version=1, box_size=10, border=5)
+        qr.add_data(totp_uri)
+        qr.make(fit=True)
+
+        # Convertir en image
+        img = qr.make_image(fill_color="black", back_color="white")
+
+        # Convertir en base64 pour afficher dans le template
+        buffer = BytesIO()
+        img.save(buffer, format="PNG")
+        img_str = base64.b64encode(buffer.getvalue()).decode()
+
+        messages.info(request, 'Scannez le QR code avec Google Authenticator.')
+
+        return render(request, 'gestion/setup_2fa.html', {
+            'qr_code': img_str,
+            'secret': user_profile.totp_secret
+        })
+    except Exception as e:
+        messages.error(request, f'Erreur lors de la configuration 2FA: {str(e)}')
+        return redirect('profil_utilisateur')
+
+
+@login_required
+def verify_2fa_setup(request):
+    """Vérifier la configuration de la 2FA avec un token"""
+    if request.method == 'POST':
+        token = request.POST.get('token')
+        print(f"Token reçu: {token}")  # Pour le débogage
+
+        if not token:
+            messages.error(request, 'Veuillez entrer un code de vérification.')
+            return render(request, 'gestion/verify_2fa.html')
+
+        try:
+            user_profile = request.user.userprofile
+            print(f"Profil utilisateur trouvé: {user_profile.id}")  # Pour le débogage
+            print(f"Secret TOTP: {user_profile.totp_secret}")  # Pour le débogage
+        except UserProfile.DoesNotExist:
+            # Créer le profil s'il n'existe pas
+            user_profile = UserProfile.objects.create(user=request.user)
+            print("Profil utilisateur créé")  # Pour le débogage
+
+        if not user_profile.totp_secret:
+            messages.error(request, 'Aucune clé secrète trouvée. Veuillez reconfigurer la 2FA.')
+            return redirect('setup_2fa')
+
+        # Vérifier le token
+        try:
+            totp = pyotp.TOTP(user_profile.totp_secret)
+            print(f"Vérification du token: {token}")  # Pour le débogage
+            if totp.verify(token):
+                print("Token valide")  # Pour le débogage
+                # Activer la 2FA pour l'utilisateur
+                user_profile.is_2fa_enabled = True
+                user_profile.save()
+                print("Profil utilisateur mis à jour")  # Pour le débogage
+
+                # Rafraîchir l'objet depuis la base de données
+                user_profile.refresh_from_db()
+                print(f"2FA activée: {user_profile.is_2fa_enabled}")  # Pour le débogage
+
+                # Créer le périphérique TOTP dans django_otp
+                try:
+                    device, created = TOTPDevice.objects.get_or_create(
+                        user=request.user,
+                        name='default'
+                    )
+                    device.confirmed = True
+                    device.save()
+                    print("Périphérique TOTP créé")  # Pour le débogage
+                except Exception as e:
+                    # Ne pas bloquer l'activation même si la création du périphérique échoue
+                    print(f"Erreur lors de la création du périphérique TOTP: {e}")
+
+                messages.success(request, 'Authentification à deux facteurs activée avec succès!')
+                return redirect('profil_utilisateur')  # Rediriger vers le profil plutôt que le dashboard
+            else:
+                print("Token invalide")  # Pour le débogage
+                messages.error(request, 'Code invalide. Veuillez réessayer.')
+        except Exception as e:
+            print(f"Erreur lors de la vérification: {e}")  # Pour le débogage
+            messages.error(request, f'Erreur lors de la vérification: {str(e)}')
+    else:
+        # Si c'est une requête GET, afficher le formulaire de vérification
+        print("Affichage du formulaire de vérification")  # Pour le débogage
+
+    return render(request, 'gestion/verify_2fa.html')
+
+
+
+def login_2fa(request):
+    """Vérifier la 2FA pendant la connexion"""
+    if request.method == 'POST':
+        token = request.POST.get('token')
+        user_id = request.session.get('user_id_for_2fa')
+
+        if not user_id:
+            return redirect('login')
+
+        try:
+            user = User.objects.get(id=user_id)
+            user_profile = user.userprofile
+
+            # Vérifier le token
+            totp = pyotp.TOTP(user_profile.totp_secret)
+            if totp.verify(token):
+                # Connecter l'utilisateur
+                login(request, user)
+                # Supprimer l'utilisateur temporaire de la session
+                if 'user_id_for_2fa' in request.session:
+                    del request.session['user_id_for_2fa']
+                messages.success(request, 'Authentification réussie!')
+                return redirect('dashboard')
+            else:
+                messages.error(request, 'Code invalide. Veuillez réessayer.')
+        except User.DoesNotExist:
+            messages.error(request, 'Utilisateur non trouvé.')
+            return redirect('login')
+
+    return render(request, 'gestion/login_2fa.html')
+
 
 
 # Vue pour la déconnexion
@@ -253,11 +445,16 @@ def modifier_utilisateur(request, user_id):
 @login_required  # Assure que seul un utilisateur connecté peut accéder à cette vue
 def profil_utilisateur(request):
     utilisateur = request.user  # Récupère l'utilisateur connecté
+    # Rafraîchir l'utilisateur depuis la base de données pour obtenir les dernières données
+    utilisateur.refresh_from_db()
+
+    # S'assurer que l'utilisateur a un profil
+    user_profile, created = UserProfile.objects.get_or_create(user=utilisateur)
+
     context = {
         'utilisateur': utilisateur,
     }
-    return render(request, 'gestion/detail_utilisateur.html', context)
-
+    return render(request, 'gestion/profil_utilisateur.html', context)
 
 def user_logout(request):
     logout(request)
@@ -635,6 +832,7 @@ def supprimer_eleve(request, id):
 
 
 @login_required
+@login_required
 def detail_eleve(request, eleve_id):
     """
     Détail d'un élève avec gestion des années scolaires
@@ -700,6 +898,41 @@ def detail_eleve(request, eleve_id):
     months = ["Septembre", "Octobre", "Novembre", "Décembre",
               "Janvier", "Février", "Mars", "Avril", "Mai", "Juin"]
 
+    # Récupération des paiements avec les informations des frais associés
+    paiements_mensuels = paiements.filter(frais__type_frais='Mensuel')
+    paiements_trimestriels = paiements.filter(frais__type_frais='Trimestriel')
+    paiements_annuels = paiements.filter(frais__type_frais='Annuel')
+
+    # Préparer les données pour l'affichage avec mois et tranches
+    paiements_mensuels_data = []
+    for p in paiements_mensuels:
+        paiements_mensuels_data.append({
+            'mois': p.mois if p.mois else "Non spécifié",
+            'montant_paye': p.montant_paye,
+            'date_paiement': p.date_paiement,
+            'frais_nom': p.frais.nom,
+            'solde_restant': p.solde_restant
+        })
+
+    paiements_trimestriels_data = []
+    for p in paiements_trimestriels:
+        paiements_trimestriels_data.append({
+            'tranche': p.tranche if p.tranche else "Non spécifié",
+            'montant_paye': p.montant_paye,
+            'date_paiement': p.date_paiement,
+            'frais_nom': p.frais.nom,
+            'solde_restant': p.solde_restant
+        })
+
+    paiements_annuels_data = []
+    for p in paiements_annuels:
+        paiements_annuels_data.append({
+            'nom': p.frais.nom if p.frais.nom else "Non spécifié",
+            'montant_paye': p.montant_paye,
+            'date_paiement': p.date_paiement,
+            'solde_restant': p.solde_restant
+        })
+
     # 9. Contexte
     context = {
         'eleve': eleve,
@@ -707,8 +940,6 @@ def detail_eleve(request, eleve_id):
         'frais_trimestriels': frais_trimestriels,
         'frais_annuels': frais_annuels,
         'months': months,
-        'col_missing_mensuel': range(max(0, 10 - frais_mensuels.count())),
-        'col_missing_trimestriel': range(max(0, 3 - frais_trimestriels.count())),
         'paiements': paiements,
         'total_paye': total_paye,
         'paiements_mensuels_count': paiements_stats['mensuel']['count'],
@@ -720,13 +951,13 @@ def detail_eleve(request, eleve_id):
         'selected_annee': selected_annee,
         'user_role': request.user.role,
         'has_inscription': inscription_exists,
+        'paiements_mensuels': paiements_mensuels_data,
+        'paiements_trimestriels': paiements_trimestriels_data,
+        'paiements_annuels': paiements_annuels_data,
     }
-    paiements_mensuels = [p for p in context['paiements'] if p.frais.type_frais == 'Mensuel']
-    paiements_trimestriels = [p for p in context['paiements'] if p.frais.type_frais == 'Trimestriel']
-    print("Mensuels:", [{'mois': p.mois, 'montant': p.montant_paye} for p in paiements_mensuels])
-    print("Trimestriels:", [{'tranche': p.tranche, 'montant': p.montant_paye} for p in paiements_trimestriels])
 
-    return render(request, 'details_eleve.html', context)
+    return render(request, 'gestion/details_eleve.html', context)
+
 # modeles details eleves
 @login_required
 def liste_inscriptions(request):
@@ -2720,4 +2951,5 @@ def guide_utilisation_view(request):
     }
 
     return render(request, 'gestion/guide_utilisation.html', context)
+
 

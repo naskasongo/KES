@@ -46,6 +46,36 @@
                             </div>
                             <span>{{ utilisateur.date_joined|date:"d/m/Y à H:i" }}</span>
                         </div>
+
+                        <!-- Section Sécurité 2FA -->
+                        <div class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-3">
+                            <div>
+                                <i class="bi bi-shield-lock me-2 text-primary"></i>
+                                <span class="fw-medium">Authentification à deux facteurs</span>
+                            </div>
+                            <span>
+                                {% if utilisateur.userprofile.is_2fa_enabled %}
+                                    <span class="badge bg-success">Activée</span>
+                                {% else %}
+                                    <span class="badge bg-warning">Désactivée</span>
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <!-- Lien vers la configuration 2FA -->
+                        <div class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-3">
+                            <div>
+                                <i class="bi bi-gear me-2 text-primary"></i>
+                                <span class="fw-medium">Configuration 2FA</span>
+                            </div>
+                            <a href="{% url 'setup_2fa' %}" class="btn btn-sm btn-outline-primary">
+                                {% if utilisateur.userprofile.is_2fa_enabled %}
+                                    Gérer
+                                {% else %}
+                                    Activer
+                                {% endif %}
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Action buttons with better spacing -->
@@ -53,13 +83,20 @@
                         <a href="{% url 'liste_utilisateurs' %}" class="btn btn-outline-secondary">
                             <i class="bi bi-arrow-left me-2"></i>Retour à la liste
                         </a>
+                        <a href="{% url 'setup_2fa' %}" class="btn btn-info">
+                            <i class="bi bi-shield-lock me-2"></i>
+                            {% if utilisateur.userprofile.is_2fa_enabled %}
+                                Gérer la 2FA
+                            {% else %}
+                                Activer la 2FA
+                            {% endif %}
+                        </a>
                         <a href="{% url 'modifier_utilisateur' utilisateur.id %}" class="btn btn-primary">
                             <i class="bi bi-pencil-square me-2"></i>Modifier le profil
                         </a>
                         <a href="{% url 'change_user_password' user_id=utilisateur.id %}" class="btn btn-warning">
-    <i class="bi bi-shield-lock me-2"></i>Modifier le mot de passe
-</a>
-
+                            <i class="bi bi-shield-lock me-2"></i>Modifier le mot de passe
+                        </a>
                     </div>
                 </div>
             </div>

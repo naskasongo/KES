@@ -119,84 +119,86 @@
                     </ul>
                 </div>
                 <div class="card-body">
-                    <div class="tab-content" id="paymentTabsContent">
-                        <!-- Monthly Payments -->
-                        <div class="tab-pane fade show active" id="monthly" role="tabpanel">
-  {% if has_paiements_mensuels %}
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Mois</th>
-          <th>Montant</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in paiements_mensuels %}
-        <tr>
-          <td>{{ p.mois|default:"-" }}</td>
-          <td>{{ p.montant_paye }} FC</td>
-          <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <div class="alert alert-info">Aucun paiement mensuel</div>
-  {% endif %}
-</div>
+                           <!-- Monthly Payments -->
+                    <div class="tab-pane fade show active" id="monthly" role="tabpanel">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mois</th>
+                                    <th>Frais</th>
+                                    <th>Montant Payé</th>
+                                    <th>Solde Restant</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in paiements_mensuels %}
+                                    <tr>
+                                        <td>{{ p.mois }}</td>
+                                        <td>{{ p.frais_nom }}</td>
+                                        <td>{{ p.montant_paye }} FC</td>
+                                        <td>{{ p.solde_restant }} FC</td>
+                                        <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr><td colspan="5">Aucun paiement mensuel</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
 
-                        <!-- Quarterly Payments -->
-                        <div class="tab-pane fade" id="quarterly" role="tabpanel">
-  {% if has_paiements_trimestriels %}
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Tranche</th>
-          <th>Montant</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in paiements_trimestriels %}
-        <tr>
-          <td>{{ p.tranche }}</td>
-          <td>{{ p.montant_paye }} FC</td>
-          <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <div class="alert alert-info">Aucun paiement trimestriel</div>
-  {% endif %}
-</div>
+                    <!-- Quarterly Payments -->
+                    <div class="tab-pane fade" id="quarterly" role="tabpanel">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tranche</th>
+                                    <th>Frais</th>
+                                    <th>Montant Payé</th>
+                                    <th>Solde Restant</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in paiements_trimestriels %}
+                                <tr>
+                                    <td>{{ p.tranche }}</td>
+                                    <td>{{ p.frais_nom }}</td>
+                                    <td>{{ p.montant_paye }} FC</td>
+                                    <td>{{ p.solde_restant }} FC</td>
+                                    <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="5">Aucun paiement trimestriel</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
 
-                        <!-- Annual Payments -->
-                        <div class="tab-pane fade" id="annual" role="tabpanel">
-  {% if has_paiements_annuels %}
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Montant</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in paiements_annuels %}
-        <tr>
-          <td>{{ p.frais.nom }}</td>
-          <td>{{ p.montant_paye }} FC</td>
-          <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <div class="alert alert-info">Aucun paiement annuel</div>
-  {% endif %}
-</div>
+                    <!-- Annual Payments -->
+                    <div class="tab-pane fade" id="annual" role="tabpanel">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Montant Payé</th>
+                                    <th>Solde Restant</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in paiements_annuels %}
+                                <tr>
+                                    <td>{{ p.nom }}</td>
+                                    <td>{{ p.montant_paye }} FC</td>
+                                    <td>{{ p.solde_restant }} FC</td>
+                                    <td>{{ p.date_paiement|date:"d/m/Y" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="4">Aucun paiement annuel</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -336,8 +338,8 @@
             </div>
         </div>
     </div>
-</div>
 
+    </div>
 {% else %}
 <!-- Elève non inscrit pour cette année -->
 <div class="row">
@@ -358,186 +360,4 @@
 </div>
 {% endif %}
 
-<!-- Styles et scripts restent identiques -->
-<style>
-    /* Vos styles CSS existants */
-</style>
-    <script src="{% static 'js/details_eleve.js' %}"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Gestion des onglets de paiement
-        const fraisTypeSelect = document.getElementById('fraisType');
-        if (fraisTypeSelect) {
-            fraisTypeSelect.addEventListener('change', function() {
-                document.getElementById('monthField').style.display = 'none';
-                document.getElementById('trancheField').style.display = 'none';
-                document.getElementById('annualField').style.display = 'none';
-
-                if (this.value === 'Mensuel') {
-                    document.getElementById('monthField').style.display = 'block';
-                } else if (this.value === 'Trimestriel') {
-                    document.getElementById('trancheField').style.display = 'block';
-                } else if (this.value === 'Annuel') {
-                    document.getElementById('annualField').style.display = 'block';
-                }
-            });
-        }
-
-        // Définir la date du jour par défaut
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('paymentDate').value = today;
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-  // Activation des onglets Bootstrap
-  const tabEls = document.querySelectorAll('button[data-bs-toggle="tab"]');
-  tabEls.forEach(tabEl => {
-    tabEl.addEventListener('click', function(e) {
-      e.preventDefault();
-      new bootstrap.Tab(this).show();
-    });
-  });
-
-  // Debug: Affiche les données reçues
-  console.log("Paiements mensuels:", {{ paiements_mensuels|safe }});
-  console.log("Paiements trimestriels:", {{ paiements_trimestriels|safe }});
-});
-</script>
-
-<!-- Print Styles -->
-<style media="print">
-    @page {
-        size: A4 portrait;
-        margin: 1cm;
-    }
-    body * {
-        visibility: hidden;
-    }
-    #print-section, #print-section * {
-        visibility: visible;
-    }
-    #print-section {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-    .no-print {
-        display: none !important;
-    }
-    .card {
-        border: none;
-        box-shadow: none;
-    }
-    .table {
-        width: 100%;
-    }
-    .badge {
-        border: 1px solid #000;
-        color: #000;
-        background-color: transparent !important;
-    }
-</style>
-
-<style>
-    /* Custom Styles */
-    .hover-lift {
-        transition: all 0.3s ease;
-        border: none;
-        border-radius: 12px;
-    }
-    .hover-lift:hover {
-        transform: translateY(-5px);
-    }
-    .hover-shadow-lg:hover {
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
-    }
-    .nav-tabs .nav-link {
-        border: none;
-        padding: 0.75rem 1rem;
-        color: #6c757d;
-        font-weight: 500;
-    }
-    .nav-tabs .nav-link.active {
-        color: #5e72e4;
-        background: transparent;
-        border-bottom: 3px solid #5e72e4;
-    }
-    .table-responsive {
-        min-height: 300px;
-    }
-    .badge.bg-pink {
-        background-color: #f3a4b5;
-        color: #fff;
-    }
-    .list-group-item {
-        border: none;
-        border-bottom: 1px solid rgba(0,0,0,.05);
-    }
-    .text-gradient {
-        background: linear-gradient(90deg, #5e72e4 0%, #825ee4 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-</style>
-
-<script>
-    // Activer les tooltips
-    document.addEventListener('DOMContentLoaded', function() {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
-
-        // Gestion du type de frais
-        document.getElementById('fraisType').addEventListener('change', function() {
-            const type = this.value;
-            document.getElementById('monthField').style.display = 'none';
-            document.getElementById('trancheField').style.display = 'none';
-            document.getElementById('annualField').style.display = 'none';
-
-            if (type === 'Mensuel') {
-                document.getElementById('monthField').style.display = 'block';
-            } else if (type === 'Trimestriel') {
-                document.getElementById('trancheField').style.display = 'block';
-            } else if (type === 'Annuel') {
-                document.getElementById('annualField').style.display = 'block';
-            }
-        });
-
-        // Définir la date du jour par défaut
-        document.getElementById('paymentDate').valueAsDate = new Date();
-    });
-
-    // Fonction d'impression
-    function printPage() {
-        // Créer un clone de la section à imprimer
-        const printContent = document.createElement('div');
-        printContent.id = 'print-section';
-
-        // Clone de l'en-tête
-        const header = document.querySelector('.container-fluid.py-4 > .d-flex').cloneNode(true);
-        header.querySelector('.dropdown').remove();
-        printContent.appendChild(header);
-
-        // Clone des informations personnelles
-        const infoCard = document.querySelector('.card.shadow-sm.mb-4').cloneNode(true);
-        printContent.appendChild(infoCard);
-
-        // Clone des paiements (onglet actif seulement)
-        const activeTab = document.querySelector('.tab-pane.active');
-        if (activeTab) {
-            const paymentClone = activeTab.cloneNode(true);
-            printContent.appendChild(paymentClone);
-        }
-
-        // Ajouter au body et imprimer
-        document.body.appendChild(printContent);
-        window.print();
-        document.body.removeChild(printContent);
-    }
-
-    // Export Excel (fonction côté serveur via les URLs)
-    // Export PDF (fonction côté serveur via les URLs)
-</script>
 {% endblock %}

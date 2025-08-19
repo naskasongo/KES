@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Wantashi{% endblock %}</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{% static 'argon/img/favicon.png' %}">
-
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
@@ -17,218 +14,113 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'argon/css/argon-dashboard.css' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'argon/img/favicon.png' %}">
 
     <style>
-        * {
+        body {
             font-family: 'Inter', sans-serif;
-        }
-
-        .sidebar-transition {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .content-transition {
-            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hover-lift {
-            transition: all 0.2s ease;
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .glass-effect {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .dark .glass-effect {
-            background: rgba(31, 41, 55, 0.95);
         }
 
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .dark .gradient-bg {
-            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
-        .nav-item-active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            box-shadow: 0 4px 15px 0 rgba(102, 126, 234, 0.3);
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .nav-item-hover {
-            transition: all 0.2s ease;
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border-color: #6366f1;
         }
 
-        .nav-item-hover:hover {
-            background: rgba(102, 126, 234, 0.1);
-            transform: translateX(4px);
-        }
-
-        .dark .nav-item-hover:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .submenu-item {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submenu-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: #667eea;
-            transform: scaleY(0);
-            transition: transform 0.2s ease;
-        }
-
-        .submenu-item:hover::before {
-            transform: scaleY(1);
-        }
-
-        .card-modern {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(229, 231, 235, 0.5);
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             transition: all 0.3s ease;
         }
 
-        .dark .card-modern {
-            background: #374151;
-            border-color: rgba(75, 85, 99, 0.5);
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5856eb 0%, #7c3aed 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
         }
 
-        .card-modern:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
         }
 
-        .sidebar-collapsed {
-            width: 4rem !important;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        .sidebar-collapsed .nav-text {
-            opacity: 0;
-            visibility: hidden;
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
         }
 
-        .sidebar-collapsed .submenu {
-            display: none;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .custom-scrollbar {
-            scrollbar-width: thin;
-            scrollbar-color: #d1d5db #f3f4f6;
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
         }
 
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f3f4f6;
-            border-radius: 3px;
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 3px;
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #9ca3af;
+        .feature-icon {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
 
-        .dark .custom-scrollbar {
-            scrollbar-color: #4b5563 #374151;
-        }
-
-        .dark .custom-scrollbar::-webkit-scrollbar-track {
-            background: #374151;
-        }
-
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #4b5563;
-        }
-
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar-mobile {
-                transform: translateX(-100%);
-            }
-
-            .sidebar-mobile.show {
-                transform: translateX(0);
-            }
-        }
-
-        .overlay {
-            transition: opacity 0.3s ease;
-        }
-
-        .toggle-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            transition: all 0.3s ease;
-        }
-
-        .toggle-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px -5px rgba(102, 126, 234, 0.4);
-        }
-
-        .stats-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .dark .stats-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            border-color: rgba(102, 126, 234, 0.3);
+        .logo-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
     </style>
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-
-    <!-- Sidebar -->
+<body class="min-h-screen gradient-bg">
+    <!-- Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-10 rounded-full floating-animation"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-white opacity-5 rounded-full floating-animation" style="animation-delay: -3s;"></div>
+        <div class="absolute top-1/2 left-1/4 w-32 h-32 bg-white opacity-5 rounded-full floating-animation" style="animation-delay: -1s;"></div>
+    </div>
 
     <!-- Main Content -->
-    <main id="mainContent" class="ml-0 md:ml-72 content-transition min-h-screen">
-        <!-- Top Navigation -->
-
+    <main id="mainContent" class="min-h-screen">
         <!-- Content Area -->
-        <div class="p-6 fade-in">
+        <div class="fade-in">
             {% block content %}{% endblock %}
         </div>
     </main>
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </body>
 </html>

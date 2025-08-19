@@ -4,7 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="328896cd-7ba4-48a9-aa15-ceeaf669889e" name="Changes" comment="commit message" />
+    <list default="true" id="328896cd-7ba4-48a9-aa15-ceeaf669889e" name="Changes" comment="commit message">
+      <change afterPath="$PROJECT_DIR$/backup/deploy.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/update.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/update_checker.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/local_settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion/templates/gestion/login_2fa.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion/templates/gestion/setup_2fa.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion/templates/gestion/verify_2fa.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/Screenshot 2025-08-19 124451.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/base-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/base-login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/detail_utilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/detail_utilisateur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/details_eleve.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/details_eleve.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/password_change_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/password_change_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/password_reset_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/profil_utilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/profil_utilisateur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,10 +40,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
-        <option value="HTML File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -33,24 +57,24 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
     {
-      "state": "OPEN"
+      &quot;state&quot;: &quot;OPEN&quot;
     }
   ],
-  "lastFilter": {
-    "state": "OPEN"
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/naskasongo/KES.git",
-    "accountId": "092f1fb1-9341-4843-834a-9af042c0bcb4"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/naskasongo/KES.git&quot;,
+    &quot;accountId&quot;: &quot;092f1fb1-9341-4843-834a-9af042c0bcb4&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -63,64 +87,70 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found": "Database connection parameters found",
-    "Notification.DoNotAsk-DatabaseConfigFileWatcher.found": "true",
-    "Python.check.executor": "Run",
-    "Python.database.executor": "Run",
-    "Python.detect_circular_imports (1).executor": "Run",
-    "Python.detect_curisive.executor": "Run",
-    "Python.executeSql.executor": "Run",
-    "Python.init_db (1).executor": "Run",
-    "Python.init_db.executor": "Run",
-    "Python.projectStructure.executor": "Run",
-    "Python.setup_projet.executor": "Run",
-    "Python.test_global.executor": "Run",
-    "Python.test_produit (1).executor": "Run",
-    "Python.test_produit.executor": "Run",
-    "Python.test_tk.executor": "Run",
-    "Python.ui_controller.executor": "Run",
-    "Python.utils.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Projects/school/gestion/static/js",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.code_design.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;Database connection parameters found&quot;,
+    &quot;Notification.DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;true&quot;,
+    &quot;Python.check.executor&quot;: &quot;Run&quot;,
+    &quot;Python.database.executor&quot;: &quot;Run&quot;,
+    &quot;Python.detect_circular_imports (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.detect_curisive.executor&quot;: &quot;Run&quot;,
+    &quot;Python.executeSql.executor&quot;: &quot;Run&quot;,
+    &quot;Python.init_db (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.init_db.executor&quot;: &quot;Run&quot;,
+    &quot;Python.projectStructure.executor&quot;: &quot;Run&quot;,
+    &quot;Python.setup_projet.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_global.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_produit (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_produit.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_tk.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ui_controller.executor&quot;: &quot;Run&quot;,
+    &quot;Python.utils.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;C:\\Users\\NAS\\AppData\\Roaming\\JetBrains\\PyCharm2025.1\\plugins\\Shell Script\\shellcheck.exe&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Projects/school/static&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\school\static" />
+      <recent name="D:\Projects\school" />
       <recent name="D:\Projects\school\gestion\static\js" />
       <recent name="D:\Projects\school\gestion\templates" />
-      <recent name="D:\Projects\school\static" />
       <recent name="D:\Projects\wantashi\gestion" />
-      <recent name="D:\Projects\wantashi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\school\config" />
       <recent name="D:\Projects\school\gestion\static\css" />
       <recent name="C:\Users\NAS\PycharmProjects\Facture" />
       <recent name="D:\Projects\wantashi\gestion" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_tk">
+  <component name="RunManager" selected="JavaScript Debug.code_design.html">
+    <configuration name="code_design.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/school/code_design.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="test_global" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Facture" />
       <option name="ENV_FILES" value="" />
@@ -159,29 +189,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/Facture/test_produit.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_produit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Factures" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/Factures/test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/Factures/test/test_produit.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -285,10 +292,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.code_design.html" />
         <item itemvalue="Python.test_tk" />
         <item itemvalue="Python.ui_controller" />
         <item itemvalue="Python.test_global" />
-        <item itemvalue="Python.test_produit (1)" />
         <item itemvalue="Python.test_produit (1)" />
       </list>
     </recent_temporary>
@@ -350,7 +357,9 @@
       <workItem from="1754914930184" duration="3340000" />
       <workItem from="1755001573430" duration="1481000" />
       <workItem from="1755034565631" duration="274000" />
-      <workItem from="1755100048963" duration="11317000" />
+      <workItem from="1755100048963" duration="11822000" />
+      <workItem from="1755117002382" duration="2573000" />
+      <workItem from="1755446092064" duration="32820000" />
     </task>
     <task id="LOCAL-00001" summary="commit message">
       <option name="closed" value="true" />
@@ -514,11 +523,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gestion/views.py</url>
-          <line>761</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gestion/utils.py</url>
           <line>1</line>
           <option name="timeStamp" value="13" />
@@ -527,11 +531,6 @@
           <url>file://$PROJECT_DIR$/gestion/examples.py</url>
           <line>38</line>
           <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gestion/views.py</url>
-          <line>637</line>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
