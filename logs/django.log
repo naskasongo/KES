@@ -18,3 +18,283 @@
 2025-08-19 18:58:30,094 WARNING Not Found: /favicon.ico
 2025-08-19 18:58:52,903 WARNING Not Found: /profil/1/
 2025-08-19 19:04:43,457 WARNING Task queue depth is 1
+2025-08-20 12:30:52,907 INFO Serving on http://0.0.0.0:8000
+2025-08-20 12:33:42,611 WARNING Not Found: /accounts/profile/
+2025-08-20 12:33:42,915 WARNING Not Found: /favicon.ico
+2025-08-20 12:34:53,122 WARNING Not Found: /accounts/profile/
+2025-08-20 12:35:46,889 WARNING Not Found: /accounts/profile/
+2025-08-20 12:36:04,534 INFO Serving on http://0.0.0.0:8000
+2025-08-20 12:36:47,297 WARNING Not Found: /accounts/profile/
+2025-08-20 12:36:47,476 WARNING Not Found: /favicon.ico
+2025-08-20 12:39:07,684 WARNING Not Found: /accounts/profile/
+2025-08-20 12:39:09,007 WARNING Not Found: /accounts/profile/
+2025-08-20 12:39:09,436 WARNING Not Found: /accounts/profile/
+2025-08-20 12:39:44,088 INFO Watching for file changes with StatReloader
+2025-08-20 12:39:54,335 INFO "GET / HTTP/1.1" 200 15106
+2025-08-20 12:40:08,612 INFO "POST /accounts/login/ HTTP/1.1" 200 15825
+2025-08-20 12:40:22,134 INFO "POST /accounts/login/ HTTP/1.1" 302 0
+2025-08-20 12:40:22,633 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 12:40:23,616 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-20 12:40:23,634 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-20 12:40:23,644 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-20 12:40:23,649 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-20 12:40:23,651 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-20 12:40:23,688 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-20 12:40:23,846 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-20 12:40:24,609 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 12:40:24,611 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 12:40:24,612 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 12:40:24,706 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 12:40:48,855 INFO D:\Projects\school\wantashi\settings.py changed, reloading.
+2025-08-20 12:41:00,945 INFO Watching for file changes with StatReloader
+2025-08-20 12:41:14,895 INFO Watching for file changes with StatReloader
+2025-08-20 12:41:23,480 INFO "GET /logout/ HTTP/1.1" 302 0
+2025-08-20 12:41:23,609 INFO "GET /accounts/login/ HTTP/1.1" 200 15177
+2025-08-20 12:41:35,907 INFO "POST /accounts/login/ HTTP/1.1" 302 0
+2025-08-20 12:41:36,025 WARNING Not Found: /accounts/profile/
+2025-08-20 12:41:36,026 WARNING "GET /accounts/profile/ HTTP/1.1" 404 26835
+2025-08-20 12:43:14,148 INFO D:\Projects\school\wantashi\settings.py changed, reloading.
+2025-08-20 12:48:19,084 INFO Watching for file changes with StatReloader
+2025-08-20 12:48:45,446 INFO "GET / HTTP/1.1" 200 15097
+2025-08-20 12:48:51,456 INFO "GET / HTTP/1.1" 200 15097
+2025-08-20 12:49:07,206 INFO "POST /login/ HTTP/1.1" 200 15816
+2025-08-20 12:49:25,036 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 12:49:25,131 INFO "GET /login-2fa/ HTTP/1.1" 200 7181
+2025-08-20 12:49:45,454 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-20 12:49:45,712 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 12:49:46,433 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 12:49:46,436 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 12:49:46,442 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 12:49:46,509 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 12:50:06,338 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 125660
+2025-08-20 12:50:12,104 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107233
+2025-08-20 12:50:12,505 INFO "GET /static/js/paiement.js HTTP/1.1" 200 27584
+2025-08-20 12:50:18,644 INFO "GET /frais/ HTTP/1.1" 200 67109
+2025-08-20 12:50:49,543 INFO "GET /historique/ HTTP/1.1" 200 123659
+2025-08-20 12:50:49,551 INFO - Broken pipe from ('192.168.100.196', 54753)
+2025-08-20 12:50:56,935 INFO "GET /historique/ HTTP/1.1" 200 123659
+2025-08-20 12:51:01,915 INFO "GET /historique/ HTTP/1.1" 200 123659
+2025-08-20 12:51:55,030 INFO "GET /historique/?page=2& HTTP/1.1" 200 124170
+2025-08-20 12:52:19,782 INFO Serving on http://0.0.0.0:8000
+2025-08-20 12:52:56,623 WARNING Task queue depth is 1
+2025-08-20 12:52:58,940 WARNING Task queue depth is 1
+2025-08-20 12:52:58,958 WARNING Task queue depth is 2
+2025-08-20 12:52:58,972 WARNING Task queue depth is 2
+2025-08-20 12:54:00,221 WARNING Task queue depth is 1
+2025-08-20 12:54:00,222 WARNING Task queue depth is 2
+2025-08-20 12:54:00,223 WARNING Task queue depth is 3
+2025-08-20 12:54:00,223 WARNING Task queue depth is 4
+2025-08-20 12:54:00,225 WARNING Not Found: /static/images/guide/etape1.png
+2025-08-20 12:54:00,235 WARNING Not Found: /static/images/guide/etape2.png
+2025-08-20 12:54:00,248 WARNING Not Found: /static/images/guide/etape3.png
+2025-08-20 12:54:00,259 WARNING Not Found: /static/images/guide/etape4.png
+2025-08-20 12:54:00,270 WARNING Not Found: /static/images/guide/export.png
+2025-08-20 12:56:15,340 WARNING Task queue depth is 1
+2025-08-20 12:56:15,348 WARNING Task queue depth is 2
+2025-08-20 12:56:15,353 WARNING Task queue depth is 3
+2025-08-20 12:58:50,049 WARNING Task queue depth is 1
+2025-08-20 12:58:50,055 WARNING Task queue depth is 2
+2025-08-20 12:58:50,103 WARNING Task queue depth is 3
+2025-08-20 12:58:57,617 WARNING Task queue depth is 1
+2025-08-20 12:58:57,618 WARNING Task queue depth is 2
+2025-08-20 12:58:57,624 WARNING Task queue depth is 3
+2025-08-20 12:59:11,405 WARNING Task queue depth is 1
+2025-08-20 12:59:11,436 WARNING Task queue depth is 2
+2025-08-20 12:59:11,455 WARNING Task queue depth is 2
+2025-08-20 12:59:11,458 WARNING Task queue depth is 3
+2025-08-20 12:59:11,477 WARNING Task queue depth is 4
+2025-08-20 12:59:11,504 WARNING Task queue depth is 5
+2025-08-20 12:59:11,748 WARNING Task queue depth is 2
+2025-08-20 12:59:44,978 WARNING Task queue depth is 1
+2025-08-20 13:00:01,635 WARNING Task queue depth is 1
+2025-08-20 13:00:06,312 WARNING Task queue depth is 1
+2025-08-20 13:00:06,371 WARNING Task queue depth is 1
+2025-08-20 13:04:11,405 WARNING Task queue depth is 1
+2025-08-20 13:04:11,408 WARNING Task queue depth is 2
+2025-08-20 13:04:11,449 WARNING Not Found: /static/images/guide/etape1.png
+2025-08-20 13:04:11,450 WARNING Task queue depth is 3
+2025-08-20 13:04:11,451 WARNING Task queue depth is 4
+2025-08-20 13:04:11,477 WARNING Not Found: /static/images/guide/etape2.png
+2025-08-20 13:04:11,504 WARNING Not Found: /static/images/guide/etape3.png
+2025-08-20 13:04:11,532 WARNING Not Found: /static/images/guide/etape4.png
+2025-08-20 13:04:11,557 WARNING Not Found: /static/images/guide/export.png
+2025-08-20 13:04:32,495 WARNING Task queue depth is 1
+2025-08-20 13:04:32,509 WARNING Task queue depth is 2
+2025-08-20 13:04:32,510 WARNING Task queue depth is 3
+2025-08-20 13:09:09,746 WARNING Task queue depth is 1
+2025-08-20 13:09:09,757 WARNING Task queue depth is 2
+2025-08-20 13:09:09,807 WARNING Task queue depth is 3
+2025-08-20 13:09:19,335 WARNING Task queue depth is 1
+2025-08-20 13:09:19,357 WARNING Task queue depth is 2
+2025-08-20 13:09:19,401 WARNING Task queue depth is 3
+2025-08-20 13:09:30,644 WARNING Task queue depth is 1
+2025-08-20 13:09:30,647 WARNING Task queue depth is 2
+2025-08-20 13:09:30,662 WARNING Task queue depth is 3
+2025-08-20 13:09:30,663 WARNING Task queue depth is 4
+2025-08-20 13:09:30,696 WARNING Task queue depth is 4
+2025-08-20 13:09:30,808 WARNING Task queue depth is 4
+2025-08-20 13:09:38,538 WARNING Task queue depth is 1
+2025-08-20 13:09:38,540 WARNING Task queue depth is 2
+2025-08-20 13:09:38,551 WARNING Task queue depth is 3
+2025-08-20 13:09:38,554 WARNING Task queue depth is 4
+2025-08-20 13:09:38,584 WARNING Task queue depth is 4
+2025-08-20 13:09:38,630 WARNING Task queue depth is 5
+2025-08-20 13:09:38,884 WARNING Task queue depth is 2
+2025-08-20 13:10:49,419 WARNING Task queue depth is 1
+2025-08-20 13:10:59,329 WARNING Task queue depth is 1
+2025-08-20 13:11:07,772 WARNING Task queue depth is 1
+2025-08-20 13:11:44,468 WARNING Task queue depth is 1
+2025-08-20 13:12:14,169 WARNING Task queue depth is 1
+2025-08-20 13:12:19,051 WARNING Task queue depth is 1
+2025-08-20 13:12:27,097 WARNING Task queue depth is 1
+2025-08-20 13:12:42,926 WARNING Task queue depth is 1
+2025-08-20 13:15:19,681 WARNING Task queue depth is 1
+2025-08-20 13:15:19,685 WARNING Task queue depth is 2
+2025-08-20 13:15:19,687 WARNING Task queue depth is 3
+2025-08-20 13:15:19,696 WARNING Task queue depth is 4
+2025-08-20 13:15:19,737 WARNING Not Found: /static/images/guide/etape1.png
+2025-08-20 13:15:19,768 WARNING Not Found: /static/images/guide/etape2.png
+2025-08-20 13:15:19,797 WARNING Not Found: /static/images/guide/etape3.png
+2025-08-20 13:15:19,826 WARNING Not Found: /static/images/guide/etape4.png
+2025-08-20 13:15:19,889 WARNING Not Found: /static/images/guide/export.png
+2025-08-20 13:42:12,262 WARNING Not Found: /static/argon/css/dashboard-free.css.map
+2025-08-20 13:43:32,388 WARNING Task queue depth is 1
+2025-08-20 13:43:32,391 WARNING Task queue depth is 2
+2025-08-20 13:43:32,426 WARNING Task queue depth is 2
+2025-08-20 13:47:32,830 WARNING Task queue depth is 1
+2025-08-20 13:47:34,326 WARNING Task queue depth is 1
+2025-08-20 13:47:34,331 WARNING Task queue depth is 2
+2025-08-20 13:47:34,357 WARNING Task queue depth is 2
+2025-08-20 13:47:38,654 WARNING Task queue depth is 1
+2025-08-20 13:47:38,655 WARNING Task queue depth is 2
+2025-08-20 13:49:59,655 WARNING Task queue depth is 1
+2025-08-20 13:49:59,661 WARNING Task queue depth is 2
+2025-08-20 13:49:59,739 WARNING Task queue depth is 2
+2025-08-20 13:50:03,549 WARNING Task queue depth is 1
+2025-08-20 13:50:03,550 WARNING Task queue depth is 2
+2025-08-20 13:50:07,486 WARNING Task queue depth is 1
+2025-08-20 13:50:07,490 WARNING Task queue depth is 2
+2025-08-20 13:50:07,527 WARNING Task queue depth is 2
+2025-08-20 13:50:13,593 WARNING Task queue depth is 1
+2025-08-20 13:50:13,594 WARNING Task queue depth is 2
+2025-08-20 13:50:13,619 WARNING Task queue depth is 1
+2025-08-20 13:50:24,982 WARNING Task queue depth is 1
+2025-08-20 13:50:24,982 WARNING Task queue depth is 2
+2025-08-20 13:50:25,033 WARNING Task queue depth is 2
+2025-08-20 13:50:33,362 WARNING Task queue depth is 1
+2025-08-20 13:50:33,362 WARNING Task queue depth is 2
+2025-08-20 13:50:42,738 WARNING Not Found: /favicon.ico
+2025-08-20 13:50:43,209 WARNING Not Found: /favicon.ico
+2025-08-20 13:50:43,899 WARNING Task queue depth is 1
+2025-08-20 13:50:43,918 WARNING Not Found: /favicon.ico
+2025-08-20 13:51:45,985 WARNING Task queue depth is 1
+2025-08-20 13:51:45,986 WARNING Task queue depth is 2
+2025-08-20 13:51:47,177 WARNING Task queue depth is 1
+2025-08-20 13:51:47,178 WARNING Task queue depth is 2
+2025-08-20 13:51:47,232 WARNING Task queue depth is 2
+2025-08-20 13:52:25,678 WARNING Task queue depth is 1
+2025-08-20 13:52:25,678 WARNING Task queue depth is 2
+2025-08-20 13:52:25,706 WARNING Task queue depth is 2
+2025-08-20 13:52:47,799 WARNING Task queue depth is 1
+2025-08-20 13:52:47,800 WARNING Task queue depth is 2
+2025-08-20 13:52:47,828 WARNING Task queue depth is 1
+2025-08-20 13:52:51,893 WARNING Task queue depth is 1
+2025-08-20 13:52:51,894 WARNING Task queue depth is 2
+2025-08-20 13:53:02,133 WARNING Task queue depth is 1
+2025-08-20 13:53:02,134 WARNING Task queue depth is 2
+2025-08-20 13:53:27,115 WARNING Task queue depth is 1
+2025-08-20 13:53:27,224 WARNING Task queue depth is 1
+2025-08-20 13:54:08,873 WARNING Task queue depth is 1
+2025-08-20 13:54:08,879 WARNING Task queue depth is 2
+2025-08-20 13:54:08,884 WARNING Task queue depth is 3
+2025-08-20 14:03:19,639 INFO Serving on http://0.0.0.0:8000
+2025-08-20 14:05:30,457 WARNING Task queue depth is 1
+2025-08-20 14:05:30,466 WARNING Task queue depth is 2
+2025-08-20 14:05:30,467 WARNING Task queue depth is 3
+2025-08-20 14:05:31,865 WARNING Task queue depth is 1
+2025-08-20 14:05:31,866 WARNING Task queue depth is 2
+2025-08-20 14:05:31,992 WARNING Task queue depth is 1
+2025-08-20 14:05:36,386 WARNING Task queue depth is 1
+2025-08-20 14:05:36,388 WARNING Task queue depth is 2
+2025-08-20 14:06:39,195 INFO Watching for file changes with StatReloader
+2025-08-20 14:06:45,092 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69768
+2025-08-20 14:06:45,621 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:08:02,980 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69768
+2025-08-20 14:08:03,365 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:11:06,201 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69767
+2025-08-20 14:11:06,682 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:11:11,296 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69767
+2025-08-20 14:11:11,656 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:11:26,864 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69767
+2025-08-20 14:11:27,334 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:12:14,877 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107233
+2025-08-20 14:12:15,813 INFO "GET /static/js/paiement.js HTTP/1.1" 200 27584
+2025-08-20 14:14:54,869 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-20 14:14:56,018 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:15:13,354 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:15:34,412 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:15:37,389 INFO "GET /api/get-classes/2/ HTTP/1.1" 200 523
+2025-08-20 14:15:39,424 INFO "GET /api/get-classes/3/ HTTP/1.1" 200 193
+2025-08-20 14:15:42,234 INFO "GET /api/get-classes/4/ HTTP/1.1" 200 15
+2025-08-20 14:15:42,237 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-20 14:15:45,682 INFO "GET /api/get-classes/4/1/ HTTP/1.1" 200 154
+2025-08-20 14:15:52,920 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-20 14:15:53,447 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 14:15:53,449 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-20 14:15:53,455 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-20 14:15:53,534 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 14:16:00,870 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 14:16:01,473 INFO "GET /dashboard/ HTTP/1.1" 200 134205
+2025-08-20 14:16:02,025 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 14:16:02,025 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 14:16:02,031 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 14:16:02,094 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 14:16:04,388 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 14:16:04,640 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 14:16:05,162 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 14:16:05,165 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 14:16:05,166 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 14:16:05,269 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 14:16:09,996 INFO "GET /frais/ajouter/ HTTP/1.1" 200 70908
+2025-08-20 14:16:10,357 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:16:18,682 INFO "GET /frais/ HTTP/1.1" 200 67109
+2025-08-20 14:16:36,624 INFO "GET /frais/modifier/35/ HTTP/1.1" 200 99308
+2025-08-20 14:16:38,241 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:17:20,988 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-20 14:17:21,423 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:17:30,752 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:22:12,485 INFO "GET /frais/ HTTP/1.1" 200 67109
+2025-08-20 14:22:17,968 INFO "GET /frais/modifier/34/ HTTP/1.1" 200 99308
+2025-08-20 14:22:18,386 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:23:06,791 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-20 14:23:07,252 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:24:46,589 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69993
+2025-08-20 14:24:47,099 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:27:09,349 INFO "GET /frais/ HTTP/1.1" 200 67109
+2025-08-20 14:27:12,521 INFO "GET /frais/modifier/34/ HTTP/1.1" 200 7691
+2025-08-20 14:27:35,882 INFO "GET /frais/modifier/34/ HTTP/1.1" 200 99308
+2025-08-20 14:27:36,392 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:28:28,674 INFO "GET /frais/modifier/34/ HTTP/1.1" 200 99485
+2025-08-20 14:28:29,168 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:29:34,633 INFO "GET /frais/modifier/34/ HTTP/1.1" 200 98671
+2025-08-20 14:29:35,010 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:30:52,467 INFO "GET /frais/modifier/34/ HTTP/1.1" 200 98680
+2025-08-20 14:30:52,932 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:31:08,993 INFO "GET /frais/modifier/34/ HTTP/1.1" 200 98672
+2025-08-20 14:31:09,366 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:34:54,613 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-20 14:34:55,145 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 14:34:59,309 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 14:35:25,961 INFO "GET /frais/ HTTP/1.1" 200 67109
+2025-08-20 14:35:55,813 INFO "GET /frais/ HTTP/1.1" 200 67109
+2025-08-20 14:36:06,455 INFO "GET /bilan-financier/ HTTP/1.1" 200 93933
+2025-08-20 14:36:14,179 INFO "GET /suivi-financier/ HTTP/1.1" 200 103433
+2025-08-20 14:36:22,931 INFO "GET /suivi-financier/ HTTP/1.1" 200 103433
+2025-08-20 14:36:28,622 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 14:36:30,021 INFO "GET /suivi-financier/ HTTP/1.1" 200 173041
+2025-08-20 14:36:41,188 INFO "GET /bilan-financier/ HTTP/1.1" 200 95222
+2025-08-20 14:39:46,240 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-20 14:39:47,308 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-20 14:39:47,312 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 14:39:47,333 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-20 14:39:47,423 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434

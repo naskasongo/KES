@@ -7,7 +7,7 @@
 
 <div class="container mx-auto px-4 py-8 max-w-6xl">
     <!-- Header -->
-    <div class="text-center mb-10" data-aos="fade-down">
+    <div class="text-center mb-4" data-aos="fade-down">
         <div class="mb-4 flex justify-center">
             <div class="bg-primary-light p-4 rounded-full text-primary">
                 <i class="fas fa-receipt text-3xl"></i>
@@ -17,19 +17,11 @@
         <p class="text-gray-600 max-w-2xl mx-auto">Créez de nouveaux frais pour l'année scolaire en cours</p>
     </div>
 
-    <!-- Controls -->
-    <div class="flex justify-between items-center mb-6">
-        <div class="text-sm font-medium bg-primary text-white px-4 py-2 rounded-full">
-            Année Scolaire: {{ annee_scolaire_en_cours }}
-        </div>
-        <a href="{% url 'liste_frais' %}" class="btn btn-outline">
-            <i class="fas fa-arrow-left mr-2"></i> Retour à la liste
-        </a>
-    </div>
+
 
     <!-- Messages d'alerte -->
     {% if messages %}
-    <div class="mb-8 max-w-4xl mx-auto" id="alertContainer">
+    <div class="mb-4 max-w-4xl mx-auto" id="alertContainer">
         {% for message in messages %}
         <div class="alert alert-{{ message.tags }} flex items-center" role="alert" data-aos="fade-in">
             <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-times-circle{% endif %} mr-3 text-xl"></i>
@@ -42,17 +34,9 @@
     </div>
     {% endif %}
 
-    <!-- Main Card -->
-    <div class=" " data-aos="fade-up">
-        <div class="p-6 border-b border-gray-200">
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-bold text-gray-800 flex items-center">
-                    <i class="fas fa-file-invoice mr-3 text-primary"></i>Nouveaux Frais
-                </h2>
-            </div>
-        </div>
 
-        <div class="p-6">
+
+        <div class="p-4 rounded-xl shadow overflow-hidden max-w-4xl mx-auto" data-aos="fade-up">
             <form method="post" id="fraisForm">
                 {% csrf_token %}{% csrf_token %}
                  <input type="hidden" name="form-0-annee_scolaire" value="{{ annee_scolaire_en_cours.id }}">
@@ -67,14 +51,14 @@
                             </button>
                         </div>
 
-                        <div class="flex items-center mb-4">
+                        <div class="flex items-center mb-3">
                             <span class="badge badge-primary text-lg mr-3">1</span>
                             <h3 class="text-lg font-semibold text-gray-800 mb-0">Informations sur le frais</h3>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Colonne gauche -->
-                            <div>
+                            <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="200">
                                 <div class="mb-4">
                                     <label for="id_form-0-predefined_nom" class="form-label">Nom du Frais</label>
                                     <div class="input-group">
@@ -142,7 +126,7 @@
                             </div>
 
                             <!-- Colonne droite -->
-                            <div>
+                            <div class="custom-card p-5 bg-white" data-aos="fade-up" data-aos-delay="250">
                                 <div class="mb-4">
                                     <label for="id_form-0-section" class="form-label">Section</label>
                                     <div class="input-group">

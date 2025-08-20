@@ -19,9 +19,17 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from gestion import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('gestion.urls')),
+
+# Routage vers l'application "gestion"
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    path('dashboard/', views.dashboard, name='dashboard'),
 ]
 
 # Servir les fichiers statiques en développement et avec Waitress

@@ -235,6 +235,7 @@ DEFAULT_FROM_EMAIL = 'webmaster@localhost'
 
 
 LOGIN_URL = '/login/'
+
 # Configuration des logs pour Waitress
 # Configuration des logs simplifiée pour Waitress
 import logging

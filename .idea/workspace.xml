@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328896cd-7ba4-48a9-aa15-ceeaf669889e" name="Changes" comment="commit message">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/gestion/access_control.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/gestion/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/gestion/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/gestion/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/gestion/templates/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/gestion/templates/gestion/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/gestion/templatetags/wantashi_tags.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/gestion/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/Projects/wantashi/static/argon/css/argon-dashboard.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detect_circular_imports.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/detail_utilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/detail_utilisateur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/ajouter_frais.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/ajouter_frais.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/modifier_frais.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/modifier_frais.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/django.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/django.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wantashi/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/wantashi/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wantashi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/wantashi/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wantashi/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/wantashi/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,51 +74,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.code_design.html.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;Database connection parameters found&quot;,
-    &quot;Notification.DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;true&quot;,
-    &quot;Python.check.executor&quot;: &quot;Run&quot;,
-    &quot;Python.database.executor&quot;: &quot;Run&quot;,
-    &quot;Python.detect_circular_imports (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.detect_curisive.executor&quot;: &quot;Run&quot;,
-    &quot;Python.executeSql.executor&quot;: &quot;Run&quot;,
-    &quot;Python.init_db (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.init_db.executor&quot;: &quot;Run&quot;,
-    &quot;Python.projectStructure.executor&quot;: &quot;Run&quot;,
-    &quot;Python.setup_projet.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_global.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_produit (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_produit.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_tk.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ui_controller.executor&quot;: &quot;Run&quot;,
-    &quot;Python.utils.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
-    &quot;SHELLCHECK.PATH&quot;: &quot;C:\\Users\\NAS\\AppData\\Roaming\\JetBrains\\PyCharm2025.1\\plugins\\Shell Script\\shellcheck.exe&quot;,
-    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Projects/school/gestion/templates&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.code_design.html.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found": "Database connection parameters found",
+    "Notification.DoNotAsk-DatabaseConfigFileWatcher.found": "true",
+    "Python.check.executor": "Run",
+    "Python.database.executor": "Run",
+    "Python.detect_circular_imports (1).executor": "Run",
+    "Python.detect_curisive.executor": "Run",
+    "Python.executeSql.executor": "Run",
+    "Python.init_db (1).executor": "Run",
+    "Python.init_db.executor": "Run",
+    "Python.projectStructure.executor": "Run",
+    "Python.setup_projet.executor": "Run",
+    "Python.test_global.executor": "Run",
+    "Python.test_produit (1).executor": "Run",
+    "Python.test_produit.executor": "Run",
+    "Python.test_tk.executor": "Run",
+    "Python.ui_controller.executor": "Run",
+    "Python.utils.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "SHELLCHECK.PATH": "C:\\Users\\NAS\\AppData\\Roaming\\JetBrains\\PyCharm2025.1\\plugins\\Shell Script\\shellcheck.exe",
+    "django.template.preview.state": "SHOW_EDITOR",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Projects/school/gestion/templates",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projects\school\gestion\templates" />
@@ -351,7 +347,8 @@
       <workItem from="1755100048963" duration="11822000" />
       <workItem from="1755117002382" duration="2573000" />
       <workItem from="1755446092064" duration="36753000" />
-      <workItem from="1755617609308" duration="5636000" />
+      <workItem from="1755617609308" duration="5700000" />
+      <workItem from="1755684950402" duration="6524000" />
     </task>
     <task id="LOCAL-00001" summary="commit message">
       <option name="closed" value="true" />
@@ -516,6 +513,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/wantashi" />
+    </ignored-roots>
     <MESSAGE value="commit message" />
     <option name="LAST_COMMIT_MESSAGE" value="commit message" />
   </component>
