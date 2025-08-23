@@ -1,6 +1,6 @@
-# Wantashi - Système de Gestion Scolaire
+# Schoolmapro - Système de Gestion Scolaire
 
-Wantashi est une application de gestion scolaire complète développée avec Django. Cette application permet de gérer les élèves, les paiements, les classes et générer des rapports.
+Schoolma pro est une application de gestion scolaire complète développée avec Django. Cette application permet de gérer les élèves, les paiements, les classes et générer des rapports.
 
 ## Fonctionnalités principales
 
