@@ -63,7 +63,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
     #double  authentification avec qrcode
-'django_otp.middleware.OTPMiddleware',
+    'django_otp.middleware.OTPMiddleware',
+
+    # Custom middleware
+    'gestion.middleware.ThreadLocalMiddleware',
+    'gestion.middleware.SingleSessionMiddleware',
+    'gestion.middleware.TemporaryPasswordMiddleware',
+    'gestion.middleware.AnneeScolaireMiddleware',
 ]
 
 ROOT_URLCONF = 'wantashi.urls'
@@ -192,7 +198,7 @@ def get_local_ip():
 
 # Configuration de l'adresse IP statique du serveur
 # Vous pouvez également définir cette variable d'environnement
-SERVER_IP = os.environ.get('SERVER_IP', '192.168.100.188')
+SERVER_IP = os.environ.get('SERVER_IP', '192.168.195.95')
 
 # Configuration des hôtes autorisés
 ALLOWED_HOSTS = [

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Moderne - Gestion Scolaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card-modern {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-modern:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .progress-modern {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-modern {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .sidebar-modern {
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header avec gradient moderne -->
+    <div class="gradient-bg text-white py-8 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold">Tableau de Bord</h1>
+                        <p class="text-blue-100">Aperçu global des performances scolaires</p>
+                    </div>
+                </div>
+                <div class="glass-effect rounded-xl px-4 py-2">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-calendar-alt"></i>
+                        <select class="bg-transparent text-white border-none outline-none">
+                            <option value="month">Ce mois</option>
+                            <option value="trimestre">Ce trimestre</option>
+                            <option value="year">Cette année</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 -mt-12">
+        <!-- Cartes de statistiques principales -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Élèves -->
+            <div class="stat-card rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Élèves</p>
+                        <p class="text-3xl font-bold text-gray-800 mt-2">1,247</p>
+                        <div class="flex items-center mt-2">
+                            <span class="text-green-500 text-sm font-medium">+12%</span>
+                            <span class="text-gray-500 text-sm ml-1">vs mois dernier</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon w-14 h-14 rounded-2xl flex items-center justify-center text-white">
+                        <i class="fas fa-users text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Dépenses -->
+            <div class="stat-card rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Dépenses</p>
+                        <p class="text-3xl font-bold text-gray-800 mt-2">45,280 FC</p>
+                        <div class="flex items-center mt-2">
+                            <span class="text-red-500 text-sm font-medium">-2%</span>
+                            <span class="text-gray-500 text-sm ml-1">vs mois dernier</span>
+                        </div>
+                    </div>
+                    <div class="w-14 h-14 bg-red-500 rounded-2xl flex items-center justify-center text-white">
+                        <i class="fas fa-credit-card text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chiffre d'Affaires -->
+            <div class="stat-card rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Chiffre d'Affaires</p>
+                        <p class="text-3xl font-bold text-gray-800 mt-2">87,540 FC</p>
+                        <div class="flex items-center mt-2">
+                            <span class="text-green-500 text-sm font-medium">+5%</span>
+                            <span class="text-gray-500 text-sm ml-1">vs mois dernier</span>
+                        </div>
+                    </div>
+                    <div class="w-14 h-14 bg-green-500 rounded-2xl flex items-center justify-center text-white">
+                        <i class="fas fa-dollar-sign text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Élèves en Retard -->
+            <div class="stat-card rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium uppercase tracking-wide">Élèves en Retard</p>
+                        <p class="text-3xl font-bold text-gray-800 mt-2">8.5%</p>
+                        <div class="flex items-center mt-2">
+                            <span class="text-yellow-500 text-sm font-medium">+1%</span>
+                            <span class="text-gray-500 text-sm ml-1">de retard</span>
+                        </div>
+                    </div>
+                    <div class="w-14 h-14 bg-yellow-500 rounded-2xl flex items-center justify-center text-white">
+                        <i class="fas fa-exclamation-triangle text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Première ligne de graphiques -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Répartition par Mois -->
+            <div class="card-modern rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Répartition par Mois</h3>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">12 Mois</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">1</span>
+                            <span class="font-medium text-gray-700">Janvier</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-lg font-bold text-gray-800">12,450 FC</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs ml-2">45</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">2</span>
+                            <span class="font-medium text-gray-700">Février</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-lg font-bold text-gray-800">15,320 FC</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs ml-2">52</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">3</span>
+                            <span class="font-medium text-gray-700">Mars</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-lg font-bold text-gray-800">18,750 FC</span>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs ml-2">63</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparatifs -->
+            <div class="card-modern rounded-2xl p-6 shadow-xl">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">Comparatifs</h3>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-600 text-sm">Période Actuelle</span>
+                            <span class="font-bold text-green-600">87,540 FC</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-gray-600 text-sm">Période Précédente</span>
+                            <span class="font-bold text-gray-500">82,340 FC</span>
+                        </div>
+                        <div class="progress-modern">
+                            <div class="progress-bar-modern" style="width: 75%"></div>
+                        </div>
+                        <p class="text-green-600 text-sm mt-2 text-right">+6.3% d'amélioration</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-600 text-sm">Année Scolaire Actuelle</span>
+                            <span class="font-bold text-blue-600">450,120 FC</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-gray-600 text-sm">Année Scolaire Précédente</span>
+                            <span class="font-bold text-gray-500">398,750 FC</span>
+                        </div>
+                        <div class="progress-modern">
+                            <div class="progress-bar-modern" style="width: 85%"></div>
+                        </div>
+                        <p class="text-blue-600 text-sm mt-2 text-right">+12.9% de croissance</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Sections par Recettes -->
+            <div class="card-modern rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Top Sections</h3>
+                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Top 5</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="topSectionsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deuxième ligne de graphiques -->
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+            <!-- Top Frais -->
+            <div class="lg:col-span-2 card-modern rounded-2xl p-6 shadow-xl">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">Top 5 Frais</h3>
+                <div class="chart-container">
+                    <canvas id="topFraisChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Évolution des Paiements -->
+            <div class="lg:col-span-3 card-modern rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Évolution des Paiements</h3>
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">12 mois</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="paiementsMensuelsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troisième ligne -->
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+            <!-- Répartition Élèves -->
+            <div class="lg:col-span-2 card-modern rounded-2xl p-6 shadow-xl">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">Répartition par Section</h3>
+                <div class="chart-container">
+                    <canvas id="elevesParSectionChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Top Classes par Recettes -->
+            <div class="lg:col-span-3 card-modern rounded-2xl p-6 shadow-xl">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">Top des Classes par Recettes</h3>
+                <div class="chart-container">
+                    <canvas id="topClassesChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtrage Section -->
+        <div class="card-modern rounded-2xl p-6 shadow-xl mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-gray-800">Filtrage Avancé</h3>
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">1,247 élève(s)</span>
+            </div>
+
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Section</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option>-- Choisir --</option>
+                            <option>Humanités</option>
+                            <option>ITM</option>
+                            <option>Primaire</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Option</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option>-- Choisir --</option>
+                            <option>Scientifique</option>
+                            <option>Littéraire</option>
+                            <option>Commercial</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Classe</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option>-- Choisir --</option>
+                            <option>5ème A</option>
+                            <option>6ème B</option>
+                            <option>Rhéto</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Frais</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option>-- Choisir --</option>
+                            <option>Minerval</option>
+                            <option>Inscription</option>
+                            <option>Uniforme</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Mois</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option>-- Choisir --</option>
+                            <option>Janvier</option>
+                            <option>Février</option>
+                            <option>Mars</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Matricule</label>
+                        <input type="text" placeholder="Matricule..." class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                </div>
+
+                <div class="flex justify-center space-x-4">
+                    <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2">
+                        <i class="fas fa-filter"></i>
+                        <span>Appliquer</span>
+                    </button>
+                    <button type="reset" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors duration-200 flex items-center space-x-2">
+                        <i class="fas fa-undo"></i>
+                        <span>Réinitialiser</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center py-8">
+            <div class="glass-effect rounded-2xl p-6 max-w-2xl mx-auto">
+                <div class="flex items-center justify-center space-x-2 mb-2">
+                    <span class="text-gray-600">© 2024, conçu avec</span>
+                    <i class="fas fa-heart text-red-500 pulse-dot"></i>
+                    <span class="text-gray-600">par</span>
+                    <a href="#" class="text-gradient font-semibold hover:underline">JONAS KASONGO</a>
+                </div>
+                <div class="text-gray-500 text-sm">
+                    <span>Version 2.0.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Configuration générale des graphiques
+        Chart.defaults.font.family = 'Inter';
+        Chart.defaults.font.size = 12;
+        Chart.defaults.color = '#6B7280';
+
+        // Graphique Top Sections
+        const topSectionsCtx = document.getElementById('topSectionsChart').getContext('2d');
+        new Chart(topSectionsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Humanités', 'ITM', 'Primaire', 'Maternelle', 'Technique'],
+                datasets: [{
+                    data: [45280, 38950, 32100, 28750, 24680],
+                    backgroundColor: [
+                        'rgba(103, 126, 234, 0.8)',
+                        'rgba(45, 206, 137, 0.8)',
+                        'rgba(251, 99, 64, 0.8)',
+                        'rgba(255, 193, 7, 0.8)',
+                        'rgba(156, 39, 176, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(103, 126, 234, 1)',
+                        'rgba(45, 206, 137, 1)',
+                        'rgba(251, 99, 64, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(156, 39, 176, 1)'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(107, 114, 128, 0.1)' },
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' FC';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Graphique Top Frais
+        const topFraisCtx = document.getElementById('topFraisChart').getContext('2d');
+        new Chart(topFraisCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Minerval', 'Inscription', 'Uniforme', 'Transport', 'Cantine'],
+                datasets: [{
+                    data: [35, 25, 20, 12, 8],
+                    backgroundColor: [
+                        'rgba(103, 126, 234, 0.8)',
+                        'rgba(45, 206, 137, 0.8)',
+                        'rgba(251, 99, 64, 0.8)',
+                        'rgba(255, 193, 7, 0.8)',
+                        'rgba(156, 39, 176, 0.8)'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // Graphique Évolution des Paiements
+        const paiementsCtx = document.getElementById('paiementsMensuelsChart').getContext('2d');
+        const gradient = paiementsCtx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(103, 126, 234, 0.4)');
+        gradient.addColorStop(1, 'rgba(103, 126, 234, 0.05)');
+
+        new Chart(paiementsCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
+                datasets: [{
+                    label: 'Paiements',
+                    data: [12450, 15320, 18750, 22100, 19800, 25600, 28900, 26400, 24800, 27200, 29500, 32100],
+                    borderColor: 'rgba(103, 126, 234, 1)',
+                    backgroundColor: gradient,
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: 'rgba(103, 126, 234, 1)',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(107, 114, 128, 0.1)' },
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' FC';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Graphique Répartition Élèves
+        const elevesCtx = document.getElementById('elevesParSectionChart').getContext('2d');
+        new Chart(elevesCtx, {
+            type: 'polarArea',
+            data: {
+                labels: ['Humanités', 'ITM', 'Primaire', 'Maternelle'],
+                datasets: [{
+                    data: [450, 380, 320, 180],
+                    backgroundColor: [
+                        'rgba(103, 126, 234, 0.7)',
+                        'rgba(45, 206, 137, 0.7)',
+                        'rgba(251, 99, 64, 0.7)',
+                        'rgba(255, 193, 7, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(103, 126, 234, 1)',
+                        'rgba(45, 206, 137, 1)',
+                        'rgba(251, 99, 64, 1)',
+                        'rgba(255, 193, 7, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        grid: { color: 'rgba(107, 114, 128, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // Graphique Top Classes
+        const topClassesCtx = document.getElementById('topClassesChart').getContext('2d');
+        new Chart(topClassesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['6ème A Sc', '5ème B Lit', 'Rhéto Math', '4ème Com', '3ème Tech'],
+                datasets: [{
+                    label: 'Recettes',
+                    data: [28500, 24800, 22100, 19750, 17900],
+                    backgroundColor: 'rgba(45, 206, 137, 0.8)',
+                    borderColor: 'rgba(45, 206, 137, 1)',
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(107, 114, 128, 0.1)' },
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' FC';
+                            }
+                        }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Animation au scroll et effets interactifs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des cartes statistiques
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+
+            // Effet de hover sur les graphiques
+            const chartContainers = document.querySelectorAll('.chart-container');
+            chartContainers.forEach(container => {
+                container.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+
+                container.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

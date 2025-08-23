@@ -1,0 +1,10 @@
+LOAD DATABASE
+    FROM sqlite:///D:/Projects/school/db.sqlite3
+    INTO postgresql://postgres:Nas08%40kas05@localhost/schooldb
+
+    WITH include drop, create tables, create indexes, reset sequences, foreign keys
+
+    SET work_mem to '16MB', maintenance_work_mem to '512 MB'
+
+    CAST type datetime to timestamptz drop default drop not null using zero-dates-to-null,
+          type date to date drop not null using zero-dates-to-null;

@@ -10,3 +10,5 @@ python-dateutil
 pandas
 reportlab
 djangorestframework
+psycopg2-binary
+install psycopg2

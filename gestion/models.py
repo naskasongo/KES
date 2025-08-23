@@ -632,6 +632,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     totp_secret = models.CharField(max_length=100, blank=True, null=True)
     is_2fa_enabled = models.BooleanField(default=False)
+    session_key = models.CharField(max_length=40, blank=True, null=True)
     
     def __str__(self):
         return f"{self.user.username}'s Profile"

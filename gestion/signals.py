@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import ProgrammingError
 
 User = get_user_model()
 
@@ -25,10 +26,21 @@ MODELELES_A_IGNORER = {
     'User', 'LogEntry', 'HistoriqueAction', 'Notification'
 }
 
-# signals.py
+def safe_log_action(**kwargs):
+    """
+    Safely log an action, handling cases where the HistoriqueAction table
+    might not exist yet (e.g., during initial migrations)
+    """
+    try:
+        from .models import HistoriqueAction
+        return HistoriqueAction.objects.create(**kwargs)
+    except ProgrammingError:
+        # Table doesn't exist yet, skip logging
+        pass
+    except Exception:
+        # Other error, skip logging
+        pass
 
-# signals.py
-# Dans signals.py
 @receiver(post_save)
 def log_save(sender, instance, created, **kwargs):
     if sender.__name__ in MODELELES_A_IGNORER:
@@ -48,7 +60,7 @@ def log_save(sender, instance, created, **kwargs):
         except (AttributeError, ObjectDoesNotExist):
             pass
 
-    HistoriqueAction.objects.create(
+    safe_log_action(
         utilisateur=user,
         username=username,
         modele=sender.__name__,
@@ -56,12 +68,11 @@ def log_save(sender, instance, created, **kwargs):
         action=HistoriqueAction.ACTION_CREATION if created else HistoriqueAction.ACTION_MODIFICATION,
         details=f"{'Création' if created else 'Modification'} de {instance}"
     )
+
 @receiver(post_delete)
 def log_delete(sender, instance, **kwargs):
     if sender.__name__ in MODELELES_A_IGNORER:
         return
-
-    from .models import HistoriqueAction
 
     try:
         utilisateur = get_request_user()
@@ -70,7 +81,7 @@ def log_delete(sender, instance, **kwargs):
 
     username = utilisateur.get_full_name() if utilisateur else None
 
-    HistoriqueAction.objects.create(
+    safe_log_action(
         utilisateur=utilisateur,
         username=username,
         modele=sender.__name__,

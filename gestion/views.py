@@ -189,12 +189,43 @@ User = get_user_model()
 # Importer le modèle UserProfile
 from .models import UserProfile
 
+# ... existing imports ...
+
+from django.contrib.sessions.models import Session
+from django.utils import timezone
+
+
+# ... existing code ...
 
 def user_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
+
+            # Handle single session logic
+            try:
+                user_profile = user.userprofile
+            except AttributeError:
+                # Create user profile if it doesn't exist
+                from .models import UserProfile
+                user_profile = UserProfile.objects.create(user=user)
+
+            # Check for existing active session
+            if user_profile.session_key:
+                from django.contrib.sessions.models import Session
+                from django.utils import timezone
+                try:
+                    # Check if the session still exists and is active
+                    existing_session = Session.objects.get(session_key=user_profile.session_key)
+                    if existing_session.expire_date > timezone.now():
+                        # Expire the existing session
+                        existing_session.delete()
+                        # Add a message to inform the previous session
+                        # Note: We can't directly send a message to the previous session
+                except Session.DoesNotExist:
+                    pass  # Session doesn't exist, continue normally
+
             # Vérifier si l'utilisateur a activé la 2FA
             try:
                 user_profile = user.userprofile
@@ -217,6 +248,12 @@ def user_login(request):
 
             # Si la 2FA n'est pas activée, connecter l'utilisateur normalement
             login(request, user)
+
+            # Store the session key in the user profile
+            if hasattr(user, 'userprofile'):
+                user.userprofile.session_key = request.session.session_key
+                user.userprofile.save(update_fields=['session_key'])
+
             messages.success(request, f"Bienvenue {user.username} ! Vous êtes connecté.")
             return redirect('dashboard')
         else:
@@ -224,8 +261,6 @@ def user_login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'gestion/login.html', {'form': form})
-
-
 
 
 # Nouvelles vues pour la gestion de la 2FA
@@ -456,10 +491,20 @@ def profil_utilisateur(request):
     }
     return render(request, 'gestion/profil_utilisateur.html', context)
 
-def user_logout(request):
-    logout(request)
-    return redirect('login')
 
+def user_logout(request):
+    # Clear the session key from user profile on logout
+    if request.user.is_authenticated:
+        try:
+            user_profile = request.user.userprofile
+            user_profile.session_key = None
+            user_profile.save(update_fields=['session_key'])
+        except AttributeError:
+            pass  # User doesn't have a profile
+
+    logout(request)
+    messages.info(request, "Vous avez été déconnecté avec succès.")
+    return redirect('login')
 
 from gestion.models import CustomUser  # Importez votre modèle utilisateur personnalisé
 

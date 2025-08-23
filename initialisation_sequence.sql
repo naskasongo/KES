@@ -1,0 +1,11 @@
+-- Réinitialiser toutes les séquences après l'import
+SELECT setval(pg_get_serial_sequence('gestion_parent', 'id'), COALESCE(MAX(id), 1)) FROM gestion_parent;
+SELECT setval(pg_get_serial_sequence('gestion_eleve', 'id'), COALESCE(MAX(id), 1)) FROM gestion_eleve;
+SELECT setval(pg_get_serial_sequence('gestion_paiement', 'id'), COALESCE(MAX(id), 1)) FROM gestion_paiement;
+SELECT setval(pg_get_serial_sequence('gestion_frais', 'id'), COALESCE(MAX(id), 1)) FROM gestion_frais;
+SELECT setval(pg_get_serial_sequence('gestion_inscription', 'id'), COALESCE(MAX(id), 1)) FROM gestion_inscription;
+SELECT setval(pg_get_serial_sequence('gestion_anneescolaire', 'id'), COALESCE(MAX(id), 1)) FROM gestion_anneescolaire;
+SELECT setval(pg_get_serial_sequence('gestion_section', 'id'), COALESCE(MAX(id), 1)) FROM gestion_section;
+SELECT setval(pg_get_serial_sequence('gestion_classe', 'id'), COALESCE(MAX(id), 1)) FROM gestion_classe;
+SELECT setval(pg_get_serial_sequence('gestion_option', 'id'), COALESCE(MAX(id), 1)) FROM gestion_option;
+SELECT setval(pg_get_serial_sequence('gestion_customuser', 'id'), COALESCE(MAX(id), 1)) FROM gestion_customuser;

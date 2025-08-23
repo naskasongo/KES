@@ -5,16 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328896cd-7ba4-48a9-aa15-ceeaf669889e" name="Changes" comment="commit message">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/custum_dump.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/fix_encoding.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/migrate.load" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/migrate_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/migrate_tables.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/recovery.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/reset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/script.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion/templates/gestion/design_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations_des_donnes_sql.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wantashi/clear_sql_to_posgre.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wantashi/controller_migration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/local_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/local_settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/ajouter_frais.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/ajouter_frais.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/ChatGPT.docx" beforeDir="false" afterPath="$PROJECT_DIR$/backup/formatage_csv_posgre.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/comande.txt" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/static/argon/css/ argon-dashboard-scoped.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/dashboard.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/design.txt" beforeDir="false" afterPath="$PROJECT_DIR$/import_auto.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/examples.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/fraisUpdate.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/middleware.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/migrations/0002_alter_frais_type_frais.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/migrations/0003_userprofile.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/projet_wantashi.txt" beforeDir="false" afterPath="$PROJECT_DIR$/initialisation_sequence.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/projet_wantashi_gestion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/insert.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/base-dash.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/base-dash.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion/templates/gestion/modifier_frais.html" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/templates/gestion/modifier_frais.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestion/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestion/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/django.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/django.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/wantashi/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wantashi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/wantashi/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wantashi/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/wantashi/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +59,7 @@
       <list>
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="SQL File" />
         <option value="HTML File" />
         <option value="Python Script" />
       </list>
@@ -82,13 +113,25 @@
     "Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found": "Database connection parameters found",
     "Notification.DoNotAsk-DatabaseConfigFileWatcher.found": "true",
     "Python.check.executor": "Run",
+    "Python.clear_sql_to_posgre.executor": "Run",
+    "Python.controller_migration.executor": "Run",
+    "Python.custum_dump.executor": "Run",
     "Python.database.executor": "Run",
     "Python.detect_circular_imports (1).executor": "Run",
     "Python.detect_curisive.executor": "Run",
     "Python.executeSql.executor": "Run",
+    "Python.fix_encoding.executor": "Run",
+    "Python.formatage_csv_posgre.executor": "Run",
+    "Python.import_auto.executor": "Run",
     "Python.init_db (1).executor": "Run",
     "Python.init_db.executor": "Run",
+    "Python.migrate_data.executor": "Run",
+    "Python.migrate_tables.executor": "Run",
+    "Python.migrations_des_donnes_sql.executor": "Run",
+    "Python.pgloader.executor": "Run",
     "Python.projectStructure.executor": "Run",
+    "Python.recovery.executor": "Run",
+    "Python.reset.executor": "Run",
     "Python.setup_projet.executor": "Run",
     "Python.test_global.executor": "Run",
     "Python.test_produit (1).executor": "Run",
@@ -100,10 +143,12 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SHELLCHECK.PATH": "C:\\Users\\NAS\\AppData\\Roaming\\JetBrains\\PyCharm2025.1\\plugins\\Shell Script\\shellcheck.exe",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
     "django.template.preview.state": "SHOW_EDITOR",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Projects/school/gestion/templates",
+    "last_opened_file_path": "D:/Projects/school/backup",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -115,31 +160,30 @@
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
+      "postgresql",
       "sqlite"
     ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\school\backup" />
+      <recent name="D:\Projects\school" />
       <recent name="D:\Projects\school\gestion\templates" />
       <recent name="D:\Projects\school\static" />
-      <recent name="D:\Projects\school" />
       <recent name="D:\Projects\school\gestion\static\js" />
-      <recent name="D:\Projects\wantashi\gestion" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\school\backup" />
       <recent name="D:\Projects\school\config" />
       <recent name="D:\Projects\school\gestion\static\css" />
       <recent name="C:\Users\NAS\PycharmProjects\Facture" />
       <recent name="D:\Projects\wantashi\gestion" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.code_design.html">
-    <configuration name="code_design.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/school/code_design.html" useBuiltInWebServerPort="true">
-      <method v="2" />
-    </configuration>
-    <configuration name="test_global" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facture" />
+  <component name="RunManager" selected="Python.formatage_csv_posgre">
+    <configuration name="clear_sql_to_posgre" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="wantashi" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -147,12 +191,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/Facture" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/wantashi" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/Facture/test_global.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wantashi/clear_sql_to_posgre.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -161,8 +205,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_produit (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facture" />
+    <configuration name="formatage_csv_posgre" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="wantashi" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -170,12 +214,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/Facture" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backup" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/Facture/test_produit.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backup/formatage_csv_posgre.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -184,8 +228,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_produit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facture" />
+    <configuration name="import_auto" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="wantashi" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -193,12 +237,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/Facture/test" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\NAS\PycharmProjects\Facture\test_produit.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/import_auto.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -207,8 +251,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_tk" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facture" />
+    <configuration name="migrations_des_donnes_sql" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="wantashi" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -216,12 +260,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/Facture" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/Facture/test_tk.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/migrations_des_donnes_sql.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -230,8 +274,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ui_controller" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facture" />
+    <configuration name="recovery" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="wantashi" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -239,12 +283,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/Facture/ui" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/Facture/ui/ui_controller.py" />
+      <option name="SCRIPT_NAME" value="D:\Projects\school\backup\recovery.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -279,11 +323,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.code_design.html" />
-        <item itemvalue="Python.test_tk" />
-        <item itemvalue="Python.ui_controller" />
-        <item itemvalue="Python.test_global" />
-        <item itemvalue="Python.test_produit (1)" />
+        <item itemvalue="Python.formatage_csv_posgre" />
+        <item itemvalue="Python.migrations_des_donnes_sql" />
+        <item itemvalue="Python.import_auto" />
+        <item itemvalue="Python.clear_sql_to_posgre" />
+        <item itemvalue="Python.recovery" />
       </list>
     </recent_temporary>
   </component>
@@ -348,7 +392,9 @@
       <workItem from="1755117002382" duration="2573000" />
       <workItem from="1755446092064" duration="36753000" />
       <workItem from="1755617609308" duration="5700000" />
-      <workItem from="1755684950402" duration="6524000" />
+      <workItem from="1755684950402" duration="9673000" />
+      <workItem from="1755699122724" duration="16551000" />
+      <workItem from="1755853114369" duration="15729000" />
     </task>
     <task id="LOCAL-00001" summary="commit message">
       <option name="closed" value="true" />
@@ -519,37 +565,33 @@
     <MESSAGE value="commit message" />
     <option name="LAST_COMMIT_MESSAGE" value="commit message" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gestion/utils.py</url>
-          <line>1</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gestion/examples.py</url>
-          <line>38</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/wantashi$detect_circular_imports__1_.coverage" NAME="detect_circular_imports (1) Coverage Results" MODIFIED="1750415159765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wantashi$ui_controller.coverage" NAME="ui_controller Coverage Results" MODIFIED="1752931802773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture/ui" />
     <SUITE FILE_PATH="coverage/wantashi$init_db.coverage" NAME="init_db Coverage Results" MODIFIED="1752929146672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures/db" />
-    <SUITE FILE_PATH="coverage/wantashi$test_tk.coverage" NAME="test_tk Coverage Results" MODIFIED="1752954152199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture" />
-    <SUITE FILE_PATH="coverage/wantashi$projectStructure.coverage" NAME="projectStructure Coverage Results" MODIFIED="1752929600191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture" />
     <SUITE FILE_PATH="coverage/wantashi$init_db__1_.coverage" NAME="init_db (1) Coverage Results" MODIFIED="1752930082722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture" />
+    <SUITE FILE_PATH="coverage/wantashi$projectStructure.coverage" NAME="projectStructure Coverage Results" MODIFIED="1752929600191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture" />
     <SUITE FILE_PATH="coverage/wantashi$utils.coverage" NAME="utils Coverage Results" MODIFIED="1750374955416" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gestion" />
+    <SUITE FILE_PATH="coverage/school$migrate_tables.coverage" NAME="migrate_tables Coverage Results" MODIFIED="1755722964316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wantashi$setup_projet.coverage" NAME="setup_projet Coverage Results" MODIFIED="1752926399045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures" />
-    <SUITE FILE_PATH="coverage/wantashi$test_global.coverage" NAME="test_global Coverage Results" MODIFIED="1752931005183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture" />
-    <SUITE FILE_PATH="coverage/wantashi$database.coverage" NAME="database Coverage Results" MODIFIED="1752926475535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures/db" />
-    <SUITE FILE_PATH="coverage/wantashi$executeSql.coverage" NAME="executeSql Coverage Results" MODIFIED="1752927144410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures/db" />
+    <SUITE FILE_PATH="coverage/school$pgloader.coverage" NAME="pgloader Coverage Results" MODIFIED="1755721909714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads/pgloader-2.3.2/pgloader-2.3.2" />
+    <SUITE FILE_PATH="coverage/school$reset.coverage" NAME="reset Coverage Results" MODIFIED="1755721193863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wantashi$test_produit__1_.coverage" NAME="test_produit (1) Coverage Results" MODIFIED="1752930345993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture" />
-    <SUITE FILE_PATH="coverage/wantashi$test_produit.coverage" NAME="test_produit Coverage Results" MODIFIED="1752929395099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures/test" />
     <SUITE FILE_PATH="coverage/wantashi$check.coverage" NAME="check Coverage Results" MODIFIED="1752929386730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures/db" />
     <SUITE FILE_PATH="coverage/wantashi$detect_curisive.coverage" NAME="detect_curisive Coverage Results" MODIFIED="1750414945995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/school$migrations_des_donnes_sql.coverage" NAME="migrations_des_donnes_sql Coverage Results" MODIFIED="1755870411534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/school$clear_sql_to_posgre.coverage" NAME="clear_sql_to_posgre Coverage Results" MODIFIED="1755725533832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/wantashi" />
+    <SUITE FILE_PATH="coverage/school$import_auto.coverage" NAME="import_auto Coverage Results" MODIFIED="1755726051175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/school$formatage_csv_posgre.coverage" NAME="formatage_csv_posgre Coverage Results" MODIFIED="1755943981446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backup" />
+    <SUITE FILE_PATH="coverage/wantashi$test_tk.coverage" NAME="test_tk Coverage Results" MODIFIED="1752954152199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture" />
+    <SUITE FILE_PATH="coverage/wantashi$test_global.coverage" NAME="test_global Coverage Results" MODIFIED="1752931005183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Facture" />
+    <SUITE FILE_PATH="coverage/wantashi$database.coverage" NAME="database Coverage Results" MODIFIED="1752926475535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures/db" />
+    <SUITE FILE_PATH="coverage/school$fix_encoding.coverage" NAME="fix_encoding Coverage Results" MODIFIED="1755722712664" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wantashi$executeSql.coverage" NAME="executeSql Coverage Results" MODIFIED="1752927144410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures/db" />
+    <SUITE FILE_PATH="coverage/school$controller_migration.coverage" NAME="controller_migration Coverage Results" MODIFIED="1755723458314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/wantashi" />
+    <SUITE FILE_PATH="coverage/wantashi$test_produit.coverage" NAME="test_produit Coverage Results" MODIFIED="1752929395099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/Factures/test" />
+    <SUITE FILE_PATH="coverage/school$custum_dump.coverage" NAME="custum_dump Coverage Results" MODIFIED="1755720265071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/school$recovery.coverage" NAME="recovery Coverage Results" MODIFIED="1755724982906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/school$migrate_data.coverage" NAME="migrate_data Coverage Results" MODIFIED="1755722119897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

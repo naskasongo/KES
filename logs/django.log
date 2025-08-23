@@ -298,3 +298,1555 @@
 2025-08-20 14:39:47,312 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
 2025-08-20 14:39:47,333 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
 2025-08-20 14:39:47,423 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 15:13:50,475 INFO D:\Projects\school\gestion\models.py changed, reloading.
+2025-08-20 15:20:09,463 INFO Watching for file changes with StatReloader
+2025-08-20 15:20:42,145 INFO "GET / HTTP/1.1" 200 15097
+2025-08-20 15:20:44,831 INFO - Broken pipe from ('127.0.0.1', 51577)
+2025-08-20 15:20:52,635 INFO "POST /login/ HTTP/1.1" 200 15816
+2025-08-20 15:21:26,958 WARNING The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /login/
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 127, in save
+    obj.save(
+    ~~~~~~~~^
+        force_insert=must_create, force_update=not must_create, using=using
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 1142, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 136, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+    ...<3 lines>...
+    )
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-08-20 15:21:27,094 WARNING "POST /login/ HTTP/1.1" 400 106185
+2025-08-20 15:21:29,854 WARNING Not Found: /favicon.ico
+2025-08-20 15:21:29,868 INFO - Broken pipe from ('127.0.0.1', 51584)
+2025-08-20 15:21:48,757 INFO "GET /logout/ HTTP/1.1" 302 0
+2025-08-20 15:21:48,785 INFO "GET /login/ HTTP/1.1" 200 15168
+2025-08-20 15:21:58,592 INFO "GET /login/ HTTP/1.1" 200 15168
+2025-08-20 15:22:05,670 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 15:22:05,745 INFO "GET /login-2fa/ HTTP/1.1" 200 7825
+2025-08-20 15:22:28,022 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-20 15:22:31,380 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 15:22:34,462 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 15:22:35,953 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 15:22:36,011 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 15:22:36,035 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 15:52:35,046 INFO Watching for file changes with StatReloader
+2025-08-20 15:52:53,790 INFO "GET / HTTP/1.1" 302 0
+2025-08-20 15:52:53,818 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 15:52:56,254 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-20 15:55:27,376 INFO D:\Projects\school\wantashi\settings.py changed, reloading.
+2025-08-20 15:55:30,644 INFO Watching for file changes with StatReloader
+2025-08-20 15:55:37,684 INFO Watching for file changes with StatReloader
+2025-08-20 15:56:33,078 INFO D:\Projects\school\wantashi\settings.py changed, reloading.
+2025-08-20 15:56:36,673 INFO Watching for file changes with StatReloader
+2025-08-20 15:56:53,443 INFO Serving on http://0.0.0.0:8000
+2025-08-20 16:00:10,987 WARNING Task queue depth is 1
+2025-08-20 16:00:10,991 WARNING Task queue depth is 2
+2025-08-20 16:00:10,992 WARNING Task queue depth is 3
+2025-08-20 16:00:10,995 WARNING Task queue depth is 4
+2025-08-20 16:00:10,995 WARNING Task queue depth is 5
+2025-08-20 16:00:11,391 WARNING Task queue depth is 5
+2025-08-20 16:00:12,983 WARNING Task queue depth is 1
+2025-08-20 16:00:12,988 WARNING Task queue depth is 2
+2025-08-20 16:00:12,989 WARNING Task queue depth is 3
+2025-08-20 16:01:38,399 WARNING Task queue depth is 1
+2025-08-20 16:01:38,400 WARNING Task queue depth is 2
+2025-08-20 16:01:38,756 WARNING Task queue depth is 1
+2025-08-20 16:01:38,757 WARNING Task queue depth is 2
+2025-08-20 16:01:38,787 WARNING Task queue depth is 2
+2025-08-20 16:03:45,427 INFO Serving on http://0.0.0.0:8000
+2025-08-20 16:06:43,691 INFO Watching for file changes with StatReloader
+2025-08-20 16:16:11,320 INFO Watching for file changes with StatReloader
+2025-08-20 16:18:19,145 INFO code 400, message Bad request version ('\x1a\x1a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S\x1a\x1a\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00\x12\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00+\x00\x07\x06ÚÚ\x03\x04\x03\x03\x00')
+2025-08-20 16:18:19,146 ERROR You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-08-20 16:18:19,159 INFO code 400, message Bad request version ('z\x1bT\x05/Öq\x05\x15xE¤¦Þ5"cõ\x03Åºpuæ')
+2025-08-20 16:18:19,160 ERROR You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-08-20 16:18:20,338 INFO "GET / HTTP/1.1" 302 0
+2025-08-20 16:18:20,369 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:18:23,163 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-20 16:19:53,512 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 16:19:53,539 INFO "GET /login-2fa/ HTTP/1.1" 200 6500
+2025-08-20 16:20:37,428 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-20 16:20:37,639 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 16:20:37,755 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-20 16:20:37,756 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-20 16:20:37,757 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-20 16:20:37,758 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-20 16:20:37,759 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-20 16:20:37,783 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-20 16:20:37,891 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-20 16:20:38,757 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:20:38,770 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 16:20:38,774 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 16:20:38,816 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:24:34,325 INFO Watching for file changes with StatReloader
+2025-08-20 16:24:36,287 INFO "GET / HTTP/1.1" 302 0
+2025-08-20 16:24:36,517 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:25:17,847 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:26:56,455 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:26:58,265 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:27:00,079 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:27:01,620 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:27:17,398 INFO "GET / HTTP/1.1" 302 0
+2025-08-20 16:27:17,408 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:27:38,846 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-20 16:27:50,200 INFO - Broken pipe from ('192.168.100.132', 49772)
+2025-08-20 16:28:45,553 INFO Watching for file changes with StatReloader
+2025-08-20 16:28:56,598 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:28:58,462 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-20 16:29:22,908 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:29:24,932 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-20 16:29:29,051 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 16:33:47,784 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 16:33:47,804 INFO "GET /login-2fa/ HTTP/1.1" 200 6500
+2025-08-20 16:34:23,900 INFO "POST /login-2fa/ HTTP/1.1" 200 7167
+2025-08-20 16:34:37,661 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-20 16:34:37,930 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 16:34:38,004 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-20 16:34:38,030 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-20 16:34:38,030 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-20 16:34:38,031 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-20 16:34:38,032 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-20 16:34:38,053 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-20 16:34:38,128 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-20 16:34:39,311 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:34:39,315 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 16:34:39,319 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 16:34:39,320 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:34:39,380 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-20 16:34:43,614 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 16:34:43,721 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-20 16:34:44,038 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 16:34:44,044 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 16:34:44,045 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-20 16:34:44,046 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-20 16:35:34,983 INFO D:\Projects\school\gestion\models.py changed, reloading.
+2025-08-20 16:36:12,593 INFO Watching for file changes with StatReloader
+2025-08-20 16:37:01,501 INFO D:\Projects\school\gestion\views.py changed, reloading.
+2025-08-20 16:37:13,814 INFO Watching for file changes with StatReloader
+2025-08-20 16:37:28,936 INFO D:\Projects\school\wantashi\settings.py changed, reloading.
+2025-08-20 16:37:32,049 INFO Watching for file changes with StatReloader
+2025-08-20 16:41:45,687 INFO Watching for file changes with StatReloader
+2025-08-20 16:41:51,098 INFO "GET /logout/ HTTP/1.1" 302 0
+2025-08-20 16:41:51,123 INFO "GET /login/ HTTP/1.1" 200 15168
+2025-08-20 16:42:05,472 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 16:42:05,488 INFO "GET /login-2fa/ HTTP/1.1" 200 8436
+2025-08-20 16:42:22,472 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-20 16:42:22,680 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 16:42:22,996 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 16:42:23,043 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 16:42:23,089 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:42:23,117 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:42:55,627 INFO - Broken pipe from ('192.168.54.95', 54770)
+2025-08-20 16:42:58,968 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 16:42:59,025 INFO "GET /login-2fa/ HTTP/1.1" 200 6500
+2025-08-20 16:43:09,865 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-20 16:43:10,010 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 16:43:10,638 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-20 16:43:10,641 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-20 16:43:10,663 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-20 16:43:10,681 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-20 16:43:10,698 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-20 16:43:10,700 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-20 16:43:10,701 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-20 16:43:11,075 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 16:43:11,117 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:43:11,118 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 16:43:11,140 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:43:49,840 INFO "GET /logout/ HTTP/1.1" 302 0
+2025-08-20 16:43:49,853 INFO "GET /login/ HTTP/1.1" 200 15168
+2025-08-20 16:45:07,515 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 16:45:07,532 INFO "GET /login-2fa/ HTTP/1.1" 200 7802
+2025-08-20 16:45:24,760 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-20 16:45:24,884 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-20 16:45:25,164 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:45:25,195 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-20 16:45:25,210 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-20 16:45:25,225 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-20 16:45:28,005 INFO "GET /frais/ajouter/ HTTP/1.1" 200 70483
+2025-08-20 16:45:28,292 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 16:45:52,894 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-20 16:45:53,098 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 16:45:54,343 INFO "GET /frais/ HTTP/1.1" 200 67109
+2025-08-20 16:45:56,221 INFO "GET /frais/modifier/34/ HTTP/1.1" 200 98672
+2025-08-20 16:45:56,410 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-20 16:46:09,572 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-20 16:46:09,741 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-20 16:46:19,023 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 124991
+2025-08-20 16:46:30,667 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107233
+2025-08-20 16:46:30,714 INFO "GET /static/js/paiement.js HTTP/1.1" 200 27584
+2025-08-20 16:46:39,218 INFO "GET /sections/classe/1/ HTTP/1.1" 200 104859
+2025-08-20 16:46:43,863 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 16:46:43,921 INFO "GET /sections/classe/1/ HTTP/1.1" 200 121313
+2025-08-20 16:46:57,707 INFO "GET /eleves/details/7/ HTTP/1.1" 200 108733
+2025-08-20 16:47:34,638 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-20 16:47:34,968 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 16:47:35,027 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-20 16:47:35,059 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 16:47:35,066 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-20 16:47:38,188 INFO "GET /eleves/reinscription/ HTTP/1.1" 200 64805
+2025-08-20 16:47:41,684 INFO "GET /eleves/ HTTP/1.1" 200 145771
+2025-08-20 16:47:44,546 INFO "GET /eleves/details/20/ HTTP/1.1" 200 102315
+2025-08-20 16:47:50,954 INFO "GET /bilan-financier/ HTTP/1.1" 200 95222
+2025-08-20 16:47:58,445 INFO "GET /suivi-financier/ HTTP/1.1" 200 173041
+2025-08-20 16:48:12,895 INFO "GET /suivi-financier/?periode=jour&date=&mois=&annee_scolaire=3&date_debut=&date_fin=&section=&option=&classe= HTTP/1.1" 200 103469
+2025-08-20 16:48:17,588 INFO "GET /suivi-financier/?periode=jour&date=&mois=&annee_scolaire=1&date_debut=&date_fin=&section=&option=&classe= HTTP/1.1" 200 173077
+2025-08-20 16:48:45,582 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-20 16:48:45,960 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 16:48:46,008 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-20 16:48:46,039 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 16:48:46,071 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-20 16:49:36,219 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-20 16:49:36,626 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-20 16:49:36,673 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 16:49:36,719 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-20 16:49:36,729 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-20 16:53:02,368 INFO D:\Projects\school\config\local_settings.py changed, reloading.
+2025-08-20 16:53:04,285 INFO Watching for file changes with StatReloader
+2025-08-20 16:54:02,078 INFO D:\Projects\school\config\local_settings.py changed, reloading.
+2025-08-20 16:54:03,104 INFO Watching for file changes with StatReloader
+2025-08-20 16:54:53,121 INFO D:\Projects\school\config\local_settings.py changed, reloading.
+2025-08-20 16:54:54,499 INFO Watching for file changes with StatReloader
+2025-08-20 17:00:21,090 INFO D:\Projects\school\config\local_settings.py changed, reloading.
+2025-08-20 17:00:22,709 INFO Watching for file changes with StatReloader
+2025-08-20 21:07:29,180 INFO D:\Projects\school\config\local_settings.py changed, reloading.
+2025-08-20 21:07:37,301 INFO Watching for file changes with StatReloader
+2025-08-20 22:58:55,352 INFO Watching for file changes with StatReloader
+2025-08-20 22:59:00,340 INFO "GET / HTTP/1.1" 302 0
+2025-08-20 22:59:00,393 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 22:59:03,291 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-20 22:59:29,035 INFO "POST /login/ HTTP/1.1" 200 15816
+2025-08-20 22:59:51,985 INFO "POST /login/ HTTP/1.1" 200 15816
+2025-08-20 23:00:19,311 INFO "POST /login/ HTTP/1.1" 200 15816
+2025-08-20 23:00:24,154 INFO "GET /register/ HTTP/1.1" 302 0
+2025-08-20 23:00:24,177 INFO "GET /login/?next=/register/ HTTP/1.1" 200 15168
+2025-08-20 23:00:44,633 INFO "POST /login/ HTTP/1.1" 200 15816
+2025-08-20 23:01:06,988 INFO "GET /admin/ HTTP/1.1" 302 0
+2025-08-20 23:01:07,887 INFO "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+2025-08-20 23:01:08,090 INFO "GET /static/admin/css/login.css HTTP/1.1" 200 951
+2025-08-20 23:01:08,091 INFO "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+2025-08-20 23:01:08,097 INFO "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+2025-08-20 23:01:08,101 INFO "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+2025-08-20 23:01:08,186 INFO "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+2025-08-20 23:01:08,212 INFO "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+2025-08-20 23:01:08,213 INFO "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+2025-08-20 23:01:08,460 WARNING Not Found: /favicon.ico
+2025-08-20 23:01:08,462 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-20 23:01:22,032 INFO "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2025-08-20 23:01:22,326 INFO "GET /admin/ HTTP/1.1" 200 8868
+2025-08-20 23:01:22,406 INFO "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+2025-08-20 23:01:22,443 INFO "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+2025-08-20 23:01:22,448 INFO "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+2025-08-20 23:01:22,770 WARNING Not Found: /favicon.ico
+2025-08-20 23:01:22,772 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-20 23:01:27,873 INFO "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2025-08-20 23:01:28,052 INFO "GET /admin/ HTTP/1.1" 200 8868
+2025-08-20 23:01:35,676 INFO "POST /admin/logout/ HTTP/1.1" 200 3568
+2025-08-20 23:01:35,771 WARNING Not Found: /favicon.ico
+2025-08-20 23:01:35,772 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-20 23:01:37,677 INFO "GET /admin/ HTTP/1.1" 302 0
+2025-08-20 23:01:37,692 INFO "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+2025-08-20 23:01:48,367 INFO "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4351
+2025-08-20 23:01:59,061 INFO "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4351
+2025-08-20 23:02:12,686 INFO "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2025-08-20 23:02:12,852 INFO "GET /admin/ HTTP/1.1" 200 8868
+2025-08-20 23:02:13,153 WARNING Not Found: /favicon.ico
+2025-08-20 23:02:13,153 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-20 23:02:26,594 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 23:02:27,514 INFO "GET /dashboard/ HTTP/1.1" 200 89763
+2025-08-20 23:02:27,798 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-20 23:02:27,806 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-20 23:02:27,810 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-20 23:02:27,813 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-20 23:02:27,817 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-20 23:02:27,818 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-20 23:02:27,828 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-20 23:02:30,433 INFO - Broken pipe from ('127.0.0.1', 60235)
+2025-08-20 23:02:30,877 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:02:30,893 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:02:30,905 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:02:30,939 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:02:35,943 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 23:02:36,458 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-20 23:02:37,626 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:02:37,647 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:02:37,657 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:02:37,680 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:02:41,964 INFO "GET /utilisateurs/1/ HTTP/1.1" 200 52083
+2025-08-20 23:02:51,881 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-20 23:02:52,687 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:02:52,716 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:02:52,721 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:02:52,779 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:02:56,962 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 23:02:57,570 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-20 23:02:58,964 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:02:58,973 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:02:58,986 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:02:58,989 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:05:03,126 INFO "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+2025-08-20 23:07:28,981 INFO "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+2025-08-20 23:07:29,184 WARNING Not Found: /favicon.ico
+2025-08-20 23:07:29,185 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-20 23:07:32,406 INFO "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+2025-08-20 23:07:32,982 INFO "GET /admin/ HTTP/1.1" 302 0
+2025-08-20 23:07:33,004 INFO "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+2025-08-20 23:14:37,049 INFO Watching for file changes with StatReloader
+2025-08-20 23:14:42,167 INFO "GET / HTTP/1.1" 200 15097
+2025-08-20 23:14:54,303 INFO "POST /login/ HTTP/1.1" 200 15816
+2025-08-20 23:15:06,889 WARNING The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /login/
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 127, in save
+    obj.save(
+    ~~~~~~~~^
+        force_insert=must_create, force_update=not must_create, using=using
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 1142, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 136, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+    ...<3 lines>...
+    )
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-08-20 23:15:06,912 WARNING "POST /login/ HTTP/1.1" 400 104955
+2025-08-20 23:15:07,396 WARNING Not Found: /favicon.ico
+2025-08-20 23:15:07,398 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-20 23:15:32,209 INFO "GET /dashboard/ HTTP/1.1" 302 0
+2025-08-20 23:15:32,231 INFO "GET /login/?next=/dashboard/ HTTP/1.1" 200 15168
+2025-08-20 23:15:37,343 INFO "GET /login/ HTTP/1.1" 200 15168
+2025-08-20 23:15:45,338 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 23:15:45,966 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-20 23:15:47,339 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:15:47,356 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:15:47,378 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:15:47,394 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:15:50,488 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 74869
+2025-08-20 23:15:57,823 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 63910
+2025-08-20 23:15:58,125 INFO "GET /static/js/paiement.js HTTP/1.1" 200 27584
+2025-08-20 23:16:03,873 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 15
+2025-08-20 23:16:16,258 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-20 23:16:16,949 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:16:16,957 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:16:16,957 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:16:16,980 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:16:20,003 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 68901
+2025-08-20 23:49:23,988 INFO Watching for file changes with StatReloader
+2025-08-20 23:49:36,237 INFO "GET /login/?next=/dashboard/ HTTP/1.1" 200 15168
+2025-08-20 23:49:54,754 WARNING The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /login/
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 127, in save
+    obj.save(
+    ~~~~~~~~^
+        force_insert=must_create, force_update=not must_create, using=using
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "D:\Projects\school\.venv\Lib\site-packages\django\db\models\base.py", line 1142, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 136, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+    ...<3 lines>...
+    )
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-08-20 23:49:54,785 WARNING "POST /login/ HTTP/1.1" 400 104576
+2025-08-20 23:49:55,712 WARNING Not Found: /favicon.ico
+2025-08-20 23:49:55,713 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-20 23:50:00,085 INFO "GET /dashboard/ HTTP/1.1" 302 0
+2025-08-20 23:50:00,169 INFO "GET /login/?next=/dashboard/ HTTP/1.1" 200 15168
+2025-08-20 23:50:16,802 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 23:50:17,431 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-20 23:50:18,928 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:50:18,950 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:50:18,954 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:50:18,970 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:50:22,425 INFO "GET /eleves/ HTTP/1.1" 200 55650
+2025-08-20 23:50:27,225 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 23:50:27,435 INFO "GET /eleves/ HTTP/1.1" 200 55650
+2025-08-20 23:50:35,350 INFO "GET /paiements/ HTTP/1.1" 200 65321
+2025-08-20 23:51:29,747 INFO "GET /paiements/ HTTP/1.1" 200 65321
+2025-08-20 23:52:20,953 INFO "GET / HTTP/1.1" 302 0
+2025-08-20 23:52:20,959 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-20 23:52:21,412 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-20 23:52:37,593 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-20 23:52:39,249 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-20 23:52:39,366 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-20 23:52:39,368 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-20 23:52:39,372 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-20 23:52:39,376 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-20 23:52:39,393 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-20 23:52:39,406 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-20 23:52:39,408 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-20 23:52:41,282 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:52:41,491 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:52:42,319 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:52:42,526 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:52:45,581 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-20 23:52:46,067 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-20 23:52:46,658 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-20 23:52:46,781 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-20 23:52:47,141 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-20 23:52:47,504 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:01:59,490 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-21 00:02:00,836 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:02:00,857 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-21 00:02:00,865 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-21 00:02:01,099 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:02:04,062 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-21 00:02:04,405 INFO "GET /dashboard/ HTTP/1.1" 200 90005
+2025-08-21 00:02:04,963 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:02:05,051 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-21 00:02:05,184 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-21 00:02:05,275 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:16:08,838 ERROR Internal Server Error: /paiements/
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Projects\school\gestion\views.py", line 1474, in liste_paiements
+    paiements = filter_by_user_role(
+                ~~~~~~~~~~~~~~~~~~~^
+        Paiement.objects.filter(
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        section_field='eleve__classe__section__nom'
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).order_by('-date_paiement').distinct()
+    ^
+  File "D:\Projects\school\gestion\access_control.py", line 49, in filter_by_user_role
+    if user.is_superuser or user.role == 'admin':
+                            ^^^^^^^^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'role'
+2025-08-21 00:16:08,871 ERROR "GET /paiements/ HTTP/1.1" 500 82983
+2025-08-21 00:16:09,883 WARNING Not Found: /favicon.ico
+2025-08-21 00:16:09,884 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-21 00:16:19,226 INFO "GET /utilisateurs/1/ HTTP/1.1" 302 0
+2025-08-21 00:16:19,257 INFO "GET /login/?next=/utilisateurs/1/ HTTP/1.1" 200 15168
+2025-08-21 00:16:34,024 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-21 00:16:34,792 INFO "GET /dashboard/ HTTP/1.1" 200 103321
+2025-08-21 00:16:36,244 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:16:36,263 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-21 00:16:36,277 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-21 00:16:36,312 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:16:40,430 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-21 00:16:40,723 INFO "GET /dashboard/ HTTP/1.1" 200 103276
+2025-08-21 00:16:41,651 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:16:41,652 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-21 00:16:41,731 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-21 00:16:41,847 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:16:43,300 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-21 00:16:43,560 INFO "GET /dashboard/ HTTP/1.1" 200 103276
+2025-08-21 00:16:44,307 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:16:44,314 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-21 00:16:44,362 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-21 00:16:44,375 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:16:49,912 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-21 00:16:50,215 INFO "GET /dashboard/ HTTP/1.1" 200 103321
+2025-08-21 00:16:51,112 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-21 00:16:51,169 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:16:51,191 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-21 00:16:51,212 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:17:21,532 INFO "GET /sections/classe/10/ HTTP/1.1" 200 72700
+2025-08-21 00:17:22,938 INFO - Broken pipe from ('127.0.0.1', 52209)
+2025-08-21 00:17:23,041 INFO - Broken pipe from ('127.0.0.1', 52220)
+2025-08-21 00:17:23,144 INFO "GET /dashboard/ HTTP/1.1" 200 103321
+2025-08-21 00:17:24,179 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-21 00:17:24,183 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:17:24,205 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-21 00:17:24,291 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-21 00:21:05,874 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-21 00:21:05,906 INFO "GET /login/?next=/changer-annee/ HTTP/1.1" 200 15168
+2025-08-21 00:22:07,854 INFO D:\Projects\school\config\local_settings.py changed, reloading.
+2025-08-21 00:22:16,923 INFO Watching for file changes with StatReloader
+2025-08-21 00:22:43,138 INFO Watching for file changes with StatReloader
+2025-08-21 00:22:49,452 INFO "GET / HTTP/1.1" 302 0
+2025-08-21 00:22:49,665 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-21 00:22:51,798 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-21 00:23:00,204 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-21 00:23:00,308 INFO "GET /login-2fa/ HTTP/1.1" 200 10348
+2025-08-21 00:23:21,141 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-21 00:23:23,002 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-21 00:23:23,345 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-21 00:23:23,357 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-21 00:23:23,359 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-21 00:23:23,387 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-21 00:23:23,395 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-21 00:23:23,405 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-21 00:23:23,448 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-21 00:23:26,012 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-21 00:23:26,397 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-21 00:23:26,423 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-21 00:23:27,087 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-21 00:23:31,846 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-21 00:23:32,310 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-21 00:23:33,526 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-21 00:23:33,652 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-21 00:23:33,695 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-21 00:23:33,696 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 11:55:11,925 INFO Watching for file changes with StatReloader
+2025-08-22 12:00:13,209 ERROR Invalid HTTP_HOST header: '192.168.195.95:8000'. You may need to add '192.168.195.95' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "D:\Projects\school\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.195.95:8000'. You may need to add '192.168.195.95' to ALLOWED_HOSTS.
+2025-08-22 12:00:13,213 WARNING "GET / HTTP/1.1" 400 73713
+2025-08-22 12:00:16,679 ERROR Invalid HTTP_HOST header: '192.168.195.95:8000'. You may need to add '192.168.195.95' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "D:\Projects\school\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.195.95:8000'. You may need to add '192.168.195.95' to ALLOWED_HOSTS.
+2025-08-22 12:00:16,680 WARNING "GET /favicon.ico HTTP/1.1" 400 73675
+2025-08-22 12:00:47,787 INFO D:\Projects\school\wantashi\settings.py changed, reloading.
+2025-08-22 12:00:49,017 INFO Watching for file changes with StatReloader
+2025-08-22 12:00:49,865 INFO "GET / HTTP/1.1" 302 0
+2025-08-22 12:00:49,897 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-22 12:00:52,585 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-22 12:01:59,044 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 12:01:59,142 INFO "GET /login-2fa/ HTTP/1.1" 200 6500
+2025-08-22 12:03:39,867 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 12:03:40,103 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-22 12:03:40,202 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-22 12:03:40,203 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-22 12:03:40,212 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-22 12:03:40,212 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-22 12:03:40,311 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-22 12:03:40,315 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-22 12:03:40,553 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-22 12:03:43,362 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-22 12:03:43,401 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-22 12:03:43,449 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-22 12:03:43,479 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-22 12:03:47,237 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 12:03:47,346 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-22 12:03:47,713 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:03:47,760 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:03:47,804 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:03:47,816 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:05:38,431 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 126313
+2025-08-22 12:05:47,602 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 124991
+2025-08-22 12:08:24,783 INFO "POST /eleves/ajouter/ HTTP/1.1" 302 0
+2025-08-22 12:08:24,940 INFO "GET /eleves/details/50/ HTTP/1.1" 200 87556
+2025-08-22 12:08:46,518 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 12:08:46,582 INFO "GET /eleves/details/50/ HTTP/1.1" 200 102391
+2025-08-22 12:08:56,589 INFO "GET /parents/26/ HTTP/1.1" 200 97400
+2025-08-22 12:09:42,940 INFO "GET /eleves/details/50/ HTTP/1.1" 200 102027
+2025-08-22 12:10:53,164 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107233
+2025-08-22 12:10:53,218 INFO "GET /static/js/paiement.js HTTP/1.1" 200 27584
+2025-08-22 12:11:16,151 INFO "GET /logout/ HTTP/1.1" 302 0
+2025-08-22 12:11:16,163 INFO "GET /login/ HTTP/1.1" 200 15168
+2025-08-22 12:11:45,124 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 12:11:45,139 INFO "GET /login-2fa/ HTTP/1.1" 200 7174
+2025-08-22 12:11:52,943 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 12:11:53,042 INFO "GET /dashboard/ HTTP/1.1" 200 135007
+2025-08-22 12:11:53,266 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-22 12:11:53,315 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 272
+2025-08-22 12:11:53,345 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 272
+2025-08-22 12:11:53,347 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 272
+2025-08-22 12:11:58,194 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 12:11:58,301 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-22 12:11:58,608 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:11:58,615 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:11:58,655 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:11:58,684 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:12:00,642 INFO "GET /dashboard/ HTTP/1.1" 200 138860
+2025-08-22 12:12:01,195 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:12:01,234 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:12:01,282 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:12:01,314 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:12:04,286 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 126313
+2025-08-22 12:12:19,665 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 12:12:19,762 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 125666
+2025-08-22 12:13:25,165 INFO "POST /eleves/ajouter/ HTTP/1.1" 200 125223
+2025-08-22 12:13:37,704 INFO "POST /eleves/ajouter/ HTTP/1.1" 302 0
+2025-08-22 12:13:37,760 INFO "GET /eleves/details/51/ HTTP/1.1" 200 102350
+2025-08-22 12:13:47,151 INFO "GET /parents/5/ HTTP/1.1" 200 99726
+2025-08-22 12:14:12,791 INFO "GET /eleves/reinscription/ HTTP/1.1" 200 64805
+2025-08-22 12:14:18,931 INFO "POST /eleves/reinscription/ HTTP/1.1" 302 0
+2025-08-22 12:14:19,012 INFO "GET /eleves/reinscription/ HTTP/1.1" 200 65205
+2025-08-22 12:14:25,679 INFO "POST /eleves/reinscription/ HTTP/1.1" 200 72527
+2025-08-22 12:14:32,121 INFO "GET /eleves/ HTTP/1.1" 200 77222
+2025-08-22 12:14:42,388 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107233
+2025-08-22 12:14:49,878 INFO "GET /api/get-eleve-by-matricule/26MT002/ HTTP/1.1" 200 326
+2025-08-22 12:14:49,949 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:14:50,024 INFO "GET /api/get-classes/4/2/ HTTP/1.1" 200 154
+2025-08-22 12:14:50,100 INFO "GET /api/get-eleves/23/ HTTP/1.1" 200 141
+2025-08-22 12:14:50,190 INFO "GET /api/get-frais/23/ HTTP/1.1" 200 68
+2025-08-22 12:14:50,236 INFO "GET /api/get-historique/51/ HTTP/1.1" 200 344
+2025-08-22 12:14:59,612 INFO "GET /frais/ HTTP/1.1" 200 67109
+2025-08-22 12:15:05,506 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-22 12:15:05,725 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-22 12:15:14,330 INFO "GET /api/get-classes/4/ HTTP/1.1" 200 15
+2025-08-22 12:15:14,391 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:15:16,854 INFO "GET /api/get-classes/4/1/ HTTP/1.1" 200 154
+2025-08-22 12:15:30,239 INFO "POST /frais/ajouter/ HTTP/1.1" 302 0
+2025-08-22 12:15:30,296 INFO "GET /frais/ HTTP/1.1" 200 72275
+2025-08-22 12:15:37,362 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107915
+2025-08-22 12:15:41,934 INFO "GET /api/get-eleve-by-matricule/26MT002/ HTTP/1.1" 200 326
+2025-08-22 12:15:41,978 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:15:42,021 INFO "GET /api/get-classes/4/2/ HTTP/1.1" 200 154
+2025-08-22 12:15:42,089 INFO "GET /api/get-eleves/23/ HTTP/1.1" 200 141
+2025-08-22 12:15:42,138 INFO "GET /api/get-frais/23/ HTTP/1.1" 200 68
+2025-08-22 12:15:42,185 INFO "GET /api/get-historique/51/ HTTP/1.1" 200 344
+2025-08-22 12:15:51,670 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-22 12:15:51,840 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-22 12:16:02,837 INFO "GET /api/get-classes/4/ HTTP/1.1" 200 15
+2025-08-22 12:16:02,883 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:16:04,922 INFO "GET /api/get-classes/4/2/ HTTP/1.1" 200 154
+2025-08-22 12:16:09,331 INFO "POST /frais/ajouter/ HTTP/1.1" 302 0
+2025-08-22 12:16:09,442 INFO "GET /frais/ HTTP/1.1" 200 77442
+2025-08-22 12:16:18,025 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107915
+2025-08-22 12:16:24,293 INFO "GET /api/get-eleve-by-matricule/26MT002/ HTTP/1.1" 200 326
+2025-08-22 12:16:24,337 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:16:24,380 INFO "GET /api/get-classes/4/2/ HTTP/1.1" 200 154
+2025-08-22 12:16:24,419 INFO "GET /api/get-eleves/23/ HTTP/1.1" 200 141
+2025-08-22 12:16:24,487 INFO "GET /api/get-frais/23/ HTTP/1.1" 200 148
+2025-08-22 12:16:24,524 INFO "GET /api/get-historique/51/ HTTP/1.1" 200 344
+2025-08-22 12:16:28,456 INFO "GET /api/get-frais-details/38/ HTTP/1.1" 200 122
+2025-08-22 12:16:28,530 INFO "GET /api/get-mois-suivant/51/38/ HTTP/1.1" 200 35
+2025-08-22 12:16:28,563 INFO "GET /api/get-frais-details/38/ HTTP/1.1" 200 122
+2025-08-22 12:16:28,607 INFO "GET /api/get-solde-restant/51/38/?mois= HTTP/1.1" 200 199
+2025-08-22 12:16:39,864 INFO "POST /paiements/ajouter/ HTTP/1.1" 302 0
+2025-08-22 12:16:40,001 INFO "GET /paiements/ HTTP/1.1" 200 114752
+2025-08-22 12:16:44,703 INFO "GET /paiements/122/ HTTP/1.1" 200 93990
+2025-08-22 12:17:32,067 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107942
+2025-08-22 12:17:42,581 INFO "GET /api/get-eleve-by-matricule/26MT002/ HTTP/1.1" 200 326
+2025-08-22 12:17:42,621 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:17:42,664 INFO "GET /api/get-classes/4/2/ HTTP/1.1" 200 154
+2025-08-22 12:17:42,709 INFO "GET /api/get-eleves/23/ HTTP/1.1" 200 141
+2025-08-22 12:17:42,776 INFO "GET /api/get-frais/23/ HTTP/1.1" 200 148
+2025-08-22 12:17:42,823 INFO "GET /api/get-historique/51/ HTTP/1.1" 200 563
+2025-08-22 12:17:56,819 INFO "GET /paiements/ HTTP/1.1" 200 114752
+2025-08-22 12:18:04,942 INFO "GET /paiements/122/ HTTP/1.1" 200 93990
+2025-08-22 12:18:06,955 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107233
+2025-08-22 12:18:12,364 INFO "GET /eleves/details/51/ HTTP/1.1" 200 102278
+2025-08-22 12:18:26,490 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107233
+2025-08-22 12:18:32,065 INFO "GET /api/get-eleve-by-matricule/26MT002/ HTTP/1.1" 200 326
+2025-08-22 12:18:32,114 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:18:32,187 INFO "GET /api/get-classes/4/2/ HTTP/1.1" 200 154
+2025-08-22 12:18:32,274 INFO "GET /api/get-eleves/23/ HTTP/1.1" 200 141
+2025-08-22 12:18:32,319 INFO "GET /api/get-frais/23/ HTTP/1.1" 200 148
+2025-08-22 12:18:32,361 INFO "GET /api/get-historique/51/ HTTP/1.1" 200 563
+2025-08-22 12:18:37,830 INFO "GET /frais/ajouter/ HTTP/1.1" 200 69984
+2025-08-22 12:18:37,972 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-22 12:18:52,105 INFO "GET /api/get-classes/2/ HTTP/1.1" 200 523
+2025-08-22 12:18:55,802 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:18:55,848 INFO "GET /api/get-classes/4/ HTTP/1.1" 200 15
+2025-08-22 12:18:59,414 INFO "GET /api/get-classes/4/2/ HTTP/1.1" 200 154
+2025-08-22 12:19:02,929 INFO "POST /frais/ajouter/ HTTP/1.1" 302 0
+2025-08-22 12:19:03,012 INFO "GET /frais/ HTTP/1.1" 200 81952
+2025-08-22 12:19:06,352 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 107915
+2025-08-22 12:19:12,059 INFO "GET /api/get-eleve-by-matricule/26MT002/ HTTP/1.1" 200 326
+2025-08-22 12:19:12,125 INFO "GET /api/get-options/4/ HTTP/1.1" 200 319
+2025-08-22 12:19:12,168 INFO "GET /api/get-classes/4/2/ HTTP/1.1" 200 154
+2025-08-22 12:19:12,217 INFO "GET /api/get-eleves/23/ HTTP/1.1" 200 141
+2025-08-22 12:19:12,264 INFO "GET /api/get-frais/23/ HTTP/1.1" 200 223
+2025-08-22 12:19:12,330 INFO "GET /api/get-historique/51/ HTTP/1.1" 200 563
+2025-08-22 12:19:15,688 INFO "GET /api/get-frais-details/39/ HTTP/1.1" 200 115
+2025-08-22 12:19:15,749 INFO "GET /api/get-frais-details/39/ HTTP/1.1" 200 115
+2025-08-22 12:19:15,802 INFO "GET /api/get-mois-suivant/51/39/ HTTP/1.1" 200 47
+2025-08-22 12:19:15,847 INFO "GET /api/get-solde-restant/51/39/?mois=Septembre HTTP/1.1" 200 200
+2025-08-22 12:19:25,365 INFO "POST /paiements/ajouter/ HTTP/1.1" 302 0
+2025-08-22 12:19:25,487 INFO "GET /paiements/ HTTP/1.1" 200 116808
+2025-08-22 12:19:29,629 INFO "GET /eleves/details/51/ HTTP/1.1" 200 102965
+2025-08-22 12:33:12,459 INFO "GET /dashboard/ HTTP/1.1" 200 135993
+2025-08-22 12:33:13,168 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 12:33:13,176 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 12:33:13,179 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 12:33:13,274 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 12:34:14,968 INFO "GET /utilisateurs/ HTTP/1.1" 200 113966
+2025-08-22 12:34:21,128 INFO "GET /utilisateurs/1/ HTTP/1.1" 200 91902
+2025-08-22 12:39:46,671 INFO "GET /dashboard/ HTTP/1.1" 200 133653
+2025-08-22 12:39:47,101 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 12:39:47,109 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 12:39:47,140 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 12:39:47,171 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 12:39:58,643 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 12:39:58,833 INFO "GET /dashboard/ HTTP/1.1" 200 136678
+2025-08-22 12:39:59,121 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:39:59,164 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:39:59,173 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:39:59,234 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:40:05,823 INFO "GET /dashboard/ HTTP/1.1" 200 139018
+2025-08-22 12:40:06,352 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:40:06,407 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:40:06,409 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:40:06,469 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:46:35,106 INFO "GET /dashboard/ HTTP/1.1" 200 30591
+2025-08-22 12:46:37,825 WARNING Not Found: /favicon.ico
+2025-08-22 12:46:37,827 WARNING "GET /favicon.ico HTTP/1.1" 404 27335
+2025-08-22 12:50:37,260 INFO "GET /dashboard/ HTTP/1.1" 200 139018
+2025-08-22 12:50:38,482 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:50:38,539 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:50:38,541 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:50:38,577 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:52:12,191 INFO "GET /dashboard/ HTTP/1.1" 200 131415
+2025-08-22 12:52:12,652 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:52:12,772 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:52:12,783 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:52:47,448 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 12:52:47,856 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:52:47,858 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:52:47,859 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:53:14,299 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 12:53:14,346 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 12:53:14,734 INFO "GET /dashboard/?section=1&classe=&frais=&mois=&matricule= HTTP/1.1" 200 127932
+2025-08-22 12:53:14,993 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 12:53:15,170 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:53:15,173 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:53:15,200 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 12:53:15,216 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:53:30,849 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 12:53:30,948 INFO "GET /dashboard/?section=1&classe=&frais=&mois=&matricule= HTTP/1.1" 200 123340
+2025-08-22 12:53:31,181 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 12:53:31,238 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-22 12:53:31,317 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-22 12:53:31,319 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-22 12:53:31,370 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 12:53:35,421 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 12:53:35,513 INFO "GET /dashboard/?section=1&classe=&frais=&mois=&matricule= HTTP/1.1" 200 124142
+2025-08-22 12:53:35,703 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 12:53:35,797 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 12:53:35,798 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 12:53:35,860 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 12:53:36,068 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 12:53:40,326 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 12:53:40,431 INFO "GET /dashboard/?section=1&classe=&frais=&mois=&matricule= HTTP/1.1" 200 127932
+2025-08-22 12:53:40,634 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:53:40,664 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 12:53:40,689 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:53:40,721 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:53:40,786 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 12:54:08,210 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 12:54:08,423 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:54:08,544 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:54:08,547 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:54:10,096 INFO "GET /eleves/ HTTP/1.1" 200 145700
+2025-08-22 12:54:51,322 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 12:54:51,643 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:54:51,696 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:54:51,742 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:58:31,242 INFO "GET /sections/classe/1/ HTTP/1.1" 200 121241
+2025-08-22 12:58:51,235 INFO "GET /dashboard/ HTTP/1.1" 200 131343
+2025-08-22 12:58:51,811 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:58:51,814 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:58:51,819 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:59:06,237 INFO "GET /dashboard/ HTTP/1.1" 200 135244
+2025-08-22 12:59:06,869 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:59:06,941 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:59:07,297 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:59:12,560 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 131454
+2025-08-22 12:59:19,785 INFO "GET /dashboard/ HTTP/1.1" 200 135244
+2025-08-22 12:59:20,107 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:59:20,113 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 12:59:20,117 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:59:24,917 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 128820
+2025-08-22 12:59:37,871 INFO "GET /sections/classe/1/ HTTP/1.1" 200 125142
+2025-08-22 12:59:39,883 INFO "GET /dashboard/ HTTP/1.1" 200 135244
+2025-08-22 12:59:40,131 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 12:59:40,183 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 12:59:40,215 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:00:06,300 INFO "GET /utilisateurs/ HTTP/1.1" 200 117804
+2025-08-22 13:00:13,521 INFO "GET /dashboard/ HTTP/1.1" 200 135244
+2025-08-22 13:00:13,923 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:00:13,949 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:00:13,966 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:00:50,839 INFO "GET /dashboard/ HTTP/1.1" 200 135313
+2025-08-22 13:00:52,187 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:00:52,240 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:00:52,285 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:01:00,332 INFO "GET /sections/classe/1/ HTTP/1.1" 200 125211
+2025-08-22 13:01:06,792 INFO "GET /dashboard/ HTTP/1.1" 200 135313
+2025-08-22 13:01:07,143 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:01:07,147 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:01:07,152 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:01:10,174 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 128889
+2025-08-22 13:01:22,774 INFO "GET /dashboard/ HTTP/1.1" 200 135313
+2025-08-22 13:01:23,023 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:01:23,102 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:01:23,104 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:01:51,669 INFO "GET /dashboard/ HTTP/1.1" 200 135313
+2025-08-22 13:01:52,005 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:01:52,008 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:01:52,010 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:01:53,046 INFO "GET /dashboard/ HTTP/1.1" 200 135313
+2025-08-22 13:01:53,420 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:01:53,426 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:01:53,428 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:02:05,620 INFO "GET /dashboard/ HTTP/1.1" 200 131343
+2025-08-22 13:02:05,937 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:02:05,947 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:02:05,948 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:02:17,612 INFO "GET /dashboard/ HTTP/1.1" 200 131162
+2025-08-22 13:02:17,888 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:02:17,930 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:02:17,934 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:02:34,850 INFO "GET /parents/ HTTP/1.1" 200 138699
+2025-08-22 13:02:45,178 INFO "GET /frais/ HTTP/1.1" 200 124701
+2025-08-22 13:03:11,269 INFO "GET /dashboard/ HTTP/1.1" 200 131343
+2025-08-22 13:03:11,566 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:03:11,597 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:03:11,597 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:03:13,707 INFO "GET /dashboard/ HTTP/1.1" 200 131343
+2025-08-22 13:03:13,884 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:03:13,918 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:03:13,956 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:03:34,238 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 124991
+2025-08-22 13:03:46,401 INFO "GET /sections/classe/1/ HTTP/1.1" 200 121313
+2025-08-22 13:03:56,381 INFO "GET /dashboard/ HTTP/1.1" 200 131343
+2025-08-22 13:03:56,620 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:03:56,657 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:03:56,687 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:04:24,516 INFO "GET /api/get-options/2/ HTTP/1.1" 200 15
+2025-08-22 13:04:24,579 INFO "GET /api/get-classes/2/ HTTP/1.1" 200 523
+2025-08-22 13:04:24,855 INFO "GET /dashboard/?section=2&classe=&frais=&mois=&matricule= HTTP/1.1" 200 123886
+2025-08-22 13:04:25,078 INFO "GET /api/get-options/2/ HTTP/1.1" 200 15
+2025-08-22 13:04:25,197 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:04:25,256 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:04:25,275 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:04:25,308 INFO "GET /api/get-classes/2/ HTTP/1.1" 200 523
+2025-08-22 13:04:30,432 INFO "GET /api/get-frais/4/ HTTP/1.1" 200 140
+2025-08-22 13:04:36,565 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 13:04:36,636 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 13:04:38,788 INFO "GET /api/get-frais/1/ HTTP/1.1" 200 370
+2025-08-22 13:04:45,616 INFO "GET /dashboard/?section=1&classe=1&frais=&mois=&matricule= HTTP/1.1" 200 126530
+2025-08-22 13:04:45,895 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 13:04:45,977 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:04:46,027 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:04:46,076 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:04:46,103 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 13:04:51,386 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 13:04:51,539 INFO "GET /dashboard/?section=1&classe=1&frais=&mois=&matricule= HTTP/1.1" 200 123461
+2025-08-22 13:04:51,822 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 13:04:51,944 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:04:51,999 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:04:52,040 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 13:04:52,051 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:05:03,943 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 125666
+2025-08-22 13:05:17,205 INFO "GET /dashboard/ HTTP/1.1" 200 128318
+2025-08-22 13:05:17,775 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:05:17,777 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:05:18,292 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:05:36,592 INFO "GET /dashboard/ HTTP/1.1" 200 128318
+2025-08-22 13:05:37,658 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:05:37,732 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:05:37,734 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:05:42,154 INFO "GET /sections/classe/1/ HTTP/1.1" 200 108688
+2025-08-22 13:06:19,966 INFO "GET /sections/classe/1/ HTTP/1.1" 200 108761
+2025-08-22 13:06:24,379 INFO "GET /sections/classe/1/ HTTP/1.1" 200 108761
+2025-08-22 13:06:33,011 INFO "GET /sections/classe/1/ HTTP/1.1" 200 108693
+2025-08-22 13:08:32,899 INFO "GET /sections/classe/1/ HTTP/1.1" 200 108761
+2025-08-22 13:08:38,891 INFO "GET /dashboard/ HTTP/1.1" 200 128318
+2025-08-22 13:08:39,136 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:08:39,177 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:08:39,209 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:08:52,811 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 13:08:53,600 INFO "GET /dashboard/ HTTP/1.1" 200 131343
+2025-08-22 13:08:53,838 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:08:53,856 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:08:53,871 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:09:08,164 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 13:09:08,206 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 13:09:08,651 INFO "GET /dashboard/?section=1&classe=&frais=&mois=&matricule= HTTP/1.1" 200 127931
+2025-08-22 13:09:08,951 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:09:08,997 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:09:09,057 INFO "GET /api/get-options/1/ HTTP/1.1" 200 15
+2025-08-22 13:09:09,069 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:09:09,211 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 13:09:22,416 INFO "GET /sections/classe/1/ HTTP/1.1" 200 125215
+2025-08-22 13:10:41,934 INFO "GET /dashboard/ HTTP/1.1" 200 131354
+2025-08-22 13:10:42,234 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:10:42,280 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:10:42,282 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:10:45,905 INFO "GET /dashboard/ HTTP/1.1" 200 131354
+2025-08-22 13:10:46,151 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:10:46,231 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:10:46,233 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:12:03,588 INFO "GET /dashboard/ HTTP/1.1" 200 131378
+2025-08-22 13:12:03,981 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:12:04,021 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:12:04,022 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:12:22,431 INFO "GET /dashboard/ HTTP/1.1" 200 131354
+2025-08-22 13:12:23,217 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:12:23,267 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:12:23,272 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:12:42,930 INFO "GET /dashboard/ HTTP/1.1" 200 131363
+2025-08-22 13:12:43,225 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:12:43,287 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:12:43,289 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:12:50,343 INFO "GET /dashboard/ HTTP/1.1" 200 131381
+2025-08-22 13:12:50,691 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:12:50,693 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:12:50,739 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:13:18,148 INFO "GET /dashboard/ HTTP/1.1" 200 131348
+2025-08-22 13:13:18,564 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:13:18,578 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:13:18,579 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:13:28,382 INFO "GET /dashboard/ HTTP/1.1" 200 131381
+2025-08-22 13:13:28,747 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:13:28,752 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:13:28,767 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:13:54,242 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:13:54,521 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:13:54,616 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:13:54,619 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:14:33,620 INFO "GET /api/dashboard-stats/?period=trimestre HTTP/1.1" 200 492
+2025-08-22 13:14:36,397 INFO "GET /api/dashboard-stats/?period=year HTTP/1.1" 200 492
+2025-08-22 13:14:39,669 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:15:43,536 INFO "GET /sections/classe/1/ HTTP/1.1" 200 128065
+2025-08-22 13:15:57,433 INFO "GET /sections/classe/1/ HTTP/1.1" 200 128065
+2025-08-22 13:16:15,253 INFO "GET /sections/classe/1/ HTTP/1.1" 200 128065
+2025-08-22 13:18:09,640 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:18:10,147 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:18:10,221 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:18:10,231 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:18:14,956 INFO "GET /sections/classe/1/ HTTP/1.1" 200 121313
+2025-08-22 13:18:38,741 INFO "GET / HTTP/1.1" 302 0
+2025-08-22 13:18:38,811 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-22 13:18:41,178 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-22 13:18:48,298 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 13:18:48,346 INFO "GET /login-2fa/ HTTP/1.1" 200 6500
+2025-08-22 13:19:45,650 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 13:19:46,053 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 13:19:46,189 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-22 13:19:46,230 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-22 13:19:46,232 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-22 13:19:46,233 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-22 13:19:46,235 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-22 13:19:46,241 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-22 13:19:55,911 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:19:55,911 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:19:55,919 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:20:37,779 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 13:20:38,143 INFO "GET /dashboard/ HTTP/1.1" 200 126689
+2025-08-22 13:20:38,685 INFO - Broken pipe from ('127.0.0.1', 50256)
+2025-08-22 13:20:38,900 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-22 13:20:38,904 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-22 13:20:38,906 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-22 13:20:42,601 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 13:20:42,883 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:20:43,483 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:20:43,498 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:20:43,515 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:21:13,944 INFO "GET /frais/ HTTP/1.1" 200 124954
+2025-08-22 13:21:14,126 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-22 13:21:14,351 INFO - Broken pipe from ('127.0.0.1', 50255)
+2025-08-22 13:21:19,918 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:21:20,331 INFO - Broken pipe from ('127.0.0.1', 50252)
+2025-08-22 13:21:20,595 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:21:20,596 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:21:20,615 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:21:54,987 INFO "GET /bilan-financier/ HTTP/1.1" 200 95222
+2025-08-22 13:21:55,516 INFO - Broken pipe from ('127.0.0.1', 50254)
+2025-08-22 13:22:07,561 INFO "GET /paiements/ajouter/ HTTP/1.1" 200 109208
+2025-08-22 13:22:07,775 INFO "GET /static/js/paiement.js HTTP/1.1" 200 27584
+2025-08-22 13:22:08,242 INFO - Broken pipe from ('127.0.0.1', 50253)
+2025-08-22 13:22:50,485 INFO "GET /eleves/ HTTP/1.1" 200 145771
+2025-08-22 13:23:06,629 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:23:07,117 INFO - Broken pipe from ('127.0.0.1', 50236)
+2025-08-22 13:23:07,327 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:23:07,328 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:23:07,333 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:27:05,675 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:27:06,850 INFO - Broken pipe from ('127.0.0.1', 50308)
+2025-08-22 13:27:07,078 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:27:07,125 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:27:07,125 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:27:20,488 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:27:21,014 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:27:21,070 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:27:21,082 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:27:22,455 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:27:22,889 INFO - Broken pipe from ('127.0.0.1', 50312)
+2025-08-22 13:27:23,221 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:27:23,221 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:27:23,235 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:27:24,125 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:27:25,048 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:27:25,059 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:27:25,078 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:27:58,058 INFO Watching for file changes with StatReloader
+2025-08-22 13:28:10,189 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:28:10,883 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:28:10,919 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:28:10,931 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:28:11,145 INFO - Broken pipe from ('127.0.0.1', 50318)
+2025-08-22 13:28:11,954 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 13:28:12,682 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:28:12,690 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:28:12,696 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:28:37,598 INFO "GET /setup-2fa/ HTTP/1.1" 302 0
+2025-08-22 13:28:37,653 INFO "GET /login/?next=/setup-2fa/ HTTP/1.1" 200 15168
+2025-08-22 13:28:46,381 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 13:28:46,418 INFO "GET /login-2fa/ HTTP/1.1" 200 6500
+2025-08-22 13:29:07,328 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 13:29:07,602 INFO "GET /dashboard/ HTTP/1.1" 200 89293
+2025-08-22 13:29:07,658 INFO "GET /static/css/paiement.css HTTP/1.1" 304 0
+2025-08-22 13:29:07,659 INFO "GET /static/argon/css/styles.css HTTP/1.1" 304 0
+2025-08-22 13:29:07,662 INFO "GET /static/css/styles.css HTTP/1.1" 304 0
+2025-08-22 13:29:07,670 INFO "GET /static/js/base.js HTTP/1.1" 304 0
+2025-08-22 13:29:07,674 INFO "GET /static/js/formulaire.js HTTP/1.1" 304 0
+2025-08-22 13:29:07,678 INFO "GET /static/js/dashboard.js HTTP/1.1" 304 0
+2025-08-22 13:29:08,060 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:29:08,121 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:29:08,123 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:29:22,724 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 13:29:22,897 INFO "GET /dashboard/ HTTP/1.1" 200 93099
+2025-08-22 13:29:23,306 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:29:23,309 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:29:23,310 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:29:37,512 INFO "GET /paiements/ HTTP/1.1" 200 281015
+2025-08-22 13:29:51,217 INFO "GET /dashboard/ HTTP/1.1" 200 93099
+2025-08-22 13:29:51,513 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:29:51,525 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:29:51,529 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:34:31,061 INFO code 400, message Bad request version ('\x02h2\x08http/1.1\x00')
+2025-08-22 13:34:31,062 ERROR You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-08-22 13:34:31,152 INFO code 400, message Bad request version ('\x02h2\x08http/1.1\x00-\x00\x02\x01\x01DÍ\x00\x05\x00\x03\x02h2\x00')
+2025-08-22 13:34:31,152 ERROR You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-08-22 13:34:32,800 INFO "GET / HTTP/1.1" 302 0
+2025-08-22 13:34:32,842 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-22 13:34:35,041 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-22 13:35:35,590 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 13:35:35,613 INFO "GET /login-2fa/ HTTP/1.1" 200 6500
+2025-08-22 13:35:54,438 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 13:35:55,299 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 13:35:55,461 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-22 13:35:55,463 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-22 13:35:55,463 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-22 13:35:55,464 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-22 13:35:55,465 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-22 13:35:55,634 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-22 13:35:58,496 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:35:58,546 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:35:58,555 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:36:33,843 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 125652
+2025-08-22 13:36:33,997 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-22 13:43:32,600 INFO "GET /dashboard/ HTTP/1.1" 302 0
+2025-08-22 13:43:32,800 INFO "GET /login/?next=/dashboard/ HTTP/1.1" 200 15168
+2025-08-22 13:43:33,808 INFO - Broken pipe from ('127.0.0.1', 50499)
+2025-08-22 13:43:42,279 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 13:43:42,331 INFO "GET /login-2fa/ HTTP/1.1" 200 6500
+2025-08-22 13:43:42,957 INFO - Broken pipe from ('127.0.0.1', 50503)
+2025-08-22 13:44:07,047 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 13:44:07,695 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 13:44:07,831 INFO - Broken pipe from ('127.0.0.1', 50506)
+2025-08-22 13:44:08,614 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:44:08,635 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:44:08,650 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:44:14,368 INFO "GET /frais/ HTTP/1.1" 200 81872
+2025-08-22 13:45:16,949 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 13:45:17,257 INFO - Broken pipe from ('127.0.0.1', 50510)
+2025-08-22 13:45:17,442 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 13:45:17,459 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 13:45:17,463 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 13:45:23,241 INFO "GET /frais/ HTTP/1.1" 200 81872
+2025-08-22 13:45:23,669 INFO - Broken pipe from ('127.0.0.1', 50511)
+2025-08-22 13:54:01,499 INFO "GET /frais/ HTTP/1.1" 200 76601
+2025-08-22 13:54:06,369 INFO "GET /frais/ajouter/ HTTP/1.1" 200 68123
+2025-08-22 13:54:06,576 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 13:55:57,984 INFO "GET /frais/ajouter/ HTTP/1.1" 200 67205
+2025-08-22 13:55:58,095 INFO "GET /api/get-classes/1/ HTTP/1.1" 200 139
+2025-08-22 13:56:02,351 INFO "GET /frais/ HTTP/1.1" 200 76601
+2025-08-22 13:59:52,554 INFO "GET /dashboard/ HTTP/1.1" 200 93099
+2025-08-22 13:59:52,925 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 13:59:52,933 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 13:59:52,943 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 13:59:56,822 ERROR Internal Server Error: /sections/classe/1/
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Projects\school\gestion\views.py", line 2643, in details_classe
+    return render(request, 'details_classe.html', {
+        'classe': classe,
+    ...<5 lines>...
+        'annees_disponibles': annees_disponibles,
+    })
+  File "D:\Projects\school\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\template\base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 6: 'static', expected 'endblock'. Did you forget to register or load this tag?
+2025-08-22 13:59:56,852 ERROR "GET /sections/classe/1/ HTTP/1.1" 500 283987
+2025-08-22 13:59:57,160 WARNING Not Found: /favicon.ico
+2025-08-22 13:59:57,161 WARNING "GET /favicon.ico HTTP/1.1" 404 27330
+2025-08-22 14:00:35,167 INFO "GET /sections/classe/1/ HTTP/1.1" 200 86585
+2025-08-22 14:01:05,027 INFO "GET /sections/classe/1/ HTTP/1.1" 200 86454
+2025-08-22 14:04:39,483 INFO "GET /dashboard/ HTTP/1.1" 200 93099
+2025-08-22 14:04:40,615 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 14:04:40,616 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 14:04:40,618 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 14:05:55,431 INFO "GET /frais/modifier/34/ HTTP/1.1" 302 0
+2025-08-22 14:05:55,504 INFO "GET /login/?next=/frais/modifier/34/ HTTP/1.1" 200 15168
+2025-08-22 14:05:57,723 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-22 14:06:33,380 INFO "POST /login/ HTTP/1.1" 200 15816
+2025-08-22 14:06:46,455 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 14:06:46,748 INFO "GET /login-2fa/ HTTP/1.1" 200 7181
+2025-08-22 14:08:29,494 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 14:08:29,776 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:08:29,974 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-22 14:08:29,974 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-22 14:08:30,024 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-22 14:08:30,025 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-22 14:08:30,026 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-22 14:08:30,026 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-22 14:08:31,246 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:08:31,274 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:08:31,302 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:08:42,491 INFO "GET /dashboard/ HTTP/1.1" 302 0
+2025-08-22 14:08:42,510 INFO "GET /login/?next=/dashboard/ HTTP/1.1" 200 15168
+2025-08-22 14:08:43,158 INFO - Broken pipe from ('127.0.0.1', 50698)
+2025-08-22 14:09:00,641 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 14:09:00,675 INFO "GET /login-2fa/ HTTP/1.1" 200 7158
+2025-08-22 14:09:01,217 INFO - Broken pipe from ('127.0.0.1', 50701)
+2025-08-22 14:09:12,099 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 14:09:12,564 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:09:12,776 INFO - Broken pipe from ('127.0.0.1', 50699)
+2025-08-22 14:09:13,624 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:09:13,660 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:09:13,666 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:09:18,546 ERROR Internal Server Error: /paiements/
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Projects\school\gestion\views.py", line 1474, in liste_paiements
+    paiements = filter_by_user_role(
+                ~~~~~~~~~~~~~~~~~~~^
+        Paiement.objects.filter(
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        section_field='eleve__classe__section__nom'
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).order_by('-date_paiement').distinct()
+    ^
+  File "D:\Projects\school\gestion\access_control.py", line 49, in filter_by_user_role
+    if user.is_superuser or user.role == 'admin':
+                            ^^^^^^^^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'role'
+2025-08-22 14:09:18,567 ERROR "GET /paiements/ HTTP/1.1" 500 83457
+2025-08-22 14:09:19,030 WARNING Not Found: /favicon.ico
+2025-08-22 14:09:19,032 WARNING "GET /favicon.ico HTTP/1.1" 404 27335
+2025-08-22 14:10:21,152 INFO "GET /eleves/ajouter/ HTTP/1.1" 302 0
+2025-08-22 14:10:21,186 INFO "GET /login/?next=/eleves/ajouter/ HTTP/1.1" 200 15168
+2025-08-22 14:15:49,089 INFO "GET /logout/ HTTP/1.1" 302 0
+2025-08-22 14:15:49,109 INFO "GET /login/ HTTP/1.1" 200 15168
+2025-08-22 14:15:49,587 INFO - Broken pipe from ('127.0.0.1', 50752)
+2025-08-22 14:16:00,407 INFO "GET /dashboard/ HTTP/1.1" 302 0
+2025-08-22 14:16:00,484 INFO "GET /login/?next=/dashboard/ HTTP/1.1" 200 15168
+2025-08-22 14:16:13,057 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 14:16:13,394 INFO "GET /login-2fa/ HTTP/1.1" 200 7158
+2025-08-22 14:16:40,051 INFO "POST /login-2fa/ HTTP/1.1" 302 0
+2025-08-22 14:16:40,944 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:16:41,841 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:16:41,936 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:16:41,943 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:16:49,805 INFO "GET /frais/ HTTP/1.1" 200 81896
+2025-08-22 14:17:47,193 INFO "GET /frais/ HTTP/1.1" 200 87875
+2025-08-22 14:20:38,412 INFO "GET /frais/ HTTP/1.1" 200 81977
+2025-08-22 14:20:38,531 WARNING "GET /static/argon/css/argon-dashboard-scope.css HTTP/1.1" 404 2037
+2025-08-22 14:20:40,967 INFO "GET /frais/ HTTP/1.1" 200 81977
+2025-08-22 14:20:41,059 WARNING "GET /static/argon/css/argon-dashboard-scope.css HTTP/1.1" 404 2037
+2025-08-22 14:20:42,341 INFO "GET /frais/ HTTP/1.1" 200 81977
+2025-08-22 14:20:42,428 WARNING "GET /static/argon/css/argon-dashboard-scope.css HTTP/1.1" 404 2037
+2025-08-22 14:21:13,189 INFO "GET /frais/ HTTP/1.1" 200 130785
+2025-08-22 14:21:13,338 WARNING "GET /static/argon/css/argon-dashboard-scope.css HTTP/1.1" 404 2037
+2025-08-22 14:21:28,703 INFO "GET /frais/ HTTP/1.1" 200 81971
+2025-08-22 14:21:29,658 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-22 14:21:37,859 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:21:38,462 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:21:38,494 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:21:38,494 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:22:47,657 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:22:48,533 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:22:48,602 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:22:48,857 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:22:50,917 INFO "GET /frais/ HTTP/1.1" 200 81971
+2025-08-22 14:22:54,178 INFO "GET /frais/ HTTP/1.1" 200 81971
+2025-08-22 14:23:59,594 INFO "GET /frais/ HTTP/1.1" 200 81146
+2025-08-22 14:24:12,119 INFO "GET /frais/ HTTP/1.1" 200 81146
+2025-08-22 14:24:22,582 INFO "GET /frais/ HTTP/1.1" 200 81971
+2025-08-22 14:26:39,225 INFO "GET /frais/ HTTP/1.1" 200 81971
+2025-08-22 14:26:41,770 INFO "GET /frais/ HTTP/1.1" 200 81971
+2025-08-22 14:26:55,896 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:26:56,474 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:26:56,520 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:26:56,523 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:27:29,471 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:27:29,965 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:27:30,005 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:27:30,010 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:27:38,362 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:27:38,965 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:27:39,011 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:27:39,020 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:27:41,158 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 125645
+2025-08-22 14:28:26,411 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 124919
+2025-08-22 14:28:42,268 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 124919
+2025-08-22 14:28:46,861 INFO "GET /bilan-financier/ HTTP/1.1" 200 94200
+2025-08-22 14:30:00,247 INFO "GET /bilan-financier/ HTTP/1.1" 200 96981
+2025-08-22 14:30:06,210 INFO "GET /frais/ HTTP/1.1" 200 84661
+2025-08-22 14:30:10,761 INFO "GET /frais/ajouter/ HTTP/1.1" 200 72693
+2025-08-22 14:30:11,040 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-22 14:30:18,746 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:30:19,214 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:30:19,261 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:30:19,271 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:31:12,320 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:31:12,959 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:31:12,967 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:31:12,971 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:31:41,730 INFO "GET /dashboard/ HTTP/1.1" 200 128319
+2025-08-22 14:31:42,369 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:31:42,415 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:31:42,423 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:39:19,336 INFO "GET /dashboard/ HTTP/1.1" 200 136131
+2025-08-22 14:39:19,893 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:39:19,897 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:39:19,928 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:39:27,552 INFO "GET /dashboard/ HTTP/1.1" 200 136131
+2025-08-22 14:39:28,790 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:39:28,839 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:39:28,847 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:39:48,175 INFO "GET /eleves/ajouter/ HTTP/1.1" 200 132731
+2025-08-22 14:39:57,548 INFO "GET /frais/ HTTP/1.1" 200 88638
+2025-08-22 14:40:13,209 INFO "GET /frais/ajouter/ HTTP/1.1" 200 76670
+2025-08-22 14:40:13,788 INFO "GET /api/get-options/5/ HTTP/1.1" 200 83
+2025-08-22 14:40:28,209 INFO "GET /dashboard/ HTTP/1.1" 200 136131
+2025-08-22 14:40:28,854 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 431
+2025-08-22 14:40:28,900 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 431
+2025-08-22 14:40:28,909 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 431
+2025-08-22 14:40:33,235 INFO "GET /sections/classe/1/ HTTP/1.1" 200 112599
+2025-08-22 14:40:41,937 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 14:40:42,079 INFO "GET /sections/classe/1/ HTTP/1.1" 200 129053
+2025-08-22 14:41:18,982 INFO "GET /sections/classe/1/ HTTP/1.1" 200 121241
+2025-08-22 14:42:06,034 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 14:42:06,651 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 14:42:06,700 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 14:42:06,739 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 14:49:54,295 INFO "GET /dashboard/ HTTP/1.1" 200 139156
+2025-08-22 14:49:54,918 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 14:49:54,922 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 14:49:54,923 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 14:50:22,372 INFO "GET /dashboard/ HTTP/1.1" 200 139155
+2025-08-22 14:50:22,670 WARNING "GET /static/argon/css/argon-dashboar.css HTTP/1.1" 404 2016
+2025-08-22 14:50:24,668 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 14:50:24,678 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 14:50:24,703 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 14:50:33,466 INFO "GET /sections/classe/1/ HTTP/1.1" 200 129052
+2025-08-22 14:50:33,587 WARNING "GET /static/argon/css/argon-dashboar.css HTTP/1.1" 404 2016
+2025-08-22 14:50:51,209 INFO "GET /sections/classe/1/ HTTP/1.1" 200 121241
+2025-08-22 14:51:58,693 INFO "GET /dashboard/ HTTP/1.1" 200 131344
+2025-08-22 14:51:59,363 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 14:51:59,364 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 14:51:59,372 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 14:55:52,857 INFO "GET /dashboard/ HTTP/1.1" 200 140796
+2025-08-22 14:55:53,592 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 14:55:53,594 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 14:55:53,636 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 14:56:04,201 INFO "GET /frais/ HTTP/1.1" 200 134334
+2025-08-22 14:56:15,118 INFO "GET /dashboard/ HTTP/1.1" 200 140796
+2025-08-22 14:56:16,168 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 14:56:16,202 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 14:56:16,218 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 14:56:20,808 INFO "GET /sections/classe/1/ HTTP/1.1" 200 130693
+2025-08-22 14:56:45,784 INFO "GET /sections/classe/1/ HTTP/1.1" 200 121241
+2025-08-22 14:58:11,718 INFO "GET /sections/classe/1/ HTTP/1.1" 200 121314
+2025-08-22 14:58:24,569 INFO "GET /dashboard/ HTTP/1.1" 200 131343
+2025-08-22 14:58:25,481 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 14:58:25,533 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 14:58:25,577 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 15:01:26,500 INFO "GET /dashboard/ HTTP/1.1" 200 131337
+2025-08-22 15:01:27,094 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 15:01:27,098 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 15:01:27,138 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 15:01:30,152 INFO "GET /dashboard/ HTTP/1.1" 200 131337
+2025-08-22 15:01:30,706 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 434
+2025-08-22 15:01:30,714 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 434
+2025-08-22 15:01:30,717 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 434
+2025-08-22 15:01:35,415 INFO "GET /paiements/ HTTP/1.1" 200 329043
+2025-08-22 15:09:39,254 INFO D:\Projects\school\config\local_settings.py changed, reloading.
+2025-08-22 15:09:43,473 INFO Watching for file changes with StatReloader
+2025-08-22 15:49:47,134 INFO Watching for file changes with StatReloader
+2025-08-22 15:49:54,745 ERROR Internal Server Error: /paiements/
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Projects\school\gestion\views.py", line 1474, in liste_paiements
+    paiements = filter_by_user_role(
+                ~~~~~~~~~~~~~~~~~~~^
+        Paiement.objects.filter(
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        section_field='eleve__classe__section__nom'
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).order_by('-date_paiement').distinct()
+    ^
+  File "D:\Projects\school\gestion\access_control.py", line 49, in filter_by_user_role
+    if user.is_superuser or user.role == 'admin':
+                            ^^^^^^^^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'role'
+2025-08-22 15:49:54,763 ERROR "GET /paiements/ HTTP/1.1" 500 83127
+2025-08-22 15:49:55,717 WARNING Not Found: /favicon.ico
+2025-08-22 15:49:55,719 WARNING "GET /favicon.ico HTTP/1.1" 404 27335
+2025-08-22 15:49:59,646 ERROR Internal Server Error: /paiements/
+Traceback (most recent call last):
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Projects\school\gestion\views.py", line 1474, in liste_paiements
+    paiements = filter_by_user_role(
+                ~~~~~~~~~~~~~~~~~~~^
+        Paiement.objects.filter(
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        section_field='eleve__classe__section__nom'
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).order_by('-date_paiement').distinct()
+    ^
+  File "D:\Projects\school\gestion\access_control.py", line 49, in filter_by_user_role
+    if user.is_superuser or user.role == 'admin':
+                            ^^^^^^^^^
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "D:\Projects\school\.venv\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'role'
+2025-08-22 15:49:59,651 ERROR "GET /paiements/ HTTP/1.1" 500 82978
+2025-08-22 15:50:06,667 INFO "GET / HTTP/1.1" 302 0
+2025-08-22 15:50:06,783 INFO "GET /login/?next=/ HTTP/1.1" 200 15168
+2025-08-22 15:50:07,594 INFO "GET /static/argon/img/favicon.png HTTP/1.1" 200 809
+2025-08-22 15:50:22,792 INFO "POST /login/ HTTP/1.1" 302 0
+2025-08-22 15:50:23,482 INFO "GET /dashboard/ HTTP/1.1" 200 123709
+2025-08-22 15:50:23,643 INFO "GET /static/css/styles.css HTTP/1.1" 200 9208
+2025-08-22 15:50:23,645 INFO "GET /static/argon/css/styles.css HTTP/1.1" 200 15173
+2025-08-22 15:50:23,646 INFO "GET /static/css/paiement.css HTTP/1.1" 200 8187
+2025-08-22 15:50:23,647 INFO "GET /static/js/base.js HTTP/1.1" 200 7640
+2025-08-22 15:50:23,647 INFO "GET /static/js/formulaire.js HTTP/1.1" 200 5137
+2025-08-22 15:50:23,648 INFO "GET /static/js/dashboard.js HTTP/1.1" 200 27067
+2025-08-22 15:50:24,539 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-22 15:50:24,548 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-22 15:50:24,556 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-22 15:50:42,536 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 15:50:43,939 INFO "GET /dashboard/ HTTP/1.1" 200 124024
+2025-08-22 15:50:44,798 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-22 15:50:44,807 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-22 15:50:44,815 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-22 15:50:57,725 INFO "GET /sections/classe/1/ HTTP/1.1" 200 101560
+2025-08-22 15:50:58,171 INFO "GET /static/argon/css/argon-dashboard.css HTTP/1.1" 200 522803
+2025-08-22 15:51:08,199 INFO "GET /paiements/ HTTP/1.1" 200 107145
+2025-08-22 15:51:14,426 INFO "GET /dashboard/ HTTP/1.1" 200 124024
+2025-08-22 15:51:15,138 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-22 15:51:15,158 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-22 15:51:15,160 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-22 15:51:25,645 INFO "POST /changer-annee/ HTTP/1.1" 302 0
+2025-08-22 15:51:26,391 INFO "GET /dashboard/ HTTP/1.1" 200 123951
+2025-08-22 15:51:27,146 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-22 15:51:27,155 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-22 15:51:27,161 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
+2025-08-22 15:55:05,978 INFO "GET /utilisateurs/1/ HTTP/1.1" 200 89572
+2025-08-22 15:55:16,138 INFO "GET /setup-2fa/ HTTP/1.1" 200 93477
+2025-08-22 15:55:56,785 INFO "POST /verify-2fa-setup/ HTTP/1.1" 200 86798
+2025-08-22 15:56:19,310 INFO "POST /verify-2fa-setup/ HTTP/1.1" 200 86798
+2025-08-22 15:56:44,026 INFO "POST /verify-2fa-setup/ HTTP/1.1" 200 86798
+2025-08-22 15:56:49,738 INFO "GET /setup-2fa/ HTTP/1.1" 200 91684
+2025-08-22 15:57:25,073 INFO "POST /verify-2fa-setup/ HTTP/1.1" 302 0
+2025-08-22 15:57:25,577 INFO "GET /profil/ HTTP/1.1" 200 88312
+2025-08-22 15:57:46,829 INFO "GET /utilisateurs/1/modifier/ HTTP/1.1" 200 90186
+2025-08-22 15:57:50,703 INFO "GET /utilisateurs/ HTTP/1.1" 200 111623
+2025-08-22 15:57:55,082 INFO "GET /dashboard/ HTTP/1.1" 200 123951
+2025-08-22 15:57:55,930 INFO "GET /api/dashboard-stats/?period=month HTTP/1.1" 200 265
+2025-08-22 15:57:55,944 INFO "GET /api/dashboard-stats/?top_class HTTP/1.1" 200 265
+2025-08-22 15:57:55,950 INFO "GET /api/dashboard-stats/?top_section HTTP/1.1" 200 265
